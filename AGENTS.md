@@ -11,6 +11,13 @@ This version has breaking changes — APIs, conventions, and file structure may 
 Read `README.md` first; it explains the six architectural decisions that everything else follows
 from. These are the rules that are easy to break without noticing.
 
+## Design references
+
+@docs/design/INDEX.md
+
+These are style references only — none is the current EduWings design system unless a task says
+otherwise. Match one only when the user names it or asks for a redesign in that direction.
+
 ## Version-specific gotchas already hit in this repo
 
 - **`proxy.ts`, not `middleware.ts`.** Next 16 deprecated the middleware convention. The exported
