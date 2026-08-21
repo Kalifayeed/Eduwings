@@ -9,6 +9,7 @@ import {
   Images,
   Landmark,
   Mail,
+  MapPinned,
   Navigation,
   Newspaper,
   Plane,
@@ -65,6 +66,18 @@ export const mainNavigation: NavSection[] = [
         href: routes.schools,
         description: "How to bring EduWings to your classroom, and what to expect.",
         icon: School,
+      },
+      {
+        label: "Aviation Visits",
+        href: routes.visit,
+        description: "Take your students to an airport, airstrip or training college.",
+        icon: MapPinned,
+      },
+      {
+        label: "Where to Train",
+        href: routes.courses,
+        description: "KCAA-approved institutions and the courses they actually offer.",
+        icon: Landmark,
       },
     ],
     feature: {
@@ -150,6 +163,12 @@ export const mainNavigation: NavSection[] = [
         icon: GraduationCap,
       },
       {
+        label: "For Parents",
+        href: routes.parents,
+        description: "Careers, subjects and honest answers about cost and stability.",
+        icon: Users,
+      },
+      {
         label: "Partners",
         href: routes.partners,
         description: "The airlines, airports and institutions that open their doors to us.",
@@ -207,6 +226,8 @@ export const footerNavigation: FooterColumn[] = [
       { label: "Activities", href: routes.activities },
       { label: "Aviation Careers", href: routes.careers },
       { label: "For Schools", href: routes.schools },
+      { label: "Aviation Visits", href: routes.visit },
+      { label: "Where to Train", href: routes.courses },
     ],
   },
   {
@@ -222,6 +243,7 @@ export const footerNavigation: FooterColumn[] = [
     label: "Organisation",
     items: [
       { label: "About Us", href: routes.about },
+      { label: "For Parents", href: routes.parents },
       { label: "Partners", href: routes.partners },
       { label: "Sponsors", href: routes.sponsors },
       { label: "Contact", href: routes.contact },

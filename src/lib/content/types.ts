@@ -224,6 +224,7 @@ export const SUBMISSION_KINDS = [
   "contact",
   "volunteer",
   "school",
+  "aviation-visit",
   "partnership",
   "donation",
   "event-registration",

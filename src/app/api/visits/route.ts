@@ -2,19 +2,19 @@ import { siteConfig } from "@/config/site";
 import { createFormRoute } from "@/lib/api/form-route";
 import { storeSubmission } from "@/lib/api/submissions";
 import { acknowledge, notifyTeam } from "@/lib/email";
-import { schoolRequestSchema } from "@/lib/validation/schemas";
+import { aviationVisitSchema } from "@/lib/validation/schemas";
 
 export const POST = createFormRoute({
-  schema: schoolRequestSchema,
-  scope: "schools",
+  schema: aviationVisitSchema,
+  scope: "visits",
   successMessage: "Request received — we will be in touch within three working days.",
   handle: async (data) => {
     await storeSubmission({
-      kind: "school",
+      kind: "aviation-visit",
       name: data.contactName,
       email: data.email,
       phone: data.phone,
-      subject: `School visit request — ${data.schoolName}`,
+      subject: `Aviation visit request — ${data.schoolName} (${data.destinationType})`,
       message: data.notes ?? null,
       payload: {
         schoolName: data.schoolName,
@@ -22,23 +22,20 @@ export const POST = createFormRoute({
         level: data.level,
         county: data.county,
         town: data.town,
-        address: data.address,
-        schoolWebsite: data.schoolWebsite,
         role: data.role,
+        destinationType: data.destinationType,
+        purposes: data.purposes.join(", "),
         studentCount: data.studentCount,
-        targetGrades: data.targetGrades,
         teacherCount: data.teacherCount,
-        programmesRequested: data.programmesRequested.join(", "),
         preferredDate: data.preferredDate,
         alternativeDate: data.alternativeDate,
-        preferredTime: data.preferredTime,
       },
     });
 
     await Promise.all([
       notifyTeam({
-        subject: `School visit request — ${data.schoolName} (${data.county})`,
-        heading: `${data.schoolName} would like a visit`,
+        subject: `Aviation visit request — ${data.schoolName} (${data.county})`,
+        heading: `${data.schoolName} wants to visit a ${data.destinationType.toLowerCase()}`,
         replyTo: data.email,
         fields: {
           School: data.schoolName,
@@ -46,18 +43,15 @@ export const POST = createFormRoute({
           Level: data.level,
           County: data.county,
           Town: data.town,
-          Address: data.address,
-          Website: data.schoolWebsite,
+          Destination: data.destinationType,
+          Purposes: data.purposes.join(", "),
           Students: data.studentCount,
-          "Target grades": data.targetGrades,
           Teachers: data.teacherCount,
-          "Programmes requested": data.programmesRequested.join(", "),
+          "Preferred date": data.preferredDate,
+          "Alternative date": data.alternativeDate,
           Contact: `${data.contactName} (${data.role})`,
           Email: data.email,
           Phone: data.phone,
-          "Preferred date": data.preferredDate,
-          "Alternative date": data.alternativeDate,
-          "Preferred time": data.preferredTime,
           Notes: data.notes,
         },
       }),
@@ -66,9 +60,9 @@ export const POST = createFormRoute({
         subject: `We have your visit request — ${siteConfig.name}`,
         heading: `Thank you, ${data.contactName.split(" ")[0]}`,
         paragraphs: [
-          `We have received your request for ${data.schoolName} and will reply within three working days.`,
-          "The visit costs your school nothing. We bring the simulators, the materials and a working aviation professional; you provide a room, a socket and a wall we can project onto.",
-          "Once we agree a date, we will send you the curriculum mapping in advance so your teachers can align it with what they are already covering.",
+          `We have received your request for ${data.schoolName} to visit a ${data.destinationType.toLowerCase()} and will reply within three working days.`,
+          "We will check availability with the destination, confirm the group size works, and agree a date directly with you.",
+          "This is a request, not a confirmed booking — we will only confirm once we have heard back from the destination.",
           "— The EduWings team",
         ],
       }),

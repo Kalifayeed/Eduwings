@@ -4,6 +4,7 @@ import { routes } from "@/config/routes";
 import { siteUrl } from "@/lib/env";
 import { getContentSource } from "@/lib/content";
 import { careers } from "@/lib/content/careers";
+import { institutions } from "@/lib/content/institutions";
 
 /**
  * XML sitemap.
@@ -23,8 +24,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: routes.home, priority: 1, changeFrequency: "weekly" },
     { url: routes.careers, priority: 0.95, changeFrequency: "monthly" },
     { url: routes.schools, priority: 0.95, changeFrequency: "monthly" },
+    { url: routes.visit, priority: 0.9, changeFrequency: "monthly" },
+    { url: routes.courses, priority: 0.85, changeFrequency: "monthly" },
     { url: routes.program, priority: 0.9, changeFrequency: "monthly" },
     { url: routes.about, priority: 0.8, changeFrequency: "monthly" },
+    { url: routes.parents, priority: 0.75, changeFrequency: "monthly" },
     { url: routes.activities, priority: 0.8, changeFrequency: "monthly" },
     { url: routes.events, priority: 0.8, changeFrequency: "weekly" },
     { url: routes.news, priority: 0.8, changeFrequency: "weekly" },
@@ -52,6 +56,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.85,
   }));
 
+  const courseRoutes: MetadataRoute.Sitemap = institutions.map((institution) => ({
+    url: `${siteUrl}${routes.course(institution.slug)}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
   const [articles, events] = await Promise.all([
     source.articles.list(),
     source.events.list({ when: "all" }),
@@ -71,5 +82,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: new Date(event.startsAt) > now ? 0.75 : 0.4,
   }));
 
-  return [...staticRoutes, ...careerRoutes, ...articleRoutes, ...eventRoutes];
+  return [...staticRoutes, ...careerRoutes, ...courseRoutes, ...articleRoutes, ...eventRoutes];
 }

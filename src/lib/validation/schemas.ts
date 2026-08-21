@@ -158,13 +158,31 @@ export type VolunteerInput = z.infer<typeof volunteerSchema>;
 
 /* ──────────────────────────── School request ──────────────────────────── */
 
-export const SCHOOL_LEVELS = ["Primary", "Secondary", "Mixed"] as const;
+export const SCHOOL_LEVELS = ["Primary", "Secondary", "Mixed", "International"] as const;
+
+export const SCHOOL_TYPES = ["Public", "Private", "International"] as const;
+
+export const PROGRAMMES_REQUESTED = [
+  "Aviation Career Awareness Talk",
+  "Careers & Career Guidance",
+  "Aviation STEM Awareness",
+  "Aviation Demonstration",
+  "Aviation Professional Talk",
+  "Student Exposure Session",
+  "Other",
+] as const;
 
 export const schoolRequestSchema = z.object({
   schoolName: z.string().trim().min(3, "Please enter the school's full name.").max(150),
+  schoolType: z.enum(SCHOOL_TYPES, { errorMap: () => ({ message: "Please choose a school type." }) }),
   level: z.enum(SCHOOL_LEVELS, { errorMap: () => ({ message: "Please choose a level." }) }),
   county: z.string().trim().min(2, "Which county is the school in?").max(60),
   town: z.string().trim().max(80).optional(),
+  address: z.string().trim().min(5, "Please give us a physical address or landmark.").max(200),
+  schoolWebsite: z
+    .union([z.string().trim().url("Please enter a full URL, e.g. https://..."), z.literal("")])
+    .optional()
+    .transform((value) => (value ? value : undefined)),
   contactName: name,
   role: z.string().trim().min(2, "What is your role at the school?").max(80),
   email,
@@ -174,13 +192,85 @@ export const schoolRequestSchema = z.object({
     .int("Please enter a whole number.")
     .min(10, "We need at least 10 students to make the visit worthwhile.")
     .max(3000, "Please enter a realistic number of students."),
-  preferredTerm: z.string().trim().max(120).optional(),
+  targetGrades: z.string().trim().min(2, "Which grades or forms should we plan for?").max(120),
+  teacherCount: z
+    .number()
+    .int("Please enter a whole number.")
+    .min(1, "At least one accompanying teacher is required.")
+    .max(50, "Please enter a realistic number of teachers."),
+  programmesRequested: z
+    .array(z.enum(PROGRAMMES_REQUESTED))
+    .min(1, "Please choose at least one programme."),
+  preferredDate: z.string().trim().min(1, "Please give us a preferred date."),
+  alternativeDate: z.string().trim().max(60).optional(),
+  preferredTime: z.string().trim().max(60).optional(),
   notes: z.string().trim().max(2000, "Please keep this under 2,000 characters.").optional(),
   consent,
   website: honeypot,
 });
 
 export type SchoolRequestInput = z.infer<typeof schoolRequestSchema>;
+
+/* ────────────────────────────── Aviation visit ─────────────────────────── */
+
+export const VISIT_SCHOOL_TYPES = ["Public", "Private", "International"] as const;
+
+export const VISIT_SCHOOL_LEVELS = ["Primary", "Secondary", "Mixed", "International"] as const;
+
+export const VISIT_DESTINATION_TYPES = [
+  "Airport",
+  "Airstrip",
+  "Aviation College or Training Institution",
+  "Airline or MRO facility",
+  "Other",
+  "Not sure — advise us",
+] as const;
+
+export const VISIT_PURPOSES = [
+  "Career exposure for students",
+  "STEM / curriculum enrichment",
+  "Aviation demonstration or simulator experience",
+  "Meet working aviation professionals",
+  "Site / facility tour",
+  "Other",
+] as const;
+
+export const aviationVisitSchema = z.object({
+  schoolName: z.string().trim().min(3, "Please enter the school's full name.").max(150),
+  schoolType: z.enum(VISIT_SCHOOL_TYPES, {
+    errorMap: () => ({ message: "Please choose a school type." }),
+  }),
+  level: z.enum(VISIT_SCHOOL_LEVELS, { errorMap: () => ({ message: "Please choose a level." }) }),
+  county: z.string().trim().min(2, "Which county is the school in?").max(60),
+  town: z.string().trim().max(80).optional(),
+  contactName: name,
+  role: z.string().trim().min(2, "What is your role at the school?").max(80),
+  email,
+  phone,
+  destinationType: z.enum(VISIT_DESTINATION_TYPES, {
+    errorMap: () => ({ message: "Please tell us what kind of destination you have in mind." }),
+  }),
+  purposes: z
+    .array(z.enum(VISIT_PURPOSES))
+    .min(1, "Please choose at least one purpose for the visit."),
+  studentCount: z
+    .number()
+    .int("Please enter a whole number.")
+    .min(5, "We need at least 5 students to plan a visit.")
+    .max(500, "For groups over 500 please contact us directly."),
+  teacherCount: z
+    .number()
+    .int("Please enter a whole number.")
+    .min(1, "At least one accompanying teacher is required.")
+    .max(50, "Please enter a realistic number of teachers."),
+  preferredDate: z.string().trim().min(1, "Please give us a preferred date."),
+  alternativeDate: z.string().trim().max(60).optional(),
+  notes: z.string().trim().max(2000, "Please keep this under 2,000 characters.").optional(),
+  consent,
+  website: honeypot,
+});
+
+export type AviationVisitInput = z.infer<typeof aviationVisitSchema>;
 
 /* ───────────────────────────── Partnership ────────────────────────────── */
 

@@ -364,6 +364,30 @@ export const faqs: FaqItem[] = [
     audience: "Parents",
   },
   {
+    question: "Does my child have to become a pilot?",
+    answer:
+      "No — this is the single biggest misconception we correct with parents as much as with students. Piloting is one of fourteen documented pathways. Engineering, air traffic control, aviation meteorology, airport management and several other careers offer strong progression with different entry requirements, different training costs and different personalities suited to them.",
+    audience: "Parents",
+  },
+  {
+    question: "What subjects should my child focus on?",
+    answer:
+      "It depends entirely on which pathway interests them. The flight deck and engineering routes need strong Mathematics and Physics; several ground, operations and cabin roles do not gate on either. Every career page on this site states the actual subject requirement for that specific pathway rather than a generic answer.",
+    audience: "Parents",
+  },
+  {
+    question: "When should my child start preparing?",
+    answer:
+      "As early as is comfortable — mainly because Mathematics and Physics compound, and a student who commits to them in Grade 7 has a very different KCSE outcome than one who decides in Form 3. That said, several pathways have accessible entry points later, including after KCSE. Earlier is an advantage, not a requirement.",
+    audience: "Parents",
+  },
+  {
+    question: "I do not know the industry. How can I actually help?",
+    answer:
+      "You do not need aviation knowledge to help — you need to ask your school to request a visit, sit with your child through the career pages on this site, and take their questions seriously rather than steering them toward what sounds safest to you. Most of what a student needs at this stage is exposure and a specific next step, both of which the programme provides.",
+    audience: "Parents",
+  },
+  {
     question: "How can my organisation get involved?",
     answer:
       "Three ways. Sponsor school visits, which is the most direct form of support. Open your facility for a student visit — an airport, a hangar or a control tower is worth any number of slide decks. Or release staff to volunteer as session leaders. The last one costs the least and, honestly, changes the most.",
@@ -386,6 +410,48 @@ export const faqs: FaqItem[] = [
     answer:
       "If you work in aviation in any capacity, we want to hear from you. Most volunteers give two to four days a year. You do not need teaching experience — students are far more interested in what you actually do than in how polished you are while describing it.",
     audience: "General",
+  },
+];
+
+/* ────────────────────────────── The journey ────────────────────────────── */
+
+export interface JourneyStage {
+  stage: string;
+  title: string;
+  body: string;
+  icon: string;
+}
+
+export const journeyStages: JourneyStage[] = [
+  {
+    stage: "Awareness",
+    title: "A session in the classroom",
+    body: "A talk, a STEM activity or a Sky Talk with a working professional introduces the full breadth of aviation careers — not just the two most students can already name.",
+    icon: "Lightbulb",
+  },
+  {
+    stage: "Exposure",
+    title: "Real environments, not slides",
+    body: "Students visit an airport, an airstrip or an aviation college and see the industry operating — the thing no classroom session can substitute for.",
+    icon: "MapPinned",
+  },
+  {
+    stage: "Guidance",
+    title: "Subjects, grades, licences",
+    body: "Every career page states the actual entry requirement — the subjects, the grade, the licence, the institution — so ambition has something specific to attach to.",
+    icon: "Route",
+  },
+  {
+    stage: "Experience",
+    title: "Meeting people who do the job",
+    body: "Twenty unscripted minutes with a first officer, an engineer or a controller answers the questions a slide deck cannot: what it pays, whether it is hard, whether someone like them can do it.",
+    icon: "Users",
+  },
+  {
+    stage: "Career Direction",
+    title: "A written first step",
+    body: "Every session ends with a concrete next action for the student to take that term — not a feeling, a step.",
+    icon: "Compass",
   },
 ];
 

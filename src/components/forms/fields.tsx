@@ -51,7 +51,7 @@ function RequiredMark({ required }: { required?: boolean }) {
 }
 
 interface TextFieldProps<T extends FieldValues> extends BaseProps<T> {
-  type?: "text" | "email" | "tel" | "url" | "number";
+  type?: "text" | "email" | "tel" | "url" | "number" | "date" | "time";
   placeholder?: string;
   autoComplete?: string;
   inputMode?: React.ComponentProps<"input">["inputMode"];
@@ -232,4 +232,69 @@ function CheckboxField<T extends FieldValues>({
   );
 }
 
-export { CheckboxField, SelectField, TextareaField, TextField };
+interface CheckboxGroupFieldProps<T extends FieldValues> extends BaseProps<T> {
+  options: readonly string[];
+}
+
+/**
+ * Multi-select bound to a `string[]` field.
+ *
+ * Renders one checkbox per option and keeps the array in sync on toggle — the
+ * single-value `CheckboxField` above only handles a boolean, so this exists
+ * separately rather than overloading it.
+ */
+function CheckboxGroupField<T extends FieldValues>({
+  control,
+  name,
+  label,
+  description,
+  required,
+  className,
+  options,
+}: CheckboxGroupFieldProps<T>) {
+  return (
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => {
+        const selected: string[] = Array.isArray(field.value) ? field.value : [];
+
+        return (
+          <FormItem className={className}>
+            <FormLabel>
+              {label}
+              <RequiredMark required={required} />
+            </FormLabel>
+            {description ? <FormDescription>{description}</FormDescription> : null}
+            <div className="mt-1 grid gap-3 sm:grid-cols-2">
+              {options.map((option) => {
+                const checked = selected.includes(option);
+                return (
+                  <FormControl key={option}>
+                    <label className="flex cursor-pointer items-start gap-3">
+                      <Checkbox
+                        checked={checked}
+                        onCheckedChange={(value) => {
+                          field.onChange(
+                            value
+                              ? [...selected, option]
+                              : selected.filter((item) => item !== option),
+                          );
+                        }}
+                        className="mt-0.5"
+                      />
+                      <span className="text-sm leading-relaxed font-normal">{option}</span>
+                    </label>
+                  </FormControl>
+                );
+              })}
+            </div>
+            <FormMessage />
+          </FormItem>
+        );
+      }}
+    />
+  );
+}
+
+export { CheckboxField, CheckboxGroupField, SelectField, TextareaField, TextField };

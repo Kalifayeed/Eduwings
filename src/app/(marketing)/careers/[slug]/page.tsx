@@ -4,6 +4,7 @@ import { ArrowRight, BookOpen, CheckCircle2, Info, TrendingUp } from "lucide-rea
 
 import { routes } from "@/config/routes";
 import { careers, disciplineLabel, getCareer, getCareersByDiscipline } from "@/lib/content/careers";
+import { getInstitutionsForCareer } from "@/lib/content/institutions";
 import { Icon } from "@/components/icon";
 import { formatCurrency } from "@/lib/utils";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -19,6 +20,7 @@ import { CtaBand } from "@/components/marketing/cta-band";
 import { MarkdownContent } from "@/components/content/markdown";
 import { AppImage } from "@/components/media/app-image";
 import { CareerCard } from "@/components/cards/career-card";
+import { InstitutionCard } from "@/components/cards/institution-card";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -63,6 +65,7 @@ export default async function CareerDetailPage({ params }: PageProps) {
   const related = getCareersByDiscipline(career.discipline)
     .filter((item) => item.slug !== career.slug)
     .slice(0, 3);
+  const trainingInstitutions = getInstitutionsForCareer(career.slug);
 
   const breadcrumbs = [
     { label: "Home", href: routes.home },
@@ -257,6 +260,38 @@ export default async function CareerDetailPage({ params }: PageProps) {
           </aside>
         </div>
       </Section>
+
+      {/* ── Where to train ──────────────────────────────────────────────── */}
+      {trainingInstitutions.length > 0 ? (
+        <Section tone="surface">
+          <div className="container-page">
+            <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl">
+              Where to train in Kenya
+            </h2>
+            <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">
+              Institutions cross-checked against KCAA&apos;s own approved training organisations
+              list.
+            </p>
+
+            <RevealGroup as="ul" className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {trainingInstitutions.map((institution) => (
+                <RevealItem as="li" key={institution.slug}>
+                  <InstitutionCard institution={institution} className="h-full" />
+                </RevealItem>
+              ))}
+            </RevealGroup>
+
+            <div className="mt-10">
+              <Button asChild variant="outline" size="lg">
+                <Link href={routes.courses}>
+                  See all institutions
+                  <ArrowRight className="size-4" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </Section>
+      ) : null}
 
       {/* ── Related careers ─────────────────────────────────────────────── */}
       {related.length > 0 ? (

@@ -156,6 +156,15 @@ export default async function SchoolsPage() {
                 </RevealItem>
               ))}
             </RevealGroup>
+
+            <Reveal className="mt-10 rounded-2xl border bg-card p-5">
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                Would you rather take your students to an airport, airstrip or aviation college?{" "}
+                <a href={routes.visit} className="font-medium text-primary underline">
+                  Plan an aviation visit →
+                </a>
+              </p>
+            </Reveal>
           </div>
 
           <Reveal

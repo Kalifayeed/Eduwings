@@ -3,14 +3,7 @@ import { ArrowRight, Mail, Phone, Quote } from "lucide-react";
 
 import { routes } from "@/config/routes";
 import { siteConfig } from "@/config/site";
-import {
-  impactStatistics,
-  mission,
-  objectives,
-  timeline,
-  vision,
-  whyItMatters,
-} from "@/lib/content/editorial";
+import { journeyStages, mission, objectives, timeline, vision } from "@/lib/content/editorial";
 import { Icon } from "@/components/icon";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema, graph } from "@/lib/seo/structured-data";
@@ -19,7 +12,6 @@ import { Button } from "@/components/ui/button";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
 import { PageHero } from "@/components/marketing/page-hero";
 import { Section, SectionHeader } from "@/components/marketing/section";
-import { StatGrid } from "@/components/marketing/stat-grid";
 import { CtaBand } from "@/components/marketing/cta-band";
 import { AppImage } from "@/components/media/app-image";
 
@@ -219,42 +211,36 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      {/* ── Why it matters ──────────────────────────────────────────────── */}
+      {/* ── How we work ─────────────────────────────────────────────────── */}
       <Section>
         <div className="container-page">
           <SectionHeader
-            eyebrow="Why EduWings matters"
-            title="The case for doing this, and doing it properly."
+            eyebrow="How we work"
+            title="Awareness → Exposure → Guidance → Experience → Career Direction."
+            description="Every school engagement moves a student through the same five stages, whether it takes an afternoon or a year."
             align="center"
           />
 
-          <RevealGroup as="ul" className="mt-14 grid gap-6 md:grid-cols-2">
-            {whyItMatters.map((argument) => {
-              return (
-                <RevealItem
-                  as="li"
-                  key={argument.title}
-                  className="flex gap-5 rounded-2xl border bg-card p-7 shadow-[var(--shadow-soft)]"
-                >
-                  <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-accent/15 text-gold-700 dark:text-gold-300">
-                    <Icon name={argument.icon} className="size-6" aria-hidden />
-                  </span>
-                  <div>
-                    <h3 className="font-display text-lg leading-snug font-semibold">
-                      {argument.title}
-                    </h3>
-                    <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">
-                      {argument.body}
-                    </p>
-                  </div>
-                </RevealItem>
-              );
-            })}
+          <RevealGroup as="ol" className="relative mt-14 grid gap-6 md:grid-cols-5">
+            {journeyStages.map((item, index) => (
+              <RevealItem
+                as="li"
+                key={item.stage}
+                className="relative flex flex-col rounded-2xl border bg-card p-6 shadow-[var(--shadow-soft)]"
+              >
+                <span className="font-mono text-xs tracking-[0.18em] text-primary uppercase">
+                  {String(index + 1).padStart(2, "0")} · {item.stage}
+                </span>
+                <span className="mt-4 grid size-11 place-items-center rounded-xl bg-primary/10 text-primary">
+                  <Icon name={item.icon} className="size-5" aria-hidden />
+                </span>
+                <h3 className="mt-4 font-display text-base leading-snug font-semibold">
+                  {item.title}
+                </h3>
+                <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">{item.body}</p>
+              </RevealItem>
+            ))}
           </RevealGroup>
-
-          <div className="mt-16">
-            <StatGrid stats={impactStatistics} />
-          </div>
         </div>
       </Section>
 

@@ -21,6 +21,23 @@ const BREADCRUMBS = [
   { label: "Our Programme", href: routes.program },
 ];
 
+/**
+ * Which school level each module is pitched at. Kept as a small local lookup
+ * rather than a field on `ProgramModule` — that type is shared with the
+ * Supabase-backed content source, and this framing is presentation-only for
+ * this one page, not something the CMS needs to manage.
+ */
+const MODULE_AUDIENCE: Record<string, "primary" | "secondary" | "both"> = {
+  "history-of-flight": "primary",
+  "how-airplanes-fly": "both",
+  "airport-operations": "primary",
+  navigation: "secondary",
+  "weather-and-flight": "both",
+  "safety-culture": "primary",
+  "stem-in-aviation": "both",
+  "career-pathways": "both",
+};
+
 export const metadata = buildMetadata({
   title: "Our Programme",
   description:
@@ -31,6 +48,15 @@ export const metadata = buildMetadata({
 export default async function ProgramPage() {
   const modules = await getContentSource().programs.list();
   const totalMinutes = modules.items.reduce((sum, module) => sum + module.durationMinutes, 0);
+
+  const primaryModules = modules.items.filter((module) => {
+    const audience = MODULE_AUDIENCE[module.slug] ?? "both";
+    return audience === "primary" || audience === "both";
+  });
+  const secondaryModules = modules.items.filter((module) => {
+    const audience = MODULE_AUDIENCE[module.slug] ?? "both";
+    return audience === "secondary" || audience === "both";
+  });
 
   return (
     <>
@@ -103,6 +129,53 @@ export default async function ProgramPage() {
               </RevealItem>
             ))}
           </RevealGroup>
+        </div>
+      </Section>
+
+      {/* ── Who each part is for ────────────────────────────────────────── */}
+      <Section>
+        <div className="container-page">
+          <SectionHeader
+            eyebrow="Primary or secondary?"
+            title="The same eight modules, pitched differently by age."
+            description="We adjust depth, not content — the physics of lift is the same at ten and at seventeen, but the conversation is not."
+          />
+
+          <div className="mt-12 grid gap-6 md:grid-cols-2">
+            <Reveal className="rounded-2xl border bg-card p-7">
+              <h3 className="font-display text-lg font-semibold">Primary &amp; Junior School</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Exposure, curiosity and early awareness — introducing aviation, airports and
+                aircraft before career pressure sets in.
+              </p>
+              <ul className="mt-5 grid gap-2.5">
+                {primaryModules.map((module) => (
+                  <li key={module.id}>
+                    <a href={`#${module.slug}`} className="text-sm text-primary hover:underline">
+                      {module.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+
+            <Reveal delay={0.08} className="rounded-2xl border bg-card p-7">
+              <h3 className="font-display text-lg font-semibold">Secondary &amp; Senior School</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Career-focused — subjects, entry requirements, qualifications and the pathway from
+                KCSE into aviation training.
+              </p>
+              <ul className="mt-5 grid gap-2.5">
+                {secondaryModules.map((module) => (
+                  <li key={module.id}>
+                    <a href={`#${module.slug}`} className="text-sm text-primary hover:underline">
+                      {module.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          </div>
         </div>
       </Section>
 

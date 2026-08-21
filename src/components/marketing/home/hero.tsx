@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Compass, Play } from "lucide-react";
+import { ArrowRight, Compass, Newspaper, Play, Plane } from "lucide-react";
 
 import { routes } from "@/config/routes";
 import { impactStatistics } from "@/lib/content/editorial";
@@ -61,6 +61,25 @@ function Hero() {
                   Explore 14 aviation careers
                 </Link>
               </Button>
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.3}>
+            <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2">
+              <Link
+                href={routes.visit}
+                className="inline-flex items-center gap-1.5 text-sm text-white/75 underline decoration-white/30 underline-offset-4 transition-colors hover:text-white"
+              >
+                <Plane className="size-3.5" aria-hidden />
+                Plan an aviation visit
+              </Link>
+              <Link
+                href={routes.news}
+                className="inline-flex items-center gap-1.5 text-sm text-white/75 underline decoration-white/30 underline-offset-4 transition-colors hover:text-white"
+              >
+                <Newspaper className="size-3.5" aria-hidden />
+                Read our field notes
+              </Link>
             </div>
           </Reveal>
 

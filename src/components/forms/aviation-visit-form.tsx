@@ -2,15 +2,16 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Loader2, School } from "lucide-react";
+import { Loader2, Plane } from "lucide-react";
 
 import { routes } from "@/config/routes";
 import {
-  PROGRAMMES_REQUESTED,
-  SCHOOL_LEVELS,
-  SCHOOL_TYPES,
-  schoolRequestSchema,
-  type SchoolRequestInput,
+  VISIT_DESTINATION_TYPES,
+  VISIT_PURPOSES,
+  VISIT_SCHOOL_LEVELS,
+  VISIT_SCHOOL_TYPES,
+  aviationVisitSchema,
+  type AviationVisitInput,
 } from "@/lib/validation/schemas";
 import { useApiForm } from "@/hooks/use-api-form";
 import { Button } from "@/components/ui/button";
@@ -26,32 +27,30 @@ import { HoneypotField } from "@/components/forms/honeypot-field";
 import { FormSuccess } from "@/components/forms/form-success";
 
 /**
- * The highest-value form on the site — a school visit request is the outcome
- * every other page is trying to produce. Grouped into three short sections so
- * it never reads as a wall of inputs.
+ * Requests a visit *to* an aviation destination — an airport, airstrip or
+ * training college — as distinct from `SchoolRequestForm`, which brings
+ * EduWings to the school instead. Same shape and conventions deliberately,
+ * so the two forms read as siblings rather than unrelated features.
  */
-function SchoolRequestForm({ className }: { className?: string }) {
-  const form = useForm<SchoolRequestInput>({
-    resolver: zodResolver(schoolRequestSchema),
+function AviationVisitForm({ className }: { className?: string }) {
+  const form = useForm<AviationVisitInput>({
+    resolver: zodResolver(aviationVisitSchema),
     defaultValues: {
       schoolName: "",
-      schoolType: SCHOOL_TYPES[0],
-      level: SCHOOL_LEVELS[1],
+      schoolType: VISIT_SCHOOL_TYPES[0],
+      level: VISIT_SCHOOL_LEVELS[1],
       county: "",
       town: "",
-      address: "",
-      schoolWebsite: "",
       contactName: "",
       role: "",
       email: "",
       phone: "",
-      studentCount: 120,
-      targetGrades: "",
+      destinationType: VISIT_DESTINATION_TYPES[0],
+      purposes: [],
+      studentCount: 40,
       teacherCount: 2,
-      programmesRequested: [],
       preferredDate: "",
       alternativeDate: "",
-      preferredTime: "",
       notes: "",
       consent: false,
       website: "",
@@ -59,7 +58,7 @@ function SchoolRequestForm({ className }: { className?: string }) {
   });
 
   const { submit, isSubmitting, isSuccess, reset } = useApiForm({
-    endpoint: "/api/schools",
+    endpoint: "/api/visits",
     form,
     successTitle: "Request received",
     successDescription: "We will be in touch within three working days.",
@@ -70,15 +69,15 @@ function SchoolRequestForm({ className }: { className?: string }) {
       <FormSuccess
         className={className}
         title="We have your request"
-        description="Thank you. Bringing EduWings to a school costs the school nothing, and we will work around your timetable."
+        description="Thank you. We will check availability with the destination and confirm directly with you — this is a request, not a confirmed booking."
         nextSteps={[
-          "We reply within three working days to confirm we can reach you.",
-          "We agree a date and the year groups taking part.",
-          "You receive the curriculum mapping in advance for your teachers.",
+          "We reply within three working days.",
+          "We confirm feasibility with the destination and propose a date.",
+          "You receive the final arrangements once everything is confirmed.",
         ]}
         action={{ label: "See the programme", href: routes.program }}
         onReset={reset}
-        resetLabel="Request for another school"
+        resetLabel="Request another visit"
       />
     );
   }
@@ -104,14 +103,14 @@ function SchoolRequestForm({ className }: { className?: string }) {
             name="schoolType"
             label="School type"
             required
-            options={SCHOOL_TYPES}
+            options={VISIT_SCHOOL_TYPES}
           />
           <SelectField
             control={form.control}
             name="level"
             label="Level"
             required
-            options={SCHOOL_LEVELS}
+            options={VISIT_SCHOOL_LEVELS}
           />
           <TextField
             control={form.control}
@@ -121,56 +120,26 @@ function SchoolRequestForm({ className }: { className?: string }) {
             placeholder="e.g. Machakos"
           />
           <TextField control={form.control} name="town" label="Town or ward" />
-          <TextField
-            control={form.control}
-            name="address"
-            label="Physical address or landmark"
-            required
-            className="sm:col-span-2"
-          />
-          <TextField
-            control={form.control}
-            name="schoolWebsite"
-            label="School website"
-            type="url"
-            placeholder="https://…"
-          />
-          <TextField
-            control={form.control}
-            name="studentCount"
-            label="How many students?"
-            type="number"
-            inputMode="numeric"
-            required
-            description="A rough figure is fine."
-          />
-          <TextField
-            control={form.control}
-            name="targetGrades"
-            label="Which grades or forms?"
-            required
-            placeholder="e.g. Grade 7–9, or Form 2–4"
-          />
-          <TextField
-            control={form.control}
-            name="teacherCount"
-            label="Accompanying teachers"
-            type="number"
-            inputMode="numeric"
-            required
-          />
         </fieldset>
 
         <fieldset className="mt-10 grid gap-5">
           <legend className="mb-4 font-mono text-xs tracking-[0.18em] text-primary uppercase">
-            What would you like us to deliver?
+            Where you would like to go
           </legend>
+
+          <SelectField
+            control={form.control}
+            name="destinationType"
+            label="Destination type"
+            required
+            options={VISIT_DESTINATION_TYPES}
+          />
           <CheckboxGroupField
             control={form.control}
-            name="programmesRequested"
-            label="Choose everything that applies"
+            name="purposes"
+            label="Purpose of the visit"
             required
-            options={PROGRAMMES_REQUESTED}
+            options={VISIT_PURPOSES}
           />
         </fieldset>
 
@@ -214,10 +183,10 @@ function SchoolRequestForm({ className }: { className?: string }) {
 
         <fieldset className="mt-10 grid gap-5">
           <legend className="mb-4 font-mono text-xs tracking-[0.18em] text-primary uppercase">
-            Timing and anything else
+            Timing and group size
           </legend>
 
-          <div className="grid gap-5 sm:grid-cols-3">
+          <div className="grid gap-5 sm:grid-cols-2">
             <TextField
               control={form.control}
               name="preferredDate"
@@ -231,11 +200,24 @@ function SchoolRequestForm({ className }: { className?: string }) {
               label="Alternative date"
               type="date"
             />
+          </div>
+          <div className="grid gap-5 sm:grid-cols-2">
             <TextField
               control={form.control}
-              name="preferredTime"
-              label="Preferred time"
-              type="time"
+              name="studentCount"
+              label="How many students?"
+              type="number"
+              inputMode="numeric"
+              required
+              description="A rough figure is fine."
+            />
+            <TextField
+              control={form.control}
+              name="teacherCount"
+              label="Accompanying teachers"
+              type="number"
+              inputMode="numeric"
+              required
             />
           </div>
           <TextareaField
@@ -243,7 +225,7 @@ function SchoolRequestForm({ className }: { className?: string }) {
             name="notes"
             label="Anything we should know?"
             rows={4}
-            placeholder="Available facilities, distance from the nearest town, whether you have power, particular careers your students ask about…"
+            placeholder="Accessibility needs, a specific institution in mind, particular careers your students ask about…"
           />
           <CheckboxField
             control={form.control}
@@ -263,8 +245,8 @@ function SchoolRequestForm({ className }: { className?: string }) {
             </>
           ) : (
             <>
-              <School className="size-4" />
-              Request a visit
+              <Plane className="size-4" />
+              Request this visit
             </>
           )}
         </Button>
@@ -273,4 +255,4 @@ function SchoolRequestForm({ className }: { className?: string }) {
   );
 }
 
-export { SchoolRequestForm };
+export { AviationVisitForm };
