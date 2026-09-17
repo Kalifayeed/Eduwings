@@ -96,6 +96,16 @@ export const objectives: Objective[] = [
   },
 ];
 
+/* Our story */
+
+export const ourStory = [
+  "Eduwings was founded by Meldah Magova to address a gap she had seen firsthand: many young learners discover aviation careers only when they are finishing secondary school and have already begun making decisions about their future.",
+  "Through her work in education, Meldah saw how early exposure could give learners more time to explore their interests and understand the paths available to them. She envisioned introducing aviation from as early as Grade 4, when curiosity is growing and possibilities still feel wide open.",
+  "Aviation is often associated with pilots, but the industry extends far beyond the flight deck. It offers careers in aircraft engineering, air traffic control, cabin crew services, airport operations, meteorology, aviation safety, management, and many other fields. Without access to people and places in the industry, learners may never know these opportunities exist.",
+  "Eduwings brings aviation closer to learners through career guidance, mentorship, conversations with industry professionals, and visits to aviation facilities. It also connects learners with institutions and pathways that can help them turn an early interest into an informed ambition.",
+  "What began as a vision for greater exposure has grown into a platform for discovery and hands-on learning. Eduwings is guided by a simple belief: no learner should miss an opportunity in aviation simply because they never had the chance to see it.",
+] as const;
+
 /* ──────────────────────────────── Timeline ────────────────────────────── */
 
 export interface TimelineEntry {
@@ -107,8 +117,8 @@ export interface TimelineEntry {
 export const timeline: TimelineEntry[] = [
   {
     year: "2023",
-    title: "A question with no good answer",
-    body: "During a school careers day, a Form Two student asked our founder how someone becomes an aircraft engineer. Nobody in the room could answer. EduWings started as the answer to that question, written down.",
+    title: "A vision for earlier exposure",
+    body: "Eduwings was founded by Meldah Magova to address a gap she had seen firsthand: many young learners discover aviation careers only when they are finishing secondary school and have already begun making decisions about their future.",
   },
   {
     year: "2023",

@@ -1,9 +1,16 @@
 import Link from "next/link";
-import { ArrowRight, Mail, Phone, Quote } from "lucide-react";
+import { ArrowRight, Mail, Phone } from "lucide-react";
 
 import { routes } from "@/config/routes";
 import { siteConfig } from "@/config/site";
-import { journeyStages, mission, objectives, timeline, vision } from "@/lib/content/editorial";
+import {
+  journeyStages,
+  mission,
+  objectives,
+  ourStory,
+  timeline,
+  vision,
+} from "@/lib/content/editorial";
 import { Icon } from "@/components/icon";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema, graph } from "@/lib/seo/structured-data";
@@ -23,7 +30,7 @@ const BREADCRUMBS = [
 export const metadata = buildMetadata({
   title: "About EduWings",
   description:
-    "How EduWings began, what it is trying to change, and the founder who started it after a question nobody in the room could answer.",
+    "Discover how Meldah Magova founded Eduwings to help young learners explore aviation careers through early exposure, mentorship, and hands-on learning.",
   path: routes.about,
 });
 
@@ -34,8 +41,8 @@ export default function AboutPage() {
 
       <PageHero
         eyebrow="About EduWings"
-        title="It started with a question nobody could answer."
-        description="A Form Two student asked how someone becomes an aircraft engineer. Every adult in that room — teachers, guests, a careers advisor — knew it was a real job. Not one of them could describe how to get it."
+        title="Opening aviation's possibilities to young learners."
+        description="Through her work in education, Meldah Magova saw a need for earlier exposure to aviation careers. Eduwings helps learners explore those possibilities from as early as Grade 4."
         breadcrumbs={BREADCRUMBS}
         actions={
           <>
@@ -80,7 +87,7 @@ export default function AboutPage() {
 
       {/* ── Founder ─────────────────────────────────────────────────────── */}
       <Section tone="surface">
-        <div className="container-page grid gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+        <div className="container-page grid gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
           <Reveal>
             <div className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-[var(--shadow-float)]">
               <AppImage
@@ -98,30 +105,18 @@ export default function AboutPage() {
 
           <div>
             <SectionHeader
-              eyebrow="The founder"
-              title={siteConfig.founder.name}
-              description={
-                <>
-                  <p className="font-medium text-foreground">{siteConfig.founder.role}</p>
-                  <p className="mt-5">{siteConfig.founder.bio}</p>
-                </>
-              }
+              eyebrow={siteConfig.founder.name}
+              title="Our Story"
+              description={siteConfig.founder.role}
             />
 
-            <Reveal delay={0.1}>
-              <figure className="mt-8 border-l-4 border-accent pl-6">
-                <Quote aria-hidden className="size-6 text-accent" />
-                <blockquote className="mt-3">
-                  <p className="text-lg leading-relaxed font-medium text-balance">
-                    I had spent ten years in this industry and I could not answer a fifteen-year-old
-                    asking how to enter it. Not because the answer is complicated — because nobody
-                    had ever written it down for someone like her.
-                  </p>
-                </blockquote>
-                <figcaption className="mt-4 text-sm text-muted-foreground">
-                  {siteConfig.founder.name}, on the conversation that started EduWings
-                </figcaption>
-              </figure>
+            <Reveal
+              delay={0.1}
+              className="mt-6 space-y-5 text-base leading-relaxed text-muted-foreground sm:text-lg"
+            >
+              {ourStory.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
             </Reveal>
 
             <Reveal delay={0.16} className="mt-8 flex flex-wrap gap-3">

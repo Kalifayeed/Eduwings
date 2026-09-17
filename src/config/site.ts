@@ -26,7 +26,7 @@ export const siteConfig = {
     phone: "0799577753",
     /** E.164, for `tel:` links and structured data. Kenya country code +254. */
     phoneE164: "+254799577753",
-    bio: "Meldah Magova founded EduWings after a decade in aviation, convinced that the single biggest barrier between a Kenyan student and an aviation career is not ability — it is never having been told the career exists.",
+    bio: "Eduwings was founded by Meldah Magova to address a gap she had seen firsthand: many young learners discover aviation careers only when they are finishing secondary school and have already begun making decisions about their future.",
   },
 
   contact: {
