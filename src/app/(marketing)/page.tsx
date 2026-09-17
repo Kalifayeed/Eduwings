@@ -7,6 +7,7 @@ import { getContentSource } from "@/lib/content";
 import { getFeaturedCareers } from "@/lib/content/careers";
 import { activities, impactStatistics, whyItMatters } from "@/lib/content/editorial";
 import { programModules } from "@/lib/content/static/programs";
+import { formatProgramDuration, getModuleSchedules } from "@/lib/content/program-levels";
 import { Icon } from "@/components/icon";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { Badge } from "@/components/ui/badge";
@@ -128,8 +129,8 @@ export default async function HomePage() {
         <div className="container-page">
           <SectionHeader
             eyebrow="The programme"
-            title="Eight modules that turn an aircraft into a curriculum."
-            description="Delivered in your classroom by working aviation professionals, mapped to CBC learning outcomes, and free to schools."
+            title="Aviation modules for every school level."
+            description="Seven modules for Primary & Junior learners and five for Secondary & Senior learners, with teaching times tailored to each level. Delivered by working aviation professionals and free to schools."
           >
             <Button asChild variant="outline" size="lg">
               <Link href={routes.program}>
@@ -161,9 +162,13 @@ export default async function HomePage() {
                   <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">
                     {module.summary}
                   </p>
-                  <p className="mt-4 font-mono text-xs text-muted-foreground">
-                    {module.durationMinutes} min
-                  </p>
+                  <ul className="mt-4 grid gap-1.5 text-xs leading-relaxed text-muted-foreground">
+                    {getModuleSchedules(module.slug).map((schedule) => (
+                      <li key={schedule.level}>
+                        {schedule.level}: {formatProgramDuration(schedule.durationMinutes)}
+                      </li>
+                    ))}
+                  </ul>
                 </RevealItem>
               );
             })}

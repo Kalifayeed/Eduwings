@@ -2,15 +2,15 @@ import type { ProgramModule } from "@/lib/content/types";
 import { published } from "@/lib/content/static/seed-utils";
 
 /**
- * The EduWings curriculum: eight modules delivered across one to three sessions
- * depending on the school's timetable. Ordered as they are taught — each module
- * assumes the one before it.
+ * Eight aviation topics shared across the school-level programmes.
+ * Default durations below use the Primary & Junior timing where available.
+ * Public level-specific titles, ordering and timings live in program-levels.ts.
  */
 export const programModules: ProgramModule[] = [
   {
     id: "mod-history-of-flight",
     slug: "history-of-flight",
-    title: "The History of Flight",
+    title: "History of Flight",
     summary: "From a Kenyan sky full of birds to a sky full of aircraft in a single lifetime.",
     body: `Flight is the youngest of humanity's great achievements. A person born the year the Wright brothers first left the ground could have watched the Moon landing on television.
 
@@ -18,7 +18,7 @@ We open here deliberately. Before any physics, students need to feel that aviati
 
 The module closes on a specific point: the first Kenyan commercial pilots qualified within living memory. This industry is not inherited. It was entered.`,
     icon: "Telescope",
-    durationMinutes: 30,
+    durationMinutes: 40,
     curriculumLinks: ["CBC Social Studies — Grade 6", "CBC Integrated Science — Grade 7"],
     learningOutcomes: [
       "Place the major milestones of powered flight on a timeline",
@@ -40,7 +40,7 @@ We teach the four forces — lift, weight, thrust and drag — as a balance rath
 
 By the end, every student can explain in their own words why an aircraft stays up. That sentence is worth more than any diagram they could copy.`,
     icon: "Wind",
-    durationMinutes: 60,
+    durationMinutes: 40,
     curriculumLinks: [
       "CBC Integrated Science — Grade 7 & 8 (Forces)",
       "KCSE Physics — Form 2 (Forces and Motion)",
@@ -65,7 +65,7 @@ Through a live turnaround role-play, students take on the parts of ramp agent, l
 
 This is usually the module where a student discovers the career they had never heard of.`,
     icon: "Building2",
-    durationMinutes: 75,
+    durationMinutes: 50,
     curriculumLinks: [
       "CBC Pre-Technical Studies — Grade 8",
       "CBC Social Studies — Grade 7 (Transport & Communication)",
@@ -90,7 +90,7 @@ They measure a track, apply magnetic variation, solve the wind triangle for a co
 
 We have watched students who describe themselves as bad at Mathematics finish this exercise first and correctly. That is the entire argument of the module.`,
     icon: "Compass",
-    durationMinutes: 60,
+    durationMinutes: 80,
     curriculumLinks: [
       "KCSE Mathematics — Form 3 (Trigonometry, Vectors)",
       "KCSE Geography — Form 2 (Maps and Bearings)",
@@ -115,7 +115,7 @@ Students decode a real METAR and TAF, calculate a crosswind component against pu
 
 Kenya's own weather makes this vivid — highland aerodromes, coastal effects, and the afternoon convection that builds faster than most students expect.`,
     icon: "CloudSun",
-    durationMinutes: 50,
+    durationMinutes: 40,
     curriculumLinks: [
       "KCSE Geography — Form 1 & 2 (Weather and Climate)",
       "CBC Integrated Science — Grade 8",
@@ -141,7 +141,7 @@ Students examine how checklists, crew resource management, no-blame incident rep
 
 This module travels further than aviation. Students recognise the same thinking in hospitals and laboratories, and the discussion about admitting mistakes without punishment is consistently the one teachers tell us continued after we left.`,
     icon: "ShieldCheck",
-    durationMinutes: 45,
+    durationMinutes: 40,
     curriculumLinks: [
       "CBC Life Skills — Grade 7 & 8",
       "CBC Pre-Technical Studies — Grade 9 (Workshop Safety)",
@@ -191,7 +191,7 @@ Students map their current subjects against fourteen aviation careers and see ex
 
 Each student leaves with a written pathway: the career, the subjects, the grades, the institution, and the single next step to take this term. Inspiration without a map decays in a week. This is the map.`,
     icon: "Route",
-    durationMinutes: 45,
+    durationMinutes: 40,
     curriculumLinks: [
       "CBC Career Guidance — Grade 8 & 9",
       "Secondary Career Guidance — Form 2 to 4",

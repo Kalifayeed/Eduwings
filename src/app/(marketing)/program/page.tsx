@@ -3,6 +3,11 @@ import { ArrowRight, CheckCircle2, Clock, GraduationCap } from "lucide-react";
 
 import { routes } from "@/config/routes";
 import { getContentSource } from "@/lib/content";
+import {
+  formatProgramDuration,
+  getModuleSchedules,
+  programLevels,
+} from "@/lib/content/program-levels";
 import { programOutcomes } from "@/lib/content/static/programs";
 import { Icon } from "@/components/icon";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -21,42 +26,23 @@ const BREADCRUMBS = [
   { label: "Our Programme", href: routes.program },
 ];
 
-/**
- * Which school level each module is pitched at. Kept as a small local lookup
- * rather than a field on `ProgramModule` — that type is shared with the
- * Supabase-backed content source, and this framing is presentation-only for
- * this one page, not something the CMS needs to manage.
- */
-const MODULE_AUDIENCE: Record<string, "primary" | "secondary" | "both"> = {
-  "history-of-flight": "primary",
-  "how-airplanes-fly": "both",
-  "airport-operations": "primary",
-  navigation: "secondary",
-  "weather-and-flight": "both",
-  "safety-culture": "primary",
-  "stem-in-aviation": "both",
-  "career-pathways": "both",
-};
-
 export const metadata = buildMetadata({
   title: "Our Programme",
   description:
-    "Eight modules covering the history of flight, how aircraft fly, airport operations, navigation, weather, safety, STEM and career pathways — mapped to CBC learning outcomes.",
+    "Explore seven Primary & Junior level modules and five Secondary & Senior level modules, with aviation topics and teaching times tailored to each level.",
   path: routes.program,
 });
 
 export default async function ProgramPage() {
   const modules = await getContentSource().programs.list();
-  const totalMinutes = modules.items.reduce((sum, module) => sum + module.durationMinutes, 0);
-
-  const primaryModules = modules.items.filter((module) => {
-    const audience = MODULE_AUDIENCE[module.slug] ?? "both";
-    return audience === "primary" || audience === "both";
-  });
-  const secondaryModules = modules.items.filter((module) => {
-    const audience = MODULE_AUDIENCE[module.slug] ?? "both";
-    return audience === "secondary" || audience === "both";
-  });
+  const availableSlugs = new Set(modules.items.map((module) => module.slug));
+  const levels = programLevels.map((level) => ({
+    ...level,
+    modules: level.modules.filter((module) => availableSlugs.has(module.slug)),
+  }));
+  const curriculumModules = modules.items.filter(
+    (module) => getModuleSchedules(module.slug).length > 0,
+  );
 
   return (
     <>
@@ -64,7 +50,7 @@ export default async function ProgramPage() {
 
       <PageHero
         eyebrow="The programme"
-        title="An aircraft, taken apart into eight lessons."
+        title="Aviation learning for every school level."
         description="The full EduWings curriculum. Delivered in your classroom by working aviation professionals, mapped against CBC learning outcomes, and free to every school."
         breadcrumbs={BREADCRUMBS}
         actions={
@@ -82,18 +68,22 @@ export default async function ProgramPage() {
         }
         aside={
           <dl className="grid gap-px overflow-hidden rounded-2xl border bg-border bg-card shadow-[var(--shadow-soft)] sm:grid-cols-3 lg:grid-cols-1">
-            <div className="bg-card p-5">
-              <dt className="text-xs tracking-wide text-muted-foreground uppercase">Modules</dt>
-              <dd className="mt-1 font-display text-2xl font-bold">{modules.total}</dd>
-            </div>
-            <div className="bg-card p-5">
-              <dt className="text-xs tracking-wide text-muted-foreground uppercase">
-                Total teaching time
-              </dt>
-              <dd className="mt-1 font-display text-2xl font-bold">
-                {Math.round((totalMinutes / 60) * 10) / 10} hrs
-              </dd>
-            </div>
+            {levels.map((level) => (
+              <div key={level.id} className="bg-card p-5">
+                <dt className="text-xs tracking-wide text-muted-foreground uppercase">
+                  {level.label}
+                </dt>
+                <dd className="mt-1 font-display text-2xl font-bold">
+                  {level.modules.length} modules
+                </dd>
+                <dd className="mt-1 text-sm text-muted-foreground">
+                  {formatProgramDuration(
+                    level.modules.reduce((sum, module) => sum + module.durationMinutes, 0),
+                  )}{" "}
+                  total
+                </dd>
+              </div>
+            ))}
             <div className="bg-card p-5">
               <dt className="text-xs tracking-wide text-muted-foreground uppercase">
                 Cost to schools
@@ -115,7 +105,7 @@ export default async function ProgramPage() {
               },
               {
                 title: "Shaped around your timetable",
-                body: "The full programme runs across two to three hours, but modules are independent. A single lesson period works.",
+                body: "Choose modules for your learners and arrange sessions around your timetable. The durations below show the teaching time for each module and school level.",
               },
               {
                 title: "Taught by people who do the job",
@@ -136,45 +126,37 @@ export default async function ProgramPage() {
       <Section>
         <div className="container-page">
           <SectionHeader
-            eyebrow="Primary or secondary?"
-            title="The same eight modules, pitched differently by age."
-            description="We adjust depth, not content — the physics of lift is the same at ten and at seventeen, but the conversation is not."
+            eyebrow="Learning by school level"
+            title="Modules and teaching times for your learners."
+            description="Choose the programme for your school level. Each list shows the modules in order and the teaching time for each."
           />
 
           <div className="mt-12 grid gap-6 md:grid-cols-2">
-            <Reveal className="rounded-2xl border bg-card p-7">
-              <h3 className="font-display text-lg font-semibold">Primary &amp; Junior School</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                Exposure, curiosity and early awareness — introducing aviation, airports and
-                aircraft before career pressure sets in.
-              </p>
-              <ul className="mt-5 grid gap-2.5">
-                {primaryModules.map((module) => (
-                  <li key={module.id}>
-                    <a href={`#${module.slug}`} className="text-sm text-primary hover:underline">
-                      {module.title}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
-
-            <Reveal delay={0.08} className="rounded-2xl border bg-card p-7">
-              <h3 className="font-display text-lg font-semibold">Secondary &amp; Senior School</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                Career-focused — subjects, entry requirements, qualifications and the pathway from
-                KCSE into aviation training.
-              </p>
-              <ul className="mt-5 grid gap-2.5">
-                {secondaryModules.map((module) => (
-                  <li key={module.id}>
-                    <a href={`#${module.slug}`} className="text-sm text-primary hover:underline">
-                      {module.title}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
+            {levels.map((level, index) => (
+              <Reveal
+                key={level.id}
+                delay={index * 0.08}
+                className="rounded-2xl border bg-card p-7"
+              >
+                <h3 className="font-display text-lg font-semibold">{level.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {level.description}
+                </p>
+                <ul className="mt-5 grid gap-3">
+                  {level.modules.map((module) => (
+                    <li key={module.slug} className="text-sm leading-relaxed">
+                      <a href={`#${module.slug}`} className="text-primary hover:underline">
+                        {module.title}
+                      </a>
+                      <span className="text-muted-foreground">
+                        {" – "}
+                        {formatProgramDuration(module.durationMinutes)}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </Reveal>
+            ))}
           </div>
         </div>
       </Section>
@@ -184,12 +166,12 @@ export default async function ProgramPage() {
         <div className="container-page">
           <SectionHeader
             eyebrow="The curriculum"
-            title="Eight modules, taught in this order."
-            description="Each one assumes the one before it. Together they take a student from 'aircraft are magic' to a written career pathway."
+            title="Explore the topics in each programme."
+            description="Use the school-level lists above to follow your programme. Shared topics have different teaching times to suit each level."
           />
 
           <div className="mt-16 grid gap-16">
-            {modules.items.map((module, index) => {
+            {curriculumModules.map((module, index) => {
               return (
                 <Reveal
                   as="article"
@@ -211,10 +193,16 @@ export default async function ProgramPage() {
                     <p className="mt-3 leading-relaxed text-muted-foreground">{module.summary}</p>
 
                     <div className="mt-6 flex flex-wrap items-center gap-2">
-                      <Badge variant="secondary">
-                        <Clock className="size-3.5" aria-hidden />
-                        {module.durationMinutes} min
-                      </Badge>
+                      {getModuleSchedules(module.slug).map((schedule) => (
+                        <Badge
+                          key={schedule.level}
+                          variant="secondary"
+                          className="text-left whitespace-normal"
+                        >
+                          <Clock className="size-3.5 shrink-0" aria-hidden />
+                          {schedule.level}: {formatProgramDuration(schedule.durationMinutes)}
+                        </Badge>
+                      ))}
                       {module.curriculumLinks.map((link) => (
                         <Badge key={link} variant="outline">
                           <GraduationCap className="size-3.5" aria-hidden />
