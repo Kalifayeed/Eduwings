@@ -82,8 +82,8 @@ function MobileNav({ children }: { children: React.ReactNode }) {
 
         <div className="grid gap-3 border-t px-6 py-5">
           <Button asChild size="lg">
-            <Link href={routes.schools}>
-              Bring us to your school
+            <Link href={routes.quotation}>
+              Get Quotation
               <ArrowRight className="size-4" />
             </Link>
           </Button>

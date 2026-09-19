@@ -17,10 +17,10 @@ import { FormSuccess } from "@/components/forms/form-success";
 
 /** Amounts tied to a concrete outcome rather than round numbers. */
 const PRESET_AMOUNTS = [
-  { amount: 2500, label: "Materials for one classroom" },
-  { amount: 12000, label: "A simulator session" },
-  { amount: 45000, label: "A full school day" },
-  { amount: 180000, label: "A whole term upcountry" },
+  { amount: 2500, label: "Towards teaching materials" },
+  { amount: 12000, label: "Towards a simulator facility visit" },
+  { amount: 45000, label: "Towards a school programme" },
+  { amount: 180000, label: "Towards regional access" },
 ] as const;
 
 /**

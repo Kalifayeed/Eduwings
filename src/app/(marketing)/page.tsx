@@ -130,7 +130,7 @@ export default async function HomePage() {
           <SectionHeader
             eyebrow="The programme"
             title="Aviation modules for every school level."
-            description="Seven modules for Primary & Junior learners and five for Secondary & Senior learners, with teaching times tailored to each level. Delivered by working aviation professionals and free to schools."
+            description="Seven modules for Primary & Junior learners and five for Secondary & Senior learners, with teaching times tailored to each level. Delivered by aviation professionals. Get Quotation for your school’s programme."
           >
             <Button asChild variant="outline" size="lg">
               <Link href={routes.program}>
@@ -190,9 +190,10 @@ export default async function HomePage() {
                 Everybody remembers the wing they built.
               </h2>
               <p className="mt-5 max-w-lg text-base leading-relaxed text-navy-200">
-                Every session is hands-on. Students build and test wings, fly approaches on
-                simulators, plot a real route with no GPS, and turn an aircraft around against a
-                countdown clock.
+                School-based sessions include wing-building, route-planning and airport-operation
+                activities. After the modules, we organise a separately quoted field trip to an
+                aviation facility with simulators. Simulator activities take place at the host
+                facility.
               </p>
               <Button asChild size="lg" variant="accent" className="mt-8">
                 <Link href={routes.activities}>
@@ -311,7 +312,7 @@ export default async function HomePage() {
             <SectionHeader
               eyebrow="Coming up"
               title="Open days, airport tours and career fairs."
-              description="Free to attend, but places are allocated per school — early registration matters."
+              description="Get Quotation for your group. Attendance is subject to availability and booking confirmation."
             >
               <Button asChild variant="outline" size="lg">
                 <Link href={routes.events}>
@@ -387,17 +388,17 @@ export default async function HomePage() {
       {/* ── Closing CTA ─────────────────────────────────────────────────── */}
       <Section size="sm">
         <CtaBand
-          eyebrow="No cost to your school"
+          eyebrow="Get Quotation"
           title="Your students are one afternoon away from a career they have never heard of."
-          description="Tell us about your school and we will come to you — anywhere in Kenya, with the simulators, the materials and a working aviation professional."
-          primary={{ label: "Request a school visit", href: routes.schools }}
+          description="Tell us your school’s location, learner numbers and preferred modules. We will prepare a quotation for school-based teaching and a separately costed field trip after the modules."
+          primary={{ label: "Get Quotation", href: routes.quotation }}
           secondary={{ label: "Talk to us first", href: routes.contact }}
         />
       </Section>
 
       <div className="container-page pb-4">
         <Reveal className="flex flex-wrap items-center justify-center gap-3">
-          <Badge variant="muted">Free to schools</Badge>
+          <Badge variant="muted">Services quoted individually</Badge>
           <Badge variant="muted">Anywhere in Kenya</Badge>
           <Badge variant="muted">CBC-aligned</Badge>
           <Badge variant="muted">Delivered by working professionals</Badge>

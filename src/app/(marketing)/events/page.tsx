@@ -21,7 +21,7 @@ const BREADCRUMBS = [
 export const metadata = buildMetadata({
   title: "Events",
   description:
-    "Open days, airport tours, career fairs and webinars. Free to attend, with places allocated per school — register early.",
+    "Open days, airport tours, career fairs and webinars. Get Quotation for your group; attendance is subject to availability and booking confirmation.",
   path: routes.events,
 });
 
@@ -45,7 +45,7 @@ export default async function EventsPage() {
       <PageHero
         eyebrow="Events"
         title="Come and stand next to an aircraft."
-        description="Open days, restricted-access airport tours, career fairs and briefings for parents. All free, all limited by capacity, and all allocated so that no single school takes the whole room."
+        description="Explore open days, airport tours, career fairs and briefings for parents. Get Quotation for your group. Fees, access requirements and arrangements are confirmed before booking."
         breadcrumbs={BREADCRUMBS}
         aside={next ? <EventCountdown event={next} /> : undefined}
       />
@@ -60,7 +60,7 @@ export default async function EventsPage() {
               icon={CalendarDays}
               title="No events scheduled right now"
               description="We are between programmes. Subscribe to the term update and you will hear about the next one before it is announced anywhere else."
-              action={{ label: "Request a school visit instead", href: routes.schools }}
+              action={{ label: "Get Quotation", href: routes.quotation }}
             />
           ) : (
             <RevealGroup as="ul" className="mt-12 grid gap-5">
@@ -96,8 +96,8 @@ export default async function EventsPage() {
       <Section size="sm">
         <CtaBand
           title="Cannot travel to us? We will come to you."
-          description="Most of what we do happens in school halls and classrooms, anywhere in Kenya, at no cost to the school."
-          primary={{ label: "Request a school visit", href: routes.schools }}
+          description="We deliver aviation modules at schools across Kenya and organise field trips after the modules. Get Quotation for your group and preferred dates."
+          primary={{ label: "Get Quotation", href: routes.quotation }}
           secondary={{ label: "See the gallery", href: routes.gallery }}
         />
       </Section>

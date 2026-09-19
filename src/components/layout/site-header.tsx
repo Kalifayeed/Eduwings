@@ -150,8 +150,8 @@ function SiteHeader() {
           </Button>
           <ThemeToggle />
           <Button asChild size="sm" className="ml-1 hidden sm:inline-flex">
-            <Link href={routes.schools}>
-              Bring us to your school
+            <Link href={routes.quotation}>
+              Get Quotation
               <ArrowRight className="size-4" />
             </Link>
           </Button>

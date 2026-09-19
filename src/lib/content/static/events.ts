@@ -1,3 +1,4 @@
+import { routes } from "@/config/routes";
 import type { EduEvent } from "@/lib/content/types";
 import { published } from "@/lib/content/static/seed-utils";
 
@@ -14,7 +15,7 @@ const seed = [
     slug: "eduwings-open-day-nairobi",
     title: "EduWings Open Day — Nairobi",
     summary:
-      "A full day inside the industry: simulators, a hangar walkthrough, and forty minutes with working pilots, engineers and controllers taking unfiltered questions.",
+      "A day of aviation learning, classroom activities and career conversations with industry professionals. Get Quotation for your group.",
     type: "Open Day",
     startsAt: "2026-09-19T06:00:00.000Z",
     endsAt: "2026-09-19T13:00:00.000Z",
@@ -30,7 +31,9 @@ const seed = [
 
 ## What happens
 
-**Morning — the aircraft.** Rotating stations covering how aircraft fly, a hangar walkthrough with a licensed engineer, and desktop simulator sessions flown with a working pilot beside you.
+**Morning — the aircraft.** Classroom demonstrations and activities exploring how aircraft fly.
+
+Simulator activities take place at aviation training facilities during separately quoted field trips organised after the modules. Host availability, access requirements, activity duration and charges are confirmed in advance.
 
 **Midday — the system.** A live turnaround exercise, a navigation challenge, and a weather briefing where students make the go/no-go call themselves.
 
@@ -42,7 +45,7 @@ Students in Grade 6 to Form 4, with a teacher or guardian. Places are allocated 
 
 ## What to bring
 
-Nothing but questions. Lunch and materials are provided.`,
+Your quotation and booking confirmation specify the materials, meals, access requirements and items to bring.`,
   },
   {
     id: "evt-jkia-tour",
@@ -183,7 +186,7 @@ This event has taken place. Photographs are in the [gallery](/gallery), and scho
 
 Pre-visit surveys averaged 1.8 aviation careers named. Post-visit surveys averaged 10.1 — our highest recorded shift, in the schools with the least prior exposure.
 
-This event has taken place. To request a visit for your school, use the [schools form](/schools).`,
+This event has taken place. To Get Quotation for your school, use the [quotation form](${routes.quotation}).`,
   },
 ] as const;
 

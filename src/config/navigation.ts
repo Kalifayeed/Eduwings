@@ -58,7 +58,8 @@ export const mainNavigation: NavSection[] = [
       {
         label: "Activities",
         href: routes.activities,
-        description: "Workshops, airport visits, model builds and flight simulator sessions.",
+        description:
+          "School workshops and model builds, followed by field trips to aviation facilities with simulators.",
         icon: Sparkles,
       },
       {
@@ -83,8 +84,8 @@ export const mainNavigation: NavSection[] = [
     feature: {
       title: "Built for the Kenyan classroom",
       body: "Every module maps to CBC learning outcomes in Science, Mathematics and Pre-Technical Studies.",
-      href: routes.schools,
-      cta: "Request a school visit",
+      href: routes.quotation,
+      cta: "Get Quotation",
     },
   },
   {
@@ -194,7 +195,8 @@ export const mainNavigation: NavSection[] = [
       {
         label: "Donate",
         href: routes.donate,
-        description: "Fund a school visit, a simulator session or a full term.",
+        description:
+          "Contribute towards learning materials, school modules or a field trip to a simulator facility.",
         icon: HandHeart,
       },
       {
@@ -205,8 +207,8 @@ export const mainNavigation: NavSection[] = [
       },
     ],
     feature: {
-      title: "KES 45,000 funds an entire school",
-      body: "That is one full EduWings day for up to 300 students, materials included.",
+      title: "Help a school access aviation learning",
+      body: "Contribute towards the cost of a school’s agreed programme or field trip. We confirm the scope before allocating support.",
       href: routes.donate,
       cta: "Sponsor a school",
     },

@@ -105,7 +105,7 @@ export default function CareersPage() {
         <CtaBand
           title="Bring these fourteen careers into your classroom."
           description="We deliver every pathway in person, with someone who does the job standing at the front."
-          primary={{ label: "Request a school visit", href: routes.schools }}
+          primary={{ label: "Get Quotation", href: routes.quotation }}
           secondary={{ label: "See the programme", href: routes.program }}
         />
       </Section>

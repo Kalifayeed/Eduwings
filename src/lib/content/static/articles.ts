@@ -206,7 +206,7 @@ And they discover it by failing at it first, which is the only way that particul
     authorRole: "Founder — EduWings",
     featured: false,
     publishedAt: "2026-02-02T07:00:00.000Z",
-    body: `At the end of a session in Machakos County, while most of the group queued for the simulator, one student stayed behind at the diagram board.
+    body: `At the end of a session in Machakos County, while most of the group completed the classroom activities, one student stayed behind at the diagram board.
 
 She had a question that nobody had asked us before. *How does the pilot's switch know which light to turn on?*
 

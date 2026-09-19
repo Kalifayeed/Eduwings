@@ -100,7 +100,7 @@ export default async function NewsPage({ searchParams }: PageProps) {
         <CtaBand
           title="We write when we have learned something."
           description="One email a term, with what actually happened in the classrooms we visited."
-          primary={{ label: "Request a school visit", href: routes.schools }}
+          primary={{ label: "Get Quotation", href: routes.quotation }}
           secondary={{ label: "See our events", href: routes.events }}
         />
       </Section>

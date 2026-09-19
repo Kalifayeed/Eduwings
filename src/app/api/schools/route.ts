@@ -7,16 +7,17 @@ import { schoolRequestSchema } from "@/lib/validation/schemas";
 export const POST = createFormRoute({
   schema: schoolRequestSchema,
   scope: "schools",
-  successMessage: "Request received — we will be in touch within three working days.",
+  successMessage: "Quotation request received — we will be in touch within three working days.",
   handle: async (data) => {
     await storeSubmission({
       kind: "school",
       name: data.contactName,
       email: data.email,
       phone: data.phone,
-      subject: `School visit request — ${data.schoolName}`,
+      subject: `School quotation request — ${data.schoolName}`,
       message: data.notes ?? null,
       payload: {
+        requestType: "quotation",
         schoolName: data.schoolName,
         schoolType: data.schoolType,
         level: data.level,
@@ -37,8 +38,8 @@ export const POST = createFormRoute({
 
     await Promise.all([
       notifyTeam({
-        subject: `School visit request — ${data.schoolName} (${data.county})`,
-        heading: `${data.schoolName} would like a visit`,
+        subject: `School quotation request — ${data.schoolName} (${data.county})`,
+        heading: `${data.schoolName} requested a programme quotation`,
         replyTo: data.email,
         fields: {
           School: data.schoolName,
@@ -63,12 +64,12 @@ export const POST = createFormRoute({
       }),
       acknowledge({
         to: data.email,
-        subject: `We have your visit request — ${siteConfig.name}`,
+        subject: `We have your quotation request — ${siteConfig.name}`,
         heading: `Thank you, ${data.contactName.split(" ")[0]}`,
         paragraphs: [
           `We have received your request for ${data.schoolName} and will reply within three working days.`,
-          "The visit costs your school nothing. We bring the simulators, the materials and a working aviation professional; you provide a room, a socket and a wall we can project onto.",
-          "Once we agree a date, we will send you the curriculum mapping in advance so your teachers can align it with what they are already covering.",
+          "We will prepare an itemised quotation for your selected modules and delivery schedule. Our facilitators bring teaching materials; simulators are not brought to schools.",
+          "After the modules, we organise a separately quoted field trip to a facility with simulators, subject to host availability and access requirements. Your request does not confirm a booking; dates and arrangements follow quotation approval.",
           "— The EduWings team",
         ],
       }),

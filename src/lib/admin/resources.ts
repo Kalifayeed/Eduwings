@@ -235,7 +235,7 @@ export const adminResources: AdminResource[] = [
         name: "price_kes",
         label: "Price (KES)",
         type: "number",
-        description: "Leave blank if free.",
+        description: "Leave blank when an individual quotation is required.",
       },
       { name: "cover_image", label: "Cover image URL", type: "url", full: true },
       { name: "registration_open", label: "Registration is open", type: "switch" },

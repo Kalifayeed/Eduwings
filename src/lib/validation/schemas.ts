@@ -163,6 +163,9 @@ export const SCHOOL_LEVELS = ["Primary", "Secondary", "Mixed", "International"] 
 export const SCHOOL_TYPES = ["Public", "Private", "International"] as const;
 
 export const PROGRAMMES_REQUESTED = [
+  "Primary & Junior Level Modules",
+  "Secondary & Senior Level Modules",
+  "Field Trip After Modules (Host Simulator Facility)",
   "Aviation Career Awareness Talk",
   "Careers & Career Guidance",
   "Aviation STEM Awareness",
@@ -174,7 +177,9 @@ export const PROGRAMMES_REQUESTED = [
 
 export const schoolRequestSchema = z.object({
   schoolName: z.string().trim().min(3, "Please enter the school's full name.").max(150),
-  schoolType: z.enum(SCHOOL_TYPES, { errorMap: () => ({ message: "Please choose a school type." }) }),
+  schoolType: z.enum(SCHOOL_TYPES, {
+    errorMap: () => ({ message: "Please choose a school type." }),
+  }),
   level: z.enum(SCHOOL_LEVELS, { errorMap: () => ({ message: "Please choose a level." }) }),
   county: z.string().trim().min(2, "Which county is the school in?").max(60),
   town: z.string().trim().max(80).optional(),
@@ -229,7 +234,7 @@ export const VISIT_DESTINATION_TYPES = [
 export const VISIT_PURPOSES = [
   "Career exposure for students",
   "STEM / curriculum enrichment",
-  "Aviation demonstration or simulator experience",
+  "Simulator facility visit after the modules",
   "Meet working aviation professionals",
   "Site / facility tour",
   "Other",

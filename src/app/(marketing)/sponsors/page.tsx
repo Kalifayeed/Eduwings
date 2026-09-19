@@ -3,7 +3,6 @@ import { ArrowRight, BarChart3, FileText, Megaphone } from "lucide-react";
 
 import { routes } from "@/config/routes";
 import { getContentSource } from "@/lib/content";
-import { formatCurrency } from "@/lib/utils";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema, graph } from "@/lib/seo/structured-data";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -28,33 +27,30 @@ export const metadata = buildMetadata({
 
 const SPONSOR_PACKAGES = [
   {
-    amount: 180000,
     title: "County Programme",
-    body: "Four school visits in one county, prioritising schools with no prior exposure to the aviation industry.",
+    body: "Support an agreed programme for schools in a selected county, with delivery and access costs set out in a quotation.",
     includes: [
-      "Four full-day visits, up to 1,200 students",
+      "School numbers and teaching sessions agreed in the quotation",
       "Named acknowledgement at each visit",
       "A written impact report per school",
       "Photography you may use",
     ],
   },
   {
-    amount: 540000,
     title: "Regional Programme",
-    body: "A full term across three counties, including the travel and logistics that make upcountry visits possible at all.",
+    body: "Support a regional programme across agreed counties, with teaching, travel and field-trip costs itemised in the quotation.",
     includes: [
-      "Twelve visits, up to 3,600 students",
+      "County coverage and learner numbers agreed in the quotation",
       "Logo placement on programme materials",
       "A consolidated termly impact report",
       "An invitation to attend a visit in person",
     ],
   },
   {
-    amount: 1_200_000,
     title: "National Partner",
-    body: "A year of programme delivery, including the equipment renewal and volunteer coordination that nobody else funds.",
+    body: "Support a programme across agreed locations and dates, including teaching resources and coordinated facility visits.",
     includes: [
-      "A full year of school visits nationwide",
+      "Programme scope and duration agreed in the quotation",
       "Named partnership across the programme",
       "Quarterly reporting and an annual review",
       "Co-branded career materials for schools",
@@ -89,8 +85,8 @@ export default async function SponsorsPage() {
 
       <PageHero
         eyebrow="Sponsors"
-        title="Every free school visit is free because somebody paid for it."
-        description="EduWings costs schools nothing. That is a deliberate choice, and it only holds because these organisations fund the work. Here is what sponsorship buys and what sponsors get back."
+        title="Help more schools access aviation learning."
+        description="Schools receive individual quotations for EduWings services. Sponsorship can contribute towards agreed programme and field-trip costs for selected schools, with the scope confirmed in advance."
         breadcrumbs={BREADCRUMBS}
         actions={
           <Button asChild size="lg">
@@ -116,8 +112,8 @@ export default async function SponsorsPage() {
         <div className="container-page">
           <SectionHeader
             eyebrow="Sponsorship"
-            title="Three levels, priced against what they actually deliver."
-            description="These are the real costs of running the programme, not a rate card. Smaller and larger arrangements are both welcome."
+            title="Three ways to support school programmes."
+            description="Get Quotation for a sponsorship programme. We agree the schools, learner numbers, modules and facility visits before confirming costs."
           />
 
           <RevealGroup as="ul" className="mt-14 grid gap-6 lg:grid-cols-3">
@@ -133,13 +129,15 @@ export default async function SponsorsPage() {
               >
                 {index === 1 ? (
                   <span className="absolute -top-3 left-7 rounded-full bg-primary px-3 py-1 text-xs font-medium text-primary-foreground">
-                    Most impact per shilling
+                    Regional support
                   </span>
                 ) : null}
 
                 <h3 className="font-display text-lg font-semibold">{pkg.title}</h3>
                 <p className="mt-3 font-display text-3xl font-bold tracking-tight text-primary">
-                  {formatCurrency(pkg.amount)}
+                  <Link href={`${routes.partners}#partner-with-us`} className="hover:underline">
+                    Get Quotation
+                  </Link>
                 </p>
                 <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{pkg.body}</p>
 

@@ -61,7 +61,7 @@ function SchoolRequestForm({ className }: { className?: string }) {
   const { submit, isSubmitting, isSuccess, reset } = useApiForm({
     endpoint: "/api/schools",
     form,
-    successTitle: "Request received",
+    successTitle: "Quotation request received",
     successDescription: "We will be in touch within three working days.",
   });
 
@@ -69,12 +69,12 @@ function SchoolRequestForm({ className }: { className?: string }) {
     return (
       <FormSuccess
         className={className}
-        title="We have your request"
-        description="Thank you. Bringing EduWings to a school costs the school nothing, and we will work around your timetable."
+        title="We have your quotation request"
+        description="Thank you. We will review your requirements and prepare an itemised quotation. Your request does not confirm a booking."
         nextSteps={[
-          "We reply within three working days to confirm we can reach you.",
-          "We agree a date and the year groups taking part.",
-          "You receive the curriculum mapping in advance for your teachers.",
+          "We reply within three working days to discuss your modules, group size and dates.",
+          "You receive a quotation for school-based teaching and any separately costed field trip.",
+          "Dates and arrangements are confirmed after quotation approval and any required host confirmation.",
         ]}
         action={{ label: "See the programme", href: routes.program }}
         onReset={reset}
@@ -163,7 +163,7 @@ function SchoolRequestForm({ className }: { className?: string }) {
 
         <fieldset className="mt-10 grid gap-5">
           <legend className="mb-4 font-mono text-xs tracking-[0.18em] text-primary uppercase">
-            What would you like us to deliver?
+            Which services should we quote for?
           </legend>
           <CheckboxGroupField
             control={form.control}
@@ -249,7 +249,7 @@ function SchoolRequestForm({ className }: { className?: string }) {
             control={form.control}
             name="consent"
             label="I am authorised to make this request on behalf of the school."
-            description="We will only use these details to arrange the visit."
+            description="We will use these details to prepare your quotation and discuss the arrangements."
           />
         </fieldset>
 
@@ -264,7 +264,7 @@ function SchoolRequestForm({ className }: { className?: string }) {
           ) : (
             <>
               <School className="size-4" />
-              Request a visit
+              Get Quotation
             </>
           )}
         </Button>

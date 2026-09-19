@@ -79,6 +79,7 @@ export interface EduEvent extends Timestamped, Publishable {
   capacity: number | null;
   seatsTaken: number;
   registrationOpen: boolean;
+  /** Optional reference price. Null means an individual quotation is required. */
   priceKes: number | null;
   featured: boolean;
 }

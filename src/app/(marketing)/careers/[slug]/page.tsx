@@ -325,7 +325,7 @@ export default async function CareerDetailPage({ params }: PageProps) {
         <CtaBand
           title={`Know a student who should read this?`}
           description="We deliver these pathways in person, with someone who does the job standing at the front of the room."
-          primary={{ label: "Request a school visit", href: routes.schools }}
+          primary={{ label: "Get Quotation", href: routes.quotation }}
           secondary={{ label: "Talk to us", href: routes.contact }}
         />
       </Section>

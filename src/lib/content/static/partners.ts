@@ -131,7 +131,7 @@ const seed = [
     category: "Corporate",
     summary: "An energy company with a long-running technical skills programme.",
     contribution:
-      "Funds the simulator fleet and the transport that gets it to schools outside Nairobi.",
+      "Supports school-based learning and organised field trips to aviation facilities with simulators.",
     websiteUrl: null,
     sinceYear: 2024,
     sortOrder: 2,

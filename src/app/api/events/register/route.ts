@@ -8,7 +8,7 @@ import { eventRegistrationSchema } from "@/lib/validation/schemas";
 export const POST = createFormRoute({
   schema: eventRegistrationSchema,
   scope: "event-registration",
-  successMessage: "Registration received — we will confirm by email.",
+  successMessage: "Quotation request received — we will follow up with pricing and availability.",
   handle: async (data) => {
     // Resolve the event so the notification and acknowledgement carry real
     // details rather than a slug, and so a registration for a non-existent or
@@ -20,9 +20,10 @@ export const POST = createFormRoute({
       name: data.name,
       email: data.email,
       phone: data.phone,
-      subject: `Registration — ${event?.title ?? data.eventSlug}`,
+      subject: `Event quotation request — ${event?.title ?? data.eventSlug}`,
       message: data.notes ?? null,
       payload: {
+        requestType: "quotation",
         eventSlug: data.eventSlug,
         eventTitle: event?.title ?? null,
         organisation: data.organisation,
@@ -36,8 +37,8 @@ export const POST = createFormRoute({
 
     await Promise.all([
       notifyTeam({
-        subject: `Registration — ${event?.title ?? data.eventSlug} (${data.attendees})`,
-        heading: `${data.organisation} registered for ${event?.title ?? data.eventSlug}`,
+        subject: `Event quotation request — ${event?.title ?? data.eventSlug} (${data.attendees})`,
+        heading: `${data.organisation} requested a quotation for ${event?.title ?? data.eventSlug}`,
         replyTo: data.email,
         fields: {
           Event: event?.title ?? data.eventSlug,
@@ -51,11 +52,11 @@ export const POST = createFormRoute({
       }),
       acknowledge({
         to: data.email,
-        subject: `Registration received — ${event?.title ?? "EduWings event"}`,
+        subject: `Quotation request received — ${event?.title ?? "EduWings event"}`,
         heading: `Thank you, ${data.name.split(" ")[0]}`,
         paragraphs: [
-          `We have your registration for ${event?.title ?? "the event"}${where ? `, ${where}` : ""}, on ${when}.`,
-          `You registered ${data.attendees} ${data.attendees === 1 ? "place" : "places"}. We will confirm within one working day.`,
+          `We have your quotation request for ${event?.title ?? "the event"}${where ? `, ${where}` : ""}, on ${when}.`,
+          `You requested a quotation for ${data.attendees} ${data.attendees === 1 ? "person" : "people"}. This does not reserve or confirm places. We will follow up with pricing and availability.`,
           "Airside events require identification documents for every attendee at least fourteen days in advance. If this applies, we will write to you separately.",
           "— The EduWings team",
         ],

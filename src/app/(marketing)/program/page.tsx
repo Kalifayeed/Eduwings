@@ -51,13 +51,13 @@ export default async function ProgramPage() {
       <PageHero
         eyebrow="The programme"
         title="Aviation learning for every school level."
-        description="The full EduWings curriculum. Delivered in your classroom by working aviation professionals, mapped against CBC learning outcomes, and free to every school."
+        description="Aviation modules delivered at your school, followed by an organised field trip to a facility with simulators. Get Quotation for teaching and separately itemised field-trip costs."
         breadcrumbs={BREADCRUMBS}
         actions={
           <>
             <Button asChild size="lg">
-              <Link href={routes.schools}>
-                Request a visit
+              <Link href={routes.quotation}>
+                Get Quotation
                 <ArrowRight className="size-4" />
               </Link>
             </Button>
@@ -88,7 +88,11 @@ export default async function ProgramPage() {
               <dt className="text-xs tracking-wide text-muted-foreground uppercase">
                 Cost to schools
               </dt>
-              <dd className="mt-1 font-display text-2xl font-bold text-primary">Free</dd>
+              <dd className="mt-1 font-display text-2xl font-bold text-primary">
+                <Link href={routes.quotation} className="hover:underline">
+                  Get Quotation
+                </Link>
+              </dd>
             </div>
           </dl>
         }
@@ -101,15 +105,15 @@ export default async function ProgramPage() {
             {[
               {
                 title: "We come to you",
-                body: "Anywhere in Kenya. We bring the simulators, the materials and the professionals. You provide a room, a socket and a wall.",
+                body: "Our facilitators deliver the modules at your school using teaching materials and classroom activities. Schools provide a suitable room, power and a projection surface.",
               },
               {
                 title: "Shaped around your timetable",
                 body: "Choose modules for your learners and arrange sessions around your timetable. The durations below show the teaching time for each module and school level.",
               },
               {
-                title: "Taught by people who do the job",
-                body: "Every session is co-delivered by a working pilot, licensed engineer, controller or dispatcher. That is the mechanism, not the garnish.",
+                title: "A field trip after the modules",
+                body: "EduWings organises a separately quoted visit to an aviation facility with simulators after the modules. Simulator demonstrations or hands-on access take place there, subject to the host’s availability, age requirements and capacity.",
               },
             ].map((item) => (
               <RevealItem as="li" key={item.title} className="rounded-2xl border bg-card p-7">
@@ -268,10 +272,10 @@ export default async function ProgramPage() {
 
       <Section size="sm">
         <CtaBand
-          eyebrow="Free to schools"
+          eyebrow="Get Quotation"
           title="Book the programme for your students."
-          description="Tell us the school, the year groups and roughly when. We will handle the rest."
-          primary={{ label: "Request a school visit", href: routes.schools }}
+          description="Tell us your school’s location, year groups, learner numbers and dates. We will itemise the programme fee and any field-trip, transport and facility charges."
+          primary={{ label: "Get Quotation", href: routes.quotation }}
           secondary={{ label: "See the fourteen careers", href: routes.careers }}
         />
       </Section>

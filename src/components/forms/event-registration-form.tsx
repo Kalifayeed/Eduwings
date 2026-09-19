@@ -38,20 +38,20 @@ function EventRegistrationForm({
   const { submit, isSubmitting, isSuccess } = useApiForm({
     endpoint: "/api/events/register",
     form,
-    successTitle: "Registration received",
-    successDescription: "We will confirm your place by email.",
+    successTitle: "Quotation request received",
+    successDescription: "We will follow up with pricing and availability.",
   });
 
   if (isSuccess) {
     return (
       <FormSuccess
         className={className}
-        title="You're registered"
-        description="We have your details and will confirm your place by email shortly."
+        title="We have your quotation request"
+        description="We will review your group’s requirements and provide a quotation. Places are confirmed separately after approval and availability checks."
         nextSteps={[
-          "A confirmation email arrives within one working day.",
-          "Joining details follow one week before the event.",
-          "Airside events require identification documents in advance — we will ask.",
+          "We acknowledge your enquiry and check availability.",
+          "You receive pricing and arrangements for review before booking.",
+          "Any host access requirements are explained before attendance is confirmed.",
         ]}
         action={{ label: "See other events", href: routes.events }}
       />
@@ -124,12 +124,12 @@ function EventRegistrationForm({
           {isSubmitting ? (
             <>
               <Loader2 className="size-4 animate-spin" />
-              Registering
+              Sending request
             </>
           ) : (
             <>
               <Ticket className="size-4" />
-              Confirm registration
+              Get Quotation
             </>
           )}
         </Button>

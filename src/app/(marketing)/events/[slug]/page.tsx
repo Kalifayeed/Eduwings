@@ -88,7 +88,7 @@ export default async function EventDetailPage({ params }: PageProps) {
             venue: event.venue,
             locality: event.locality,
             isOnline: event.isOnline,
-            isFree: event.priceKes === null,
+            isFree: false,
           }),
         )}
       />
@@ -108,7 +108,7 @@ export default async function EventDetailPage({ params }: PageProps) {
                 ) : (
                   <Badge variant={availability.variant}>{availability.label}</Badge>
                 )}
-                {event.priceKes === null ? <Badge variant="success">Free</Badge> : null}
+                <Badge variant="secondary">Quotation required</Badge>
               </div>
 
               <h1 className="mt-6 font-display text-3xl leading-[1.08] font-bold tracking-tight sm:text-4xl lg:text-5xl">
@@ -206,7 +206,10 @@ export default async function EventDetailPage({ params }: PageProps) {
           </Reveal>
 
           <aside className="lg:sticky lg:top-32 lg:self-start">
-            <Reveal className="rounded-2xl border bg-card p-7 shadow-[var(--shadow-soft)]">
+            <Reveal
+              id="quotation"
+              className="scroll-mt-32 rounded-2xl border bg-card p-7 shadow-[var(--shadow-soft)]"
+            >
               {event.capacity ? (
                 <div className="mb-7">
                   <div className="flex items-baseline justify-between gap-3">
@@ -225,10 +228,11 @@ export default async function EventDetailPage({ params }: PageProps) {
                 <>
                   <h2 className="flex items-center gap-2 font-display text-lg font-semibold">
                     <Ticket aria-hidden className="size-5 text-primary" />
-                    Register
+                    Get Quotation
                   </h2>
                   <p className="mt-1.5 text-sm text-muted-foreground">
-                    Free. We will confirm your place by email.
+                    Request a quotation for your group. Fees and availability are confirmed before
+                    booking.
                   </p>
                   <EventRegistrationForm eventSlug={event.slug} className="mt-6" />
                 </>
@@ -244,7 +248,7 @@ export default async function EventDetailPage({ params }: PageProps) {
                   </p>
                   <div className="mt-6 grid gap-3">
                     <Button asChild>
-                      <Link href={routes.schools}>Request a school visit</Link>
+                      <Link href={routes.quotation}>Get Quotation</Link>
                     </Button>
                     <Button asChild variant="outline">
                       <Link href={isPast ? routes.gallery : routes.contact}>

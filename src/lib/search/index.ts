@@ -45,7 +45,8 @@ const PAGE_DOCUMENTS: SearchDocument[] = [
   {
     id: "page-program",
     title: "Our Programme",
-    description: "The eight-module aviation awareness curriculum in full.",
+    description:
+      "Primary & Junior and Secondary & Senior aviation modules, teaching times and field-trip arrangements.",
     href: routes.program,
     group: "Page",
     keywords: ["curriculum", "modules", "cbc", "syllabus", "learning outcomes"],
@@ -53,10 +54,31 @@ const PAGE_DOCUMENTS: SearchDocument[] = [
   {
     id: "page-schools",
     title: "For Schools",
-    description: "How to bring EduWings to your classroom, and what to expect.",
+    description:
+      "Get Quotation for school-based aviation modules and separately costed field trips.",
     href: routes.schools,
     group: "Page",
-    keywords: ["book", "request", "visit", "teacher", "head teacher", "timetable"],
+    keywords: [
+      "quotation",
+      "quote",
+      "fees",
+      "pricing",
+      "book",
+      "request",
+      "visit",
+      "teacher",
+      "head teacher",
+      "timetable",
+    ],
+  },
+  {
+    id: "page-visit",
+    title: "Aviation Field Trips",
+    description:
+      "Get Quotation for a field trip to an aviation facility with simulators after the modules.",
+    href: routes.visitQuotation,
+    group: "Page",
+    keywords: ["quotation", "simulator", "field trip", "facility", "transport"],
   },
   {
     id: "page-gallery",
@@ -77,7 +99,8 @@ const PAGE_DOCUMENTS: SearchDocument[] = [
   {
     id: "page-donate",
     title: "Donate",
-    description: "Fund a school visit, a simulator session or a full term.",
+    description:
+      "Contribute towards school modules, learning materials or field trips to simulator facilities.",
     href: routes.donate,
     group: "Page",
     keywords: ["give", "support", "sponsor", "contribute", "funding"],

@@ -11,7 +11,7 @@ export const metadata = buildMetadata({
   path: routes.terms,
 });
 
-const LAST_UPDATED = "1 August 2026";
+const LAST_UPDATED = "19 September 2026";
 
 const TERMS = `
 ## Using this site
@@ -34,11 +34,15 @@ Before committing money or years to a training route, verify the specifics with 
 
 ## The programme
 
-School visits are provided free of charge. We do not charge schools, students or parents, and we will never ask a school for payment as a condition of a visit.
+Services are provided on an individual quotation basis. Your quotation sets out the agreed modules, learner numbers, teaching schedule, fees and inclusions. Submitting an enquiry does not confirm a booking.
 
-We reserve the right to reschedule a visit where travel, weather, volunteer availability or safety require it. We will give as much notice as we can.
+School-based modules use teaching materials and classroom activities. After the modules, EduWings organises a separately quoted field trip to an aviation facility with simulators. Simulator demonstrations or hands-on sessions take place at the host facility and depend on its availability, age requirements, capacity and operating conditions.
 
-Schools remain responsible for supervision of their students throughout a visit. Our volunteers deliver sessions; they do not assume duty of care for students.
+Transport, facility access, simulator activities, meals and any other costs are included only where expressly listed in the quotation. Dates and arrangements are confirmed with the school and host facility before the visit.
+
+We reserve the right to reschedule a visit where travel, weather, facilitator or host-facility availability, or safety require it. We will give as much notice as we can.
+
+Schools remain responsible for supervision of their students throughout a visit. Our facilitators deliver sessions; they do not assume duty of care for students.
 
 ## Photography and media
 

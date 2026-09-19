@@ -23,7 +23,7 @@ const BREADCRUMBS = [
 export const metadata = buildMetadata({
   title: "Activities",
   description:
-    "Eight hands-on aviation activities for schools: build and test wings, fly a simulator approach, run an aircraft turnaround, plot a route without GPS, and map your own career pathway.",
+    "School-based aviation activities and an organised field trip to a simulator facility after the modules. Get Quotation for your school’s requirements.",
   path: routes.activities,
 });
 
@@ -35,12 +35,12 @@ export default function ActivitiesPage() {
       <PageHero
         eyebrow="What students actually do"
         title="Nobody remembers a slide."
-        description="Every EduWings session is hands-on. Students build things, break things, fly approaches, argue about weather, and fail an aircraft turnaround before getting it right. These are the eight activities we bring."
+        description="School-based activities explore flight, weather, airport operations and career pathways. After the modules, EduWings organises a separately quoted field trip to a facility with simulators; simulator activities take place at the host facility."
         breadcrumbs={BREADCRUMBS}
         actions={
           <Button asChild size="lg">
-            <Link href={routes.schools}>
-              Request these for your school
+            <Link href={routes.quotation}>
+              Get Quotation
               <ArrowRight className="size-4" />
             </Link>
           </Button>
@@ -66,7 +66,11 @@ export default function ActivitiesPage() {
                       alt={`Students taking part in ${activity.title}`}
                       seed={activity.slug}
                       motif={activity.motif}
-                      label={`${activity.durationMinutes} min`}
+                      label={
+                        activity.slug === "cockpit-experience"
+                          ? "Facility visit"
+                          : `${activity.durationMinutes} min`
+                      }
                       sizes="(min-width: 1024px) 34rem, 100vw"
                       className="size-full"
                     />
@@ -98,7 +102,9 @@ export default function ActivitiesPage() {
                   <div className="mt-7 flex flex-wrap gap-2">
                     <Badge variant="secondary">
                       <Clock className="size-3.5" aria-hidden />
-                      {activity.durationMinutes} minutes
+                      {activity.slug === "cockpit-experience"
+                        ? "Duration confirmed with host"
+                        : `${activity.durationMinutes} minutes`}
                     </Badge>
                     <Badge variant="secondary">
                       <Users className="size-3.5" aria-hidden />
@@ -117,8 +123,8 @@ export default function ActivitiesPage() {
         <CtaBand
           eyebrow="Pick any, or take the lot"
           title="Which of these would your students remember in a year?"
-          description="Tell us your year groups and how long you can give us. We will build the day around your timetable."
-          primary={{ label: "Request a school visit", href: routes.schools }}
+          description="Tell us your year groups and learning goals. We will quote for school-based activities and separately itemise the field trip after the modules."
+          primary={{ label: "Get Quotation", href: routes.quotation }}
           secondary={{ label: "See the full curriculum", href: routes.program }}
         />
       </Section>

@@ -18,7 +18,7 @@ const BREADCRUMBS = [
 export const metadata = buildMetadata({
   title: "Donate",
   description:
-    "KES 45,000 funds a full EduWings day for up to 300 students, materials included. See exactly what your gift buys.",
+    "Support access to aviation learning by contributing towards a school’s quoted programme, teaching materials or organised field trip.",
   path: routes.donate,
 });
 
@@ -26,31 +26,31 @@ export const metadata = buildMetadata({
 const IMPACT_TIERS = [
   {
     amount: 2500,
-    title: "Materials for one classroom",
-    body: "Wing-building kits, charts and career maps for a class of sixty. Consumed in a single session and left behind with the school.",
+    title: "Towards teaching materials",
+    body: "A contribution towards learning materials, charts and career resources for an agreed school programme.",
   },
   {
     amount: 12000,
-    title: "A simulator session",
-    body: "Transport, setup and running of the flight simulators for one school day — the activity students talk about for weeks afterwards.",
+    title: "Towards a simulator facility visit",
+    body: "A contribution towards the organised field trip after the modules. Simulator activities take place at the host facility, with access and charges confirmed in advance.",
   },
   {
     amount: 45000,
-    title: "A full school day",
-    body: "One complete EduWings visit for up to 300 students. Travel, materials, simulators and a working aviation professional, all included.",
+    title: "Towards a school programme",
+    body: "A contribution towards a school’s individually quoted teaching programme. The learner numbers, modules and delivery dates are agreed before support is allocated.",
   },
   {
     amount: 180000,
-    title: "A whole term upcountry",
-    body: "Four visits in counties where no student has previously met an aviation professional. This is the work that matters most and is hardest to fund.",
+    title: "Towards regional access",
+    body: "A contribution towards agreed teaching, travel and field-trip costs for schools beyond Nairobi. The final scope follows a programme quotation.",
   },
 ] as const;
 
 const ASSURANCES = [
   {
     icon: Banknote,
-    title: "No overheads taken first",
-    body: "Programme costs come out of core funding. Donations go to visits, materials and travel.",
+    title: "Support for agreed programme costs",
+    body: "We agree how your contribution will support teaching, materials, travel or facility visits.",
   },
   {
     icon: Receipt,
@@ -76,8 +76,8 @@ export default function DonatePage() {
 
       <PageHero
         eyebrow="Donate"
-        title="KES 45,000 puts three hundred students in front of an aircraft."
-        description="Every EduWings visit is free to the school. That only works because someone else pays for it. Here is exactly what your gift buys — no vague impact language, just the arithmetic."
+        title="Help more learners discover aviation."
+        description="EduWings services are individually quoted. Donations contribute towards agreed programme or field-trip costs for selected schools. We confirm the funded activities before allocating support."
         breadcrumbs={BREADCRUMBS}
       />
 
@@ -86,7 +86,8 @@ export default function DonatePage() {
         <div className="container-page">
           <SectionHeader
             eyebrow="What your gift funds"
-            title="Four amounts, four concrete outcomes."
+            title="Choose how you would like to contribute."
+            description="These are suggested donation amounts, not service prices or guarantees of a complete programme. We confirm the funded activities and learner numbers with you."
           />
 
           <RevealGroup as="ul" className="mt-14 grid gap-6 sm:grid-cols-2">

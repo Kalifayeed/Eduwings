@@ -43,8 +43,8 @@ export default async function GalleryPage() {
       <Section size="sm">
         <CtaBand
           title="The next set of photographs could be from your school."
-          description="We visit schools anywhere in Kenya, free of charge, and we always ask permission before publishing anything."
-          primary={{ label: "Request a school visit", href: routes.schools }}
+          description="Get Quotation for school-based modules and aviation field trips. We ask permission before publishing photographs of learners."
+          primary={{ label: "Get Quotation", href: routes.quotation }}
           secondary={{ label: "See upcoming events", href: routes.events }}
         />
       </Section>

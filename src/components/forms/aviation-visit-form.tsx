@@ -60,7 +60,7 @@ function AviationVisitForm({ className }: { className?: string }) {
   const { submit, isSubmitting, isSuccess, reset } = useApiForm({
     endpoint: "/api/visits",
     form,
-    successTitle: "Request received",
+    successTitle: "Quotation request received",
     successDescription: "We will be in touch within three working days.",
   });
 
@@ -68,12 +68,12 @@ function AviationVisitForm({ className }: { className?: string }) {
     return (
       <FormSuccess
         className={className}
-        title="We have your request"
-        description="Thank you. We will check availability with the destination and confirm directly with you — this is a request, not a confirmed booking."
+        title="We have your quotation request"
+        description="Thank you. We will check host availability and prepare a field-trip quotation. A quotation request does not confirm a booking or simulator access."
         nextSteps={[
           "We reply within three working days.",
-          "We confirm feasibility with the destination and propose a date.",
-          "You receive the final arrangements once everything is confirmed.",
+          "We confirm host availability, simulator activities and access requirements.",
+          "You review itemised fees before we confirm dates and arrangements with you and the host.",
         ]}
         action={{ label: "See the programme", href: routes.program }}
         onReset={reset}
@@ -225,13 +225,13 @@ function AviationVisitForm({ className }: { className?: string }) {
             name="notes"
             label="Anything we should know?"
             rows={4}
-            placeholder="Accessibility needs, a specific institution in mind, particular careers your students ask about…"
+            placeholder="Completed or planned modules, preferred facility, accessibility needs, school transport availability…"
           />
           <CheckboxField
             control={form.control}
             name="consent"
             label="I am authorised to make this request on behalf of the school."
-            description="We will only use these details to arrange the visit."
+            description="We will use these details to prepare your quotation and discuss the arrangements."
           />
         </fieldset>
 
@@ -246,7 +246,7 @@ function AviationVisitForm({ className }: { className?: string }) {
           ) : (
             <>
               <Plane className="size-4" />
-              Request this visit
+              Get Quotation
             </>
           )}
         </Button>

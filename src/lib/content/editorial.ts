@@ -184,16 +184,16 @@ export const activities: Activity[] = [
   {
     slug: "cockpit-experience",
     title: "Cockpit Experience",
-    tagline: "Take the controls. Fly the approach. Land it, or don't.",
-    body: "Using desktop flight simulators, students fly a short approach into Nairobi with a working pilot talking them through it. Almost every student lands badly the first time and brilliantly the third — which is precisely the lesson about training and repetition that we want them to take away.",
+    tagline: "Explore a simulator at an aviation training facility.",
+    body: "After the school-based modules, EduWings organises a field trip to an aviation facility with simulators. Learners can observe demonstrations or take part in supervised sessions where the host permits. Simulators are not brought to schools. Dates, access, activity duration and charges are confirmed in the field-trip quotation.",
     highlights: [
-      "Fly a simulated approach with a licensed pilot beside you",
-      "Learn the actual radio calls and use them",
+      "Observe a simulator demonstration or join a supervised session where available",
+      "Explore flight controls and aviation communication with the host’s instructors",
       "Understand instrument scan and why pilots trust instruments over instinct",
       "See a checklist used the way professionals use one",
     ],
     durationMinutes: 90,
-    groupSize: "Up to 30 students in rotation",
+    groupSize: "Group size and rotations confirmed with host",
     suitableFor: "Grade 7 – Form 4",
     icon: "PlaneTakeoff",
     motif: "instruments",
@@ -316,13 +316,19 @@ export const faqs: FaqItem[] = [
   {
     question: "What does an EduWings visit cost our school?",
     answer:
-      "Nothing. The programme is delivered free to schools and funded entirely by sponsors, donors and the volunteer professionals who give their time. Where a school can contribute toward travel we welcome it, but it is never a condition of a visit.",
+      "Get Quotation for your school’s requirements. Fees depend on the selected modules, school level, learner numbers, delivery schedule and location. Field-trip coordination, transport, facility access, simulator activities and meals are itemised separately where applicable. Only items expressly listed in the quotation are included.",
     audience: "Schools",
   },
   {
     question: "How long does a visit take, and what do we need to provide?",
     answer:
-      "A standard visit runs two to three hours and can be shaped around your timetable. We need a room that can hold the group, a power socket, and a wall or screen we can project onto. We bring everything else, including the simulators.",
+      "The complete Primary & Junior modules provide 4 hours 50 minutes of teaching; the Secondary & Senior modules provide 7 hours 20 minutes. We agree the number of school sessions in advance. Please provide a suitable room, power and a projection surface. The field trip takes place after the modules and has its own confirmed schedule.",
+    audience: "Schools",
+  },
+  {
+    question: "Do you bring flight simulators to schools?",
+    answer:
+      "EduWings does not bring simulators to schools. After the modules, we organise a separately quoted field trip to an aviation facility with simulators. Demonstrations or supervised hands-on sessions take place at the host facility, subject to its availability, age requirements, capacity and operating conditions.",
     audience: "Schools",
   },
   {
@@ -394,7 +400,7 @@ export const faqs: FaqItem[] = [
   {
     question: "I do not know the industry. How can I actually help?",
     answer:
-      "You do not need aviation knowledge to help — you need to ask your school to request a visit, sit with your child through the career pages on this site, and take their questions seriously rather than steering them toward what sounds safest to you. Most of what a student needs at this stage is exposure and a specific next step, both of which the programme provides.",
+      "You do not need aviation knowledge to help — you need to ask your school to request a quotation, sit with your child through the career pages on this site, and take their questions seriously rather than steering them toward what sounds safest to you. Most of what a student needs at this stage is exposure and a specific next step, both of which the programme provides.",
     audience: "Parents",
   },
   {
@@ -442,7 +448,7 @@ export const journeyStages: JourneyStage[] = [
   {
     stage: "Exposure",
     title: "Real environments, not slides",
-    body: "Students visit an airport, an airstrip or an aviation college and see the industry operating — the thing no classroom session can substitute for.",
+    body: "After the modules, EduWings organises a separately quoted field trip to an aviation facility with simulators. Access and activities are agreed with the host in advance.",
     icon: "MapPinned",
   },
   {

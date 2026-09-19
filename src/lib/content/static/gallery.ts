@@ -99,8 +99,8 @@ const seed = [
   },
   {
     id: "gal-09",
-    title: "Loading the simulators at 04:40",
-    caption: "Every upcountry visit starts in the dark.",
+    title: "Preparing teaching materials for a school visit",
+    caption: "The team prepares classroom resources before travelling to the school.",
     category: "Behind the Scenes",
     mediaType: "image",
     aspectRatio: "portrait",

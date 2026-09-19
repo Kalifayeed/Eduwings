@@ -47,8 +47,8 @@ export default function AboutPage() {
         actions={
           <>
             <Button asChild size="lg">
-              <Link href={routes.schools}>
-                Bring us to your school
+              <Link href={routes.quotation}>
+                Get Quotation
                 <ArrowRight className="size-4" />
               </Link>
             </Button>
@@ -244,7 +244,7 @@ export default function AboutPage() {
         <CtaBand
           title="We would rather be in a classroom than on a website."
           description="If you teach, lead a school, or work in aviation and can spare a few days a year — that is the whole ask."
-          primary={{ label: "Request a school visit", href: routes.schools }}
+          primary={{ label: "Get Quotation", href: routes.quotation }}
           secondary={{ label: "Volunteer with us", href: routes.volunteer }}
         />
       </Section>

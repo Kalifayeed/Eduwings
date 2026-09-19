@@ -29,20 +29,20 @@ const SCHOOL_FAQS = faqs.filter((faq) => faq.audience === "Schools");
 export const metadata = buildMetadata({
   title: "For Schools",
   description:
-    "Bring EduWings to your classroom, anywhere in Kenya, at no cost. Two to three hours, mapped to CBC learning outcomes, delivered by working aviation professionals.",
+    "Get Quotation for EduWings aviation modules at your school and an organised field trip to a simulator facility after the modules. Fees depend on your group, location and programme.",
   path: routes.schools,
 });
 
 const REQUIREMENTS = [
   {
     icon: Clock,
-    title: "Two to three hours",
-    body: "Shaped around your timetable. Individual modules fit a single lesson period.",
+    title: "A timetable for your modules",
+    body: "Module times vary by school level. We agree the number of sessions, teaching dates and field-trip schedule in your quotation.",
   },
   {
     icon: Users,
     title: "Grade 4 to Form 4",
-    body: "We adjust depth rather than swapping content — the physics is the same, the conversation is not.",
+    body: "Choose the Primary & Junior or Secondary & Senior modules, with teaching times appropriate to each level.",
   },
   {
     icon: MapPin,
@@ -52,7 +52,7 @@ const REQUIREMENTS = [
   {
     icon: SchoolIcon,
     title: "A room, a socket, a wall",
-    body: "That is genuinely all we need. We bring the simulators, the materials and the people.",
+    body: "We bring facilitators and teaching materials. Simulator visits take place at an aviation facility during the field trip after the modules.",
   },
 ];
 
@@ -73,8 +73,8 @@ export default async function SchoolsPage() {
 
       <PageHero
         eyebrow="For schools"
-        title="We will come to you. It costs your school nothing."
-        description="EduWings is funded by sponsors and delivered by volunteer aviation professionals. There is no fee, no minimum size, and no requirement to be near an airport — the schools furthest from one are the schools we most want to reach."
+        title="Aviation learning planned for your school."
+        description="Get Quotation for school-based modules, career guidance and an organised field trip after the modules. Your quotation sets out the teaching fees, schedule, group size and any transport or host-facility charges before you book."
         breadcrumbs={BREADCRUMBS}
         aside={
           <dl className="grid gap-px overflow-hidden rounded-2xl border bg-border bg-card shadow-[var(--shadow-soft)] sm:grid-cols-3 lg:grid-cols-1">
@@ -96,7 +96,11 @@ export default async function SchoolsPage() {
               <dt className="text-xs tracking-wide text-muted-foreground uppercase">
                 Cost to schools
               </dt>
-              <dd className="mt-1 font-display text-2xl font-bold text-primary">Free</dd>
+              <dd className="mt-1 font-display text-2xl font-bold text-primary">
+                <a href={routes.quotation} className="hover:underline">
+                  Get Quotation
+                </a>
+              </dd>
             </div>
           </dl>
         }
@@ -121,7 +125,10 @@ export default async function SchoolsPage() {
       <Section tone="surface">
         <div className="container-page grid gap-14 lg:grid-cols-[1fr_1.2fr]">
           <div>
-            <SectionHeader eyebrow="How it works" title="Four steps, and three of them are ours." />
+            <SectionHeader
+              eyebrow="How it works"
+              title="From quotation to classroom learning and a field trip."
+            />
 
             <RevealGroup as="ol" className="relative mt-10">
               <span
@@ -135,15 +142,15 @@ export default async function SchoolsPage() {
                 },
                 {
                   title: "We reply within three working days",
-                  body: "We confirm we can reach you and propose dates that fit your term.",
+                  body: "We discuss your group, modules and dates, then prepare an itemised quotation.",
                 },
                 {
-                  title: "You receive the curriculum mapping",
-                  body: "So your teachers can align the visit with what they are already covering.",
+                  title: "You approve the programme and quotation",
+                  body: "We agree the teaching schedule, fees and arrangements, then provide the curriculum mapping for your teachers.",
                 },
                 {
-                  title: "We arrive and set up",
-                  body: "Simulators, materials, and a working pilot, engineer or controller.",
+                  title: "Modules at school, then a field trip",
+                  body: "Our facilitators deliver the school-based modules. Afterwards, EduWings organises the separately quoted visit to a facility with simulators, subject to host approval and availability.",
                 },
               ].map((step) => (
                 <RevealItem as="li" key={step.title} className="relative pb-8 pl-10 last:pb-0">
@@ -159,9 +166,9 @@ export default async function SchoolsPage() {
 
             <Reveal className="mt-10 rounded-2xl border bg-card p-5">
               <p className="text-sm leading-relaxed text-muted-foreground">
-                Would you rather take your students to an airport, airstrip or aviation college?{" "}
-                <a href={routes.visit} className="font-medium text-primary underline">
-                  Plan an aviation visit →
+                Planning the field trip after your modules?{" "}
+                <a href={routes.visitQuotation} className="font-medium text-primary underline">
+                  Get Quotation for the field trip →
                 </a>
               </p>
             </Reveal>
@@ -171,9 +178,10 @@ export default async function SchoolsPage() {
             id="request"
             className="scroll-mt-32 rounded-3xl border bg-card p-7 shadow-[var(--shadow-lift)] sm:p-10"
           >
-            <h2 className="font-display text-2xl font-bold tracking-tight">Request a visit</h2>
+            <h2 className="font-display text-2xl font-bold tracking-tight">Get Quotation</h2>
             <p className="mt-2.5 leading-relaxed text-muted-foreground">
-              Everything below takes about five minutes. There is no cost and no obligation.
+              Tell us your requirements so we can prepare a quotation. Submitting this form does not
+              confirm a booking.
             </p>
             <SchoolRequestForm className="mt-8" />
           </Reveal>

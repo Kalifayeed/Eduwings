@@ -138,9 +138,9 @@ export default function ForParentsPage() {
 
       <Section size="sm">
         <CtaBand
-          title="Ask your child's school to request a visit."
-          description="It costs the school nothing, and it is the fastest way for your child to meet someone who actually does the job."
-          primary={{ label: "Request a school visit", href: routes.schools }}
+          title="Ask your child’s school to request a quotation."
+          description="Ask your school to Get Quotation for aviation modules, career guidance and an organised field trip after the modules."
+          primary={{ label: "Get Quotation", href: routes.quotation }}
           secondary={{ label: "Explore all careers", href: routes.careers }}
         />
       </Section>

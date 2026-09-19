@@ -27,7 +27,7 @@ const WAYS_TO_HELP = [
   {
     icon: DoorOpen,
     title: "Open your facility",
-    body: "A hangar, a control tower, an operations centre. Thirty minutes standing inside one of these is worth any number of slide decks, and it costs you almost nothing.",
+    body: "Help learners experience a hangar, control tower or operations centre. We agree access, supervision, scheduling and any host charges before arranging a field trip.",
   },
   {
     icon: Users,

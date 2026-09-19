@@ -134,7 +134,7 @@ export function eventSchema(input: EventSchemaInput): Json {
           },
         },
     organizer: { "@id": ORGANISATION_ID },
-    isAccessibleForFree: input.isFree ?? true,
+    isAccessibleForFree: input.isFree ?? false,
   };
 }
 

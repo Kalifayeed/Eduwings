@@ -50,8 +50,8 @@ function Hero() {
           <Reveal delay={0.24}>
             <div className="mt-10 flex flex-col gap-3 sm:flex-row">
               <Button asChild size="xl" variant="accent">
-                <Link href={routes.schools}>
-                  Bring EduWings to your school
+                <Link href={routes.quotation}>
+                  Get Quotation
                   <ArrowRight className="size-5" />
                 </Link>
               </Button>

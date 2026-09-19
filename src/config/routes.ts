@@ -14,6 +14,8 @@ export const routes = {
   careers: "/careers",
   career: (slug: string) => `/careers/${slug}`,
   schools: "/schools",
+  quotation: "/schools#request",
+  visitQuotation: "/visit#request",
   visit: "/visit",
   courses: "/courses",
   course: (slug: string) => `/courses/${slug}`,

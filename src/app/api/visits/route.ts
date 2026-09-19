@@ -7,16 +7,17 @@ import { aviationVisitSchema } from "@/lib/validation/schemas";
 export const POST = createFormRoute({
   schema: aviationVisitSchema,
   scope: "visits",
-  successMessage: "Request received — we will be in touch within three working days.",
+  successMessage: "Quotation request received — we will be in touch within three working days.",
   handle: async (data) => {
     await storeSubmission({
       kind: "aviation-visit",
       name: data.contactName,
       email: data.email,
       phone: data.phone,
-      subject: `Aviation visit request — ${data.schoolName} (${data.destinationType})`,
+      subject: `Field-trip quotation request — ${data.schoolName} (${data.destinationType})`,
       message: data.notes ?? null,
       payload: {
+        requestType: "quotation",
         schoolName: data.schoolName,
         schoolType: data.schoolType,
         level: data.level,
@@ -34,7 +35,7 @@ export const POST = createFormRoute({
 
     await Promise.all([
       notifyTeam({
-        subject: `Aviation visit request — ${data.schoolName} (${data.county})`,
+        subject: `Field-trip quotation request — ${data.schoolName} (${data.county})`,
         heading: `${data.schoolName} wants to visit a ${data.destinationType.toLowerCase()}`,
         replyTo: data.email,
         fields: {
@@ -57,12 +58,12 @@ export const POST = createFormRoute({
       }),
       acknowledge({
         to: data.email,
-        subject: `We have your visit request — ${siteConfig.name}`,
+        subject: `We have your field-trip quotation request — ${siteConfig.name}`,
         heading: `Thank you, ${data.contactName.split(" ")[0]}`,
         paragraphs: [
           `We have received your request for ${data.schoolName} to visit a ${data.destinationType.toLowerCase()} and will reply within three working days.`,
-          "We will check availability with the destination, confirm the group size works, and agree a date directly with you.",
-          "This is a request, not a confirmed booking — we will only confirm once we have heard back from the destination.",
+          "We will check host availability, the group size, access requirements and any simulator activities, then prepare an itemised quotation.",
+          "Field-trip coordination, transport, facility access, simulator activities and meals are included only where listed in the quotation. A booking is confirmed separately after your approval and host confirmation.",
           "— The EduWings team",
         ],
       }),

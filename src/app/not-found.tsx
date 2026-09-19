@@ -13,8 +13,12 @@ export const metadata: Metadata = {
 
 const SUGGESTIONS = [
   { label: "Aviation careers", href: routes.careers, hint: "Fourteen pathways, fully mapped" },
-  { label: "Our programme", href: routes.program, hint: "The eight-module curriculum" },
-  { label: "For schools", href: routes.schools, hint: "Request a free visit" },
+  {
+    label: "Our programme",
+    href: routes.program,
+    hint: "Modules for Primary & Junior and Secondary & Senior learners",
+  },
+  { label: "For schools", href: routes.quotation, hint: "Get Quotation for your school" },
   { label: "News & articles", href: routes.news, hint: "Field notes from the classroom" },
 ];
 

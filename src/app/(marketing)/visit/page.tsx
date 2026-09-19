@@ -18,7 +18,7 @@ const BREADCRUMBS = [
 export const metadata = buildMetadata({
   title: "Plan an Aviation Learning Visit",
   description:
-    "Take your students to an airport, airstrip or aviation college. Submit a request and EduWings checks feasibility, group size and dates with the destination on your behalf.",
+    "Get Quotation for an organised aviation field trip after your modules. Visits to simulator facilities are subject to host availability, access requirements and agreed costs.",
   path: routes.visit,
 });
 
@@ -41,7 +41,7 @@ const REQUIREMENTS = [
   {
     icon: Building2,
     title: "This is a request, not a booking",
-    body: "We check feasibility with the destination first, then confirm arrangements directly with you.",
+    body: "We check host availability and prepare an itemised quotation before any booking is confirmed.",
   },
 ];
 
@@ -53,7 +53,7 @@ export default function VisitPage() {
       <PageHero
         eyebrow="Aviation visits"
         title="See it in person. We will help you get there."
-        description="EduWings can arrange a visit to an airport, airstrip or aviation college so your students experience the industry directly — not just hear about it in a classroom."
+        description="After the school-based modules, EduWings organises a field trip to an aviation facility with simulators. Simulator demonstrations or hands-on sessions take place at the host facility, subject to availability, age requirements and capacity. The field trip is quoted separately from classroom teaching."
         breadcrumbs={BREADCRUMBS}
       />
 
@@ -93,15 +93,15 @@ export default function VisitPage() {
                 },
                 {
                   title: "We reply within three working days",
-                  body: "We confirm we have received your request and start checking feasibility.",
+                  body: "We acknowledge your quotation request and check the host’s availability, access conditions and charges.",
                 },
                 {
                   title: "We match you to a destination",
                   body: "If you are not sure where to go, we recommend one that fits your group and goals.",
                 },
                 {
-                  title: "We confirm the arrangements",
-                  body: "Date, time and any preparation your teachers need, once the destination confirms.",
+                  title: "You approve the quotation and arrangements",
+                  body: "We itemise coordination, transport, facility access and other agreed costs. Dates and simulator activities are confirmed only after your approval and the host’s confirmation.",
                 },
               ].map((step) => (
                 <RevealItem as="li" key={step.title} className="relative pb-8 pl-10 last:pb-0">
@@ -117,9 +117,9 @@ export default function VisitPage() {
 
             <Reveal className="mt-10 rounded-2xl border bg-card p-5">
               <p className="text-sm leading-relaxed text-muted-foreground">
-                Prefer EduWings to come to you instead?{" "}
-                <a href={routes.schools} className="font-medium text-primary underline">
-                  Request a school visit →
+                Need a quotation for the school-based modules as well?{" "}
+                <a href={routes.quotation} className="font-medium text-primary underline">
+                  Get Quotation for school modules →
                 </a>
               </p>
             </Reveal>
@@ -129,10 +129,11 @@ export default function VisitPage() {
             id="request"
             className="scroll-mt-32 rounded-3xl border bg-card p-7 shadow-[var(--shadow-lift)] sm:p-10"
           >
-            <h2 className="font-display text-2xl font-bold tracking-tight">Request a visit</h2>
+            <h2 className="font-display text-2xl font-bold tracking-tight">Get Quotation</h2>
             <p className="mt-2.5 leading-relaxed text-muted-foreground">
-              Everything below takes about five minutes. This is a request, not a confirmed
-              booking.
+              Tell us your group size, completed or planned modules, and preferred dates. Your
+              quotation will identify transport, facility charges, meals and any other inclusions. A
+              request is not a confirmed booking.
             </p>
             <AviationVisitForm className="mt-8" />
           </Reveal>
@@ -147,11 +148,11 @@ export default function VisitPage() {
       </Reveal>
 
       <CtaBand
-        eyebrow="Not ready to request a visit?"
+        eyebrow="Plan your programme"
         title="Explore what your students could discover first."
         description="Fourteen real aviation careers, mapped from school subject to salary — a good place to start the conversation."
         primary={{ label: "Explore aviation careers", href: routes.careers }}
-        secondary={{ label: "Bring EduWings to your school instead", href: routes.schools }}
+        secondary={{ label: "Get Quotation", href: routes.quotation }}
       />
     </>
   );

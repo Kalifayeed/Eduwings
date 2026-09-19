@@ -203,8 +203,8 @@ export default async function ArticlePage({ params }: PageProps) {
       <Section size="sm">
         <CtaBand
           title="Reading about it is not the same as being in the room."
-          description="We deliver this in classrooms across Kenya, free to schools."
-          primary={{ label: "Request a school visit", href: routes.schools }}
+          description="Get Quotation for aviation learning at your school and an organised field trip after the modules."
+          primary={{ label: "Get Quotation", href: routes.quotation }}
           secondary={{ label: "Explore the careers", href: routes.careers }}
         />
       </Section>
