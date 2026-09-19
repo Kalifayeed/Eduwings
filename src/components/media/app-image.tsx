@@ -26,6 +26,8 @@ export interface AppImageProps {
   priority?: boolean;
   /** Responsive hint for next/image. Defaults to a sensible card width. */
   sizes?: string;
+  /** Optimized image quality; must be allowed in next.config.ts. */
+  quality?: number;
   /** Applied to the `<img>` itself rather than the wrapper. */
   imageClassName?: string;
 }
@@ -48,6 +50,7 @@ function AppImage({
   priority = false,
   sizes = "(min-width: 1280px) 30rem, (min-width: 768px) 45vw, 100vw",
   imageClassName,
+  quality = 75,
 }: AppImageProps) {
   if (!src) {
     return (
@@ -65,6 +68,7 @@ function AppImage({
         alt={alt}
         fill
         sizes={sizes}
+        quality={quality}
         priority={priority}
         className={cn("object-cover", imageClassName)}
       />

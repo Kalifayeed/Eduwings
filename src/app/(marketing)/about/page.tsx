@@ -88,16 +88,17 @@ export default function AboutPage() {
       {/* ── Founder ─────────────────────────────────────────────────────── */}
       <Section tone="surface">
         <div className="container-page grid gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
-          <Reveal>
-            <div className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-[var(--shadow-float)]">
+          <Reveal className="mx-auto w-full max-w-[35rem] lg:max-w-none">
+            <div className="relative aspect-[1123/1401] overflow-hidden rounded-3xl shadow-[var(--shadow-float)]">
               <AppImage
-                src={null}
+                src={siteConfig.founder.image}
                 alt={`${siteConfig.founder.name}, ${siteConfig.founder.role}`}
                 seed="founder-portrait"
                 motif="students"
                 tone="gold"
                 label="Founder"
-                sizes="(min-width: 1024px) 28rem, 100vw"
+                sizes="(min-width: 1440px) 548px, (min-width: 1024px) calc(42.5vw - 64.6px), (min-width: 600px) 560px, calc(100vw - 40px)"
+                quality={90}
                 className="size-full"
               />
             </div>

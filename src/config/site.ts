@@ -22,6 +22,7 @@ export const siteConfig = {
 
   founder: {
     name: "Meldah Magova",
+    image: "/images/meldah-magova-founder-22397d33c69a.jpg",
     role: "Founder — EduWings",
     phone: "0799577753",
     /** E.164, for `tel:` links and structured data. Kenya country code +254. */
