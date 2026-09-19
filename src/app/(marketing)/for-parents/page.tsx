@@ -42,7 +42,7 @@ const WHAT_WE_DO = [
   {
     icon: Route,
     title: "We make ambition concrete",
-    body: "Every career page states the exact pathway from school subject to first salary, so 'I want to work in aviation' becomes a specific, actionable next step.",
+    body: "Each career catalogue explains study routes, entry requirements and qualifications so learners can identify a practical next step.",
   },
   {
     icon: HeartHandshake,
@@ -113,7 +113,7 @@ export default function ForParentsPage() {
           <SectionHeader
             eyebrow="Career pathways at a glance"
             title="A starting point — the full pathway is on every career page."
-            description="Subjects, entry requirements and indicative salary bands, mapped end to end."
+            description="Subjects, course content, entry requirements and career opportunities."
           />
 
           <RevealGroup as="ul" className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

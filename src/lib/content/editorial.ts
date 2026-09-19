@@ -38,7 +38,7 @@ export const impactStatistics: Statistic[] = [
   {
     value: 14,
     label: "Career pathways mapped",
-    detail: "Every one documented from school subject to first salary.",
+    detail: "Each one connects school subjects with courses and career opportunities.",
     icon: "Route",
   },
   {
@@ -358,7 +358,7 @@ export const faqs: FaqItem[] = [
   {
     question: "Is aviation training affordable?",
     answer:
-      "Some routes are expensive and we will not pretend otherwise — a commercial pilot licence is a major investment. But a remote pilot licence takes weeks, ground handling certification is inexpensive, and an aircraft maintenance diploma costs less than many university degrees while leading to a globally portable licence. Cost varies enormously by pathway.",
+      "Professional training requirements differ by pathway and institution. Explore the relevant career catalogue, then contact the named provider for current admission information and a full breakdown of its requirements. EduWings can help learners understand their options through school awareness and guidance.",
     audience: "Students",
   },
   {
@@ -368,9 +368,9 @@ export const faqs: FaqItem[] = [
     audience: "Students",
   },
   {
-    question: "Are the salary figures on this site reliable?",
+    question: "Does EduWings offer professional aviation courses?",
     answer:
-      "They are indicative gross monthly ranges for the Kenyan market, gathered from industry contacts and published scales, and they move. Treat them as a guide to relative scale rather than a quotation. Allowances — particularly for crew and shift roles — can form a large share of actual take-home pay.",
+      "EduWings provides aviation awareness training, mentorship and career guidance for school learners. Professional courses and qualifications are offered by independent institutions. Our career catalogues explain the study routes and link to official course and licensing information.",
     audience: "Parents",
   },
   {

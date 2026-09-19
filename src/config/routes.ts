@@ -14,6 +14,8 @@ export const routes = {
   careers: "/careers",
   career: (slug: string) => `/careers/${slug}`,
   schools: "/schools",
+  fees: "/schools#fees",
+  photoCredits: "/photo-credits",
   quotation: "/schools#request",
   visitQuotation: "/visit#request",
   visit: "/visit",

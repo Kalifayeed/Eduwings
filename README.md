@@ -89,15 +89,17 @@ Every public endpoint is built by `createFormRoute()`, which applies same-origin
 limiting, honeypot rejection and validation in a fixed order — so a new form cannot ship without
 them.
 
-### 6. Placeholder art is designed, not borrowed
+### 6. Photography and fallback art
 
-No photography exists yet, and stock URLs would put an external host in the critical rendering path.
-Every image slot renders through `AppImage`. With no `src`, it draws a deterministic on-brand SVG
-scene — sky gradient, cloud banding, flight-path arc, subject glyph — which costs no network request
-and themes correctly.
+The founder portrait and fourteen career photographs are served locally through `AppImage`.
+Career images are licensed stock illustrations of the relevant work, not EduWings staff or visits.
+`src/lib/content/career-photos.ts` supplies images and attribution; `/photo-credits` publishes the
+source, author, licence and changes. Original source metadata is kept in
+`docs/content/career-photo-sources.json`. Preserve attribution and share-alike terms when replacing
+or adapting an image.
 
-**Replacing placeholders with real photography is a data change, not a code change:** upload in the
-media library, paste the URL into the record's image field. No component is touched.
+Other content without a photograph retains the deterministic on-brand SVG fallback. CMS image
+fields can replace those placeholders with photographs of the actual activity or event.
 
 ---
 
@@ -262,10 +264,16 @@ The architecture anticipates these without pre-building them:
 
 ## Content and accuracy
 
-Career salary figures are indicative gross monthly ranges for the Kenyan market and move with it.
-Entry requirements change, and institutions and the KCAA revise them. Every career page says so, and
-`/terms` states it in full. **If something here is out of date, correcting it matters more than
-almost anything else in this repository** — students make real decisions on it.
+Career catalogues describe independent Kenyan study routes, entry requirements, qualifications,
+licensing and employment opportunities. They link to official provider and KCAA sources and show a
+review date; no salary or professional-course pricing is published. EduWings provides school
+awareness and guidance, not professional aviation qualifications. Recheck official sources before
+changing admissions or licensing claims.
+
+Published EduWings service fees live in `src/lib/content/service-fees.ts`. These are separate from
+institutional course fees. Per-learner totals are subject to the stated minimum charge; external
+field-trip costs are quoted separately. Simulator activities take place at host facilities after
+the school modules, subject to facility conditions.
 
 Partner and sponsor records in the seed data are illustrative placeholders. Never present one as a
 real relationship; replace them through the CMS before launch.

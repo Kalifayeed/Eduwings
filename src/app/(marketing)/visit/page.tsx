@@ -1,3 +1,4 @@
+import { ServicePricing } from "@/components/marketing/service-pricing";
 import { Building2, CheckCircle2, MapPin, Plane, Users } from "lucide-react";
 
 import { routes } from "@/config/routes";
@@ -58,6 +59,8 @@ export default function VisitPage() {
       />
 
       {/* ── What is required ────────────────────────────────────────────── */}
+      <ServicePricing tripOnly />
+
       <Section size="sm">
         <div className="container-page">
           <RevealGroup as="ul" className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -150,7 +153,7 @@ export default function VisitPage() {
       <CtaBand
         eyebrow="Plan your programme"
         title="Explore what your students could discover first."
-        description="Fourteen real aviation careers, mapped from school subject to salary — a good place to start the conversation."
+        description="Explore fourteen aviation career catalogues, with study routes, qualifications and opportunities."
         primary={{ label: "Explore aviation careers", href: routes.careers }}
         secondary={{ label: "Get Quotation", href: routes.quotation }}
       />

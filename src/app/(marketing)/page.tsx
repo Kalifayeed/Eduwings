@@ -234,7 +234,7 @@ export default async function HomePage() {
         <div className="container-page">
           <SectionHeader
             eyebrow="Fourteen pathways"
-            title="Every career mapped from school subject to first salary."
+            title="Explore the courses and careers behind every flight."
             description="Not inspiration — instructions. Each pathway states the subjects, the grades, the licence, the institution and the realistic pay."
           >
             <Button asChild variant="outline" size="lg">

@@ -18,13 +18,13 @@ import { CareerFilter } from "@/app/(marketing)/careers/career-filter";
 
 const BREADCRUMBS = [
   { label: "Home", href: routes.home },
-  { label: "Aviation Careers", href: routes.careers },
+  { label: "Aviation Courses & Careers", href: routes.careers },
 ];
 
 export const metadata = buildMetadata({
-  title: "Aviation Careers",
+  title: "Aviation Courses & Careers",
   description:
-    "Fourteen aviation careers mapped end to end for Kenyan students — the subjects, the grades, the licence, the institution and the realistic salary for each one.",
+    "Explore aviation courses and careers in Kenya: what you study, entry requirements, qualifications and opportunities. EduWings provides school awareness and guidance.",
   path: routes.careers,
   keywords: [
     "aviation careers Kenya",
@@ -42,8 +42,8 @@ export default function CareersPage() {
 
       <PageHero
         eyebrow="Fourteen pathways"
-        title="Every aviation career, mapped from your desk to your first payslip."
-        description="Most students can name two aviation jobs. Here are fourteen — each with the subjects you need, the grades that gate it, the licence it requires, where to train, and what it actually pays in Kenya."
+        title="Explore aviation courses and careers in Kenya."
+        description="Discover fourteen career paths and the courses that can lead to them. EduWings offers aviation awareness training and guidance for school learners; professional aviation courses are delivered by independent training institutions."
         breadcrumbs={BREADCRUMBS}
         aside={
           <ul className="grid gap-3">
@@ -69,12 +69,14 @@ export default function CareersPage() {
           <Reveal className="mt-16">
             <Alert variant="info" className="mx-auto max-w-3xl">
               <Info aria-hidden />
-              <AlertTitle>About the salary figures</AlertTitle>
+              <AlertTitle>Awareness now. Informed choices for the future.</AlertTitle>
               <AlertDescription>
-                These are indicative gross monthly ranges for the Kenyan market, gathered from
-                industry contacts and published scales. They move, and allowances — especially for
-                crew and shift roles — can form a large share of actual take-home pay. Treat them as
-                a guide to relative scale rather than a quotation.
+                Explore each catalogue for course content, institution-specific entry requirements,
+                qualifications and career opportunities. EduWings does not enrol learners in, teach
+                or award the professional aviation qualifications described here.
+                <Link href={routes.photoCredits} className="mt-3 block text-primary underline">
+                  Stock photography credits
+                </Link>
               </AlertDescription>
             </Alert>
           </Reveal>
@@ -104,7 +106,7 @@ export default function CareersPage() {
       <Section size="sm">
         <CtaBand
           title="Bring these fourteen careers into your classroom."
-          description="We deliver every pathway in person, with someone who does the job standing at the front."
+          description="Our school awareness modules and career guidance help learners understand these pathways and plan their next steps."
           primary={{ label: "Get Quotation", href: routes.quotation }}
           secondary={{ label: "See the programme", href: routes.program }}
         />

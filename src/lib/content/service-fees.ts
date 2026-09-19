@@ -1,0 +1,60 @@
+/** Published EduWings awareness-service rates approved by the founder. */
+export const serviceFees = [
+  {
+    id: "talk",
+    title: "Aviation awareness or career talk",
+    duration: "45–60 minutes · up to 60 learners",
+    rate: "KES 15,000–25,000 per group",
+    minimum: "Group rate",
+    scope: "Speaker and format agreed in the quotation.",
+  },
+  {
+    id: "module",
+    title: "Standalone module or practical workshop",
+    duration: "40–60 minutes",
+    rate: "KES 500–700 per learner",
+    minimum: "KES 10,000 per delivery",
+    scope: "Facilitation and basic classroom materials.",
+  },
+  {
+    id: "extended",
+    title: "Extended module",
+    duration: "70–80 minutes",
+    rate: "KES 750–1,000 per learner",
+    minimum: "KES 15,000 per delivery",
+    scope: "Facilitation and basic classroom materials.",
+  },
+  {
+    id: "career",
+    title: "Senior Career Pathways",
+    duration: "2 hours 30 minutes",
+    rate: "KES 1,200–1,500 per learner",
+    minimum: "KES 20,000 per delivery",
+    scope: "Focused career exploration and guidance.",
+  },
+  {
+    id: "primary",
+    title: "Complete Primary & Junior programme",
+    duration: "7 modules · 4 hours 50 minutes",
+    rate: "KES 2,000–2,500 per learner",
+    minimum: "KES 30,000 per cohort",
+    scope: "Normally grouped into two school visits.",
+  },
+  {
+    id: "secondary",
+    title: "Complete Secondary & Senior programme",
+    duration: "5 modules · 7 hours 20 minutes",
+    rate: "KES 3,000–3,500 per learner",
+    minimum: "KES 45,000 per cohort",
+    scope: "Normally grouped into three school visits.",
+  },
+  {
+    id: "trip",
+    title: "Field-trip planning and coordination",
+    duration: "After the school-based modules",
+    rate: "KES 500–750 per learner",
+    minimum: "KES 10,000 per trip",
+    scope:
+      "Planning, host liaison, briefing and agreed on-the-day coordination. External costs are separate.",
+  },
+] as const;

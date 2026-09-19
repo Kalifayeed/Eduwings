@@ -51,7 +51,7 @@ export default async function CoursesPage({ searchParams }: PageProps) {
       <PageHero
         eyebrow="Where to train"
         title="Real institutions, checked against KCAA's own approved list."
-        description="Every entry here is cross-checked against KCAA's published Approved Training Organizations list and the institution's own official site. This is a starting point, not the complete list — it grows as we verify more institutions."
+        description="Every entry here is cross-checked against KCAA's published Approved Training Organizations list and the institution's own official site. EduWings offers school awareness and guidance, not these professional courses. Explore our career catalogues for subjects, requirements and career opportunities."
         breadcrumbs={BREADCRUMBS}
       />
 

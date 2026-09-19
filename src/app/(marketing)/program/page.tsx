@@ -1,3 +1,4 @@
+import { ServicePricing } from "@/components/marketing/service-pricing";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Clock, GraduationCap } from "lucide-react";
 
@@ -99,6 +100,8 @@ export default async function ProgramPage() {
       />
 
       {/* ── How it is delivered ─────────────────────────────────────────── */}
+      <ServicePricing />
+
       <Section size="sm">
         <div className="container-page">
           <RevealGroup as="ul" className="grid gap-6 md:grid-cols-3">

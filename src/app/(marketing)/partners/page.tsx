@@ -37,7 +37,7 @@ const WAYS_TO_HELP = [
   {
     icon: Building2,
     title: "Verify what we publish",
-    body: "Our career pathways state real entry requirements, real licences and real salary bands. Institutions and regulators who check them keep this site accurate.",
+    body: "Our career catalogues link to official course and licensing sources. Institutions and regulators can help us keep this guidance accurate.",
   },
 ];
 

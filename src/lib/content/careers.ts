@@ -1,18 +1,5 @@
-/**
- * Aviation career catalogue.
- *
- * This is editorial reference content rather than CMS data: it changes rarely,
- * must be identical for every visitor, and benefits from being fully statically
- * rendered and type-checked. Keeping it in the repository means each career page
- * is generated at build time with no database round-trip.
- *
- * Salary bands are gross monthly KES figures for the Kenyan market, expressed as
- * ranges from entry level to experienced. They are indicative guidance for
- * students, not offers, and every career page says so.
- */
-
+/** Source-linked career and course guidance. EduWings does not award these qualifications. */
 import type { ArtMotif } from "@/components/media/placeholder-art";
-
 export const CAREER_DISCIPLINES = [
   {
     id: "flight-operations",
@@ -38,61 +25,39 @@ export const CAREER_DISCIPLINES = [
 
 export type CareerDisciplineId = (typeof CAREER_DISCIPLINES)[number]["id"];
 
-export interface SalaryBand {
-  /** Gross monthly KES. */
-  entry: number;
-  experienced: number;
-  note?: string;
+export interface TrainingRoute {
+  title: string;
+  institution: string;
+  url: string;
+  entryRequirements: string[];
+  qualification: string;
+  duration: string;
 }
-
-export interface CareerPathwayStep {
-  stage: string;
-  detail: string;
-}
-
 export interface Career {
   slug: string;
   title: string;
   discipline: CareerDisciplineId;
-  /** One sentence a 12-year-old will understand and remember. */
   hook: string;
   summary: string;
-  /** Markdown. The long-form "what this job actually is" section. */
   overview: string;
-  dayInTheLife: string[];
   skills: string[];
   subjects: string[];
-  pathway: CareerPathwayStep[];
-  salary: SalaryBand | null;
+  studyTopics: string[];
+  trainingRoutes: TrainingRoute[];
+  requirements: string[];
+  opportunities: string[];
   growth: string;
-  /** Realistic outlook note — demand, competition, where the jobs are. */
-  outlook: string;
+  sources: { label: string; url: string }[];
   motif: ArtMotif;
-  /** Lucide icon name resolved by `resolveIcon`. */
   icon: string;
   featured: boolean;
 }
-
+export const CAREER_REVIEWED_ON = "19 September 2026";
 export const careers: Career[] = [
   {
     slug: "pilot",
     title: "Pilot",
     discipline: "flight-operations",
-    hook: "You are responsible for the aircraft, everyone in it, and every decision from pushback to parking brake.",
-    summary:
-      "Commercial pilots operate aircraft for airlines, cargo carriers, charter operators and humanitarian missions.",
-    overview: `A pilot's job is far less about steering than most people imagine. Modern airliners fly themselves for most of a route. What a pilot is actually paid for is **judgement**: reading weather that has not happened yet, managing fuel against alternates, running checklists under pressure, and deciding — sometimes in seconds — between two imperfect options.
-
-Kenya's position as East Africa's aviation hub means pilots here fly an unusually varied mix: scheduled international routes out of Nairobi, regional turboprop work into short strips, cargo runs, and humanitarian flights into places roads cannot reach.
-
-You will spend your career being tested. Licence renewals, simulator checks and medicals continue until the day you retire. Pilots who love the job describe that as the appeal, not the cost.`,
-    dayInTheLife: [
-      "Report roughly 90 minutes before departure for briefing: weather, NOTAMs, fuel figures, and the technical log.",
-      "Walk around the aircraft yourself — you sign for its condition.",
-      "Fly the sector, sharing duties with the other pilot and swapping the flying and monitoring roles.",
-      "Manage the unexpected: a diversion, a sick passenger, a runway change on short final.",
-      "Complete the paperwork, hand over the aircraft, and start the rest clock before the next duty.",
-    ],
     skills: [
       "Decision-making under time pressure",
       "Spatial awareness and mental arithmetic",
@@ -101,67 +66,77 @@ You will spend your career being tested. Licence renewals, simulator checks and 
       "Calm under fatigue and disruption",
     ],
     subjects: ["Mathematics", "Physics", "English", "Geography"],
-    pathway: [
-      {
-        stage: "School",
-        detail:
-          "Strong KCSE grades, ideally C+ or above overall with Mathematics, Physics and English at C+.",
-      },
-      {
-        stage: "Class 1 Medical",
-        detail:
-          "Obtain a KCAA Class 1 medical certificate before spending money on training — it is the gate everything else depends on.",
-      },
-      {
-        stage: "Private Pilot Licence",
-        detail: "Around 45 hours of flight training plus ground school theory.",
-      },
-      {
-        stage: "Commercial Pilot Licence",
-        detail:
-          "200+ total hours, instrument rating and multi-engine rating. 18–24 months at an approved training organisation.",
-      },
-      {
-        stage: "Type Rating",
-        detail: "Aircraft-specific training, usually funded by or bonded to an airline.",
-      },
-      {
-        stage: "First Officer",
-        detail: "Line training, then scheduled flying while building hours toward command.",
-      },
-    ],
-    salary: {
-      entry: 180000,
-      experienced: 900000,
-      note: "First officers on turboprops start lower; wide-body captains at flag carriers earn considerably more, plus allowances.",
-    },
-    growth:
-      "First Officer → Senior First Officer → Captain → Training Captain or Fleet Manager. Many pilots move into flight safety, operations management or examining later in their careers.",
-    outlook:
-      "Training is expensive and competition for first jobs is genuinely hard — this is the honest part. But regional fleet growth and a wave of retirements mean demand for qualified pilots in East Africa is rising, and instructing is a common route to building the hours airlines want.",
     motif: "aircraft",
     icon: "Plane",
     featured: true,
+    hook: "Learn to fly safely, plan a journey and make decisions in the cockpit.",
+    summary:
+      "Explore private and commercial pilot training, the licences involved and routes into professional flying.",
+    overview:
+      "Pilot training combines classroom study with practical flying. Students learn how an aircraft behaves, how to navigate and how to manage normal and emergency situations. The role requires preparation, disciplined procedures and clear communication with other crew and air traffic services.\n\nPrivate flying and a professional flying career follow different stages. A private licence is an early foundation; commercial work requires the appropriate professional licence, ratings and operational experience. Completing a course does not automatically secure an airline position.",
+    studyTopics: [
+      "Principles of flight and aircraft systems",
+      "Navigation, route planning and radio communication",
+      "Aviation weather and its operational effects",
+      "Air law, human performance and decision-making",
+      "Aircraft performance, loading and fuel planning",
+      "Practical handling, instrument flying and emergency procedures",
+    ],
+    trainingRoutes: [
+      {
+        title: "Private Pilot Licence (PPL)",
+        institution: "Kenya School of Flying",
+        url: "https://kenyaschoolofflying.com/training-programmes/private-pilot-license/",
+        entryRequirements: [
+          "Confirm the school’s current academic and admission requirements.",
+          "KCAA PPL issue requires at least age 17 and the appropriate Class 2 medical certificate.",
+        ],
+        qualification:
+          "PPL: private flying privileges, not a general permission to fly for payment.",
+        duration: "Depends on flying frequency, progress and weather.",
+      },
+      {
+        title: "Commercial Pilot Licence (CPL) and additional ratings",
+        institution: "Kenya School of Flying",
+        url: "https://kenyaschoolofflying.com/training-programmes/commercial-pilot-license/",
+        entryRequirements: [
+          "KCAA CPL issue requires age 18 or above, a Class 1 medical and a qualifying private-pilot or recognised equivalent route.",
+          "Complete the required knowledge, flying experience and practical assessments.",
+        ],
+        qualification:
+          "CPL; instrument and multi-engine ratings are separate endorsements relevant to many professional roles.",
+        duration:
+          "Confirm the course plan and required flight experience with the approved school.",
+      },
+    ],
+    requirements: [
+      "Use a KCAA-approved school authorised for the specific course and aircraft category.",
+      "Meet current medical, English-language, knowledge and practical-test requirements; requirements differ by licence and rating.",
+      "Airline transport privileges and aircraft type qualifications require further experience and training beyond an initial CPL.",
+    ],
+    opportunities: [
+      "Charter and general-aviation flying, with appropriate ratings",
+      "Airline first-officer recruitment after meeting operator requirements",
+      "Flight instruction after instructor qualification",
+      "Survey, specialist or humanitarian aviation roles",
+    ],
+    growth:
+      "Experience can lead to command, instruction or training and operational management. Progress depends on hours, competence, available positions and the operator’s requirements.",
+    sources: [
+      {
+        label: "KCAA: Private Pilot Licence",
+        url: "https://www.kcaa.or.ke/personnel-licencing/licencing/private-pilot-licence",
+      },
+      {
+        label: "KCAA: Commercial Pilot Licence",
+        url: "https://www.kcaa.or.ke/personnel-licencing/licencing/commercial-pilot-licence",
+      },
+    ],
   },
   {
     slug: "cabin-crew",
     title: "Cabin Crew",
     discipline: "flight-operations",
-    hook: "You are trained to evacuate 180 people in 90 seconds. Serving the drinks is the small part of the job.",
-    summary:
-      "Cabin crew are safety professionals first: trained in evacuation, firefighting, first aid and security, with hospitality on top.",
-    overview: `Ask a passenger what cabin crew do and they will describe the trolley. Ask a regulator and you will get a different answer: cabin crew exist because someone has to get everyone off a burning aircraft in ninety seconds, in the dark, in smoke, possibly on water.
-
-Every crew member is certified in fire suppression, decompression procedures, first aid, restraint of disruptive passengers and emergency evacuation, and is re-tested annually. The service element is real and matters commercially — but it sits on top of a safety role.
-
-It suits people who are genuinely energised by other people, who can stay warm while exhausted, and who want to see places most of their friends will not.`,
-    dayInTheLife: [
-      "Pre-flight briefing: the senior crew member quizzes the team on safety equipment and procedures.",
-      "Check every piece of emergency equipment on board before boarding begins.",
-      "Board and settle passengers, watching for anyone who may need help in an evacuation.",
-      "Run the cabin service, then the cabin: medical events, nervous flyers, turbulence management.",
-      "Secure the cabin for landing, disembark, and either turn the aircraft around or head to the hotel.",
-    ],
     skills: [
       "Composure in emergencies",
       "Genuine hospitality and cultural sensitivity",
@@ -170,56 +145,68 @@ It suits people who are genuinely energised by other people, who can stay warm w
       "Second and third languages",
     ],
     subjects: ["English", "Kiswahili", "Business Studies", "Geography"],
-    pathway: [
-      { stage: "School", detail: "KCSE mean grade C or above, with strong English and Kiswahili." },
-      {
-        stage: "Minimum requirements",
-        detail:
-          "Usually 18+, a valid passport, and a height/reach requirement so you can operate emergency exits and overhead bins.",
-      },
-      {
-        stage: "Airline cabin crew course",
-        detail:
-          "6–12 weeks of airline-run training covering safety, service, security and first aid.",
-      },
-      { stage: "Line flying", detail: "Supervised sectors before flying as a full crew member." },
-      {
-        stage: "Recurrent training",
-        detail: "Annual safety and emergency procedures re-certification, for your entire career.",
-      },
-    ],
-    salary: {
-      entry: 60000,
-      experienced: 220000,
-      note: "Basic salary plus per-diem allowances, which make up a significant share of take-home pay on long-haul routes.",
-    },
-    growth:
-      "Cabin Crew → Senior Cabin Crew → Cabin Manager / Purser. Common onward moves into crew training, recruitment, in-flight service management and ground operations.",
-    outlook:
-      "Recruitment is cyclical and tracks fleet growth closely. Language skills and previous customer-facing work are the two things that most reliably separate successful applicants.",
     motif: "students",
     icon: "Users",
     featured: true,
+    hook: "Support passenger safety, respond to emergencies and care for people on board.",
+    summary:
+      "Understand cabin-crew preparation, airline training and the Kenyan certification route.",
+    overview:
+      "Cabin crew are responsible for safety and passenger care inside the aircraft. Training develops communication, teamwork and the ability to respond calmly to events such as a medical emergency or evacuation. Service skills matter alongside the safety role.\n\nAn introductory airline-cabin-crew course helps students understand the profession. It is distinct from an operator’s approved training, aircraft-type preparation and the KCAA certificate needed for operational duties.",
+    studyTopics: [
+      "Cabin safety and emergency equipment",
+      "Passenger communication and customer care",
+      "First-aid awareness and emergency response",
+      "Crew teamwork and human factors",
+      "Security and dangerous-goods awareness",
+      "Boarding, cabin preparation and service procedures",
+    ],
+    trainingRoutes: [
+      {
+        title: "IATA Certificate in Airline Cabin Crew",
+        institution: "East African School of Aviation",
+        url: "https://www.easa.ac.ke/course-calendar/iata-certificate-airline-cabin-crew-0",
+        entryRequirements: [
+          "EASA publishes general certificate entry guidance of KCSE D+ or equivalent; confirm the specific cabin-crew intake criteria.",
+          "Airlines apply their own recruitment, communication and physical-task requirements.",
+        ],
+        qualification:
+          "An introductory course certificate; operational cabin-crew certification is a separate process.",
+        duration: "The published course listing states six months; confirm current dates.",
+      },
+    ],
+    requirements: [
+      "KCAA’s Cabin Crew Member Certificate requires age 18 or above, English ability and approved training with knowledge and practical assessments.",
+      "Operational duties require the relevant aircraft-type qualification and current Class 2 medical certificate.",
+      "A college certificate alone does not replace airline selection or the operator’s training and checks.",
+    ],
+    opportunities: [
+      "Airline cabin crew after recruitment and certification",
+      "Charter and business-aviation cabin roles",
+      "Passenger-service roles using transferable skills",
+      "Senior cabin crew and training roles after operational experience",
+    ],
+    growth:
+      "With experience and additional assessment, crew may progress to senior cabin roles, instruction, cabin safety or service management.",
+    sources: [
+      {
+        label: "EASA: IATA Certificate in Airline Cabin Crew",
+        url: "https://www.easa.ac.ke/course-calendar/iata-certificate-airline-cabin-crew-0",
+      },
+      {
+        label: "EASA: Admission guidance",
+        url: "https://easa.ac.ke/faqs",
+      },
+      {
+        label: "KCAA: Cabin Crew Member Certificate",
+        url: "https://www.kcaa.or.ke/personnel-licencing/licencing/cabin-crew-member-certificate",
+      },
+    ],
   },
   {
     slug: "aircraft-maintenance-engineer",
     title: "Aircraft Maintenance Engineer",
     discipline: "engineering",
-    hook: "Your signature is what legally allows an aircraft to fly. Nobody else can give it.",
-    summary:
-      "Licensed engineers inspect, repair and certify aircraft as airworthy — the last technical authority before departure.",
-    overview: `An aircraft cannot depart unless a licensed engineer has certified it as fit to fly. That certification is a personal legal responsibility, held by a named individual, and it is why this career carries authority out of proportion to its public profile.
-
-The work spans quick turnaround checks on the ramp — a tyre, a warning light, a bird strike inspection — through to heavy maintenance where an aircraft is opened up over weeks. You will read schematics, follow maintenance manuals to the letter, troubleshoot systems that interact in non-obvious ways, and document everything.
-
-It rewards people who are methodical, physically practical, and comfortable saying "no, it does not fly" to people who very much want it to fly.`,
-    dayInTheLife: [
-      "Review the technical log for defects reported by the flight crew.",
-      "Troubleshoot a fault down to the failed component using the manufacturer's fault isolation manual.",
-      "Carry out the repair to the exact procedure — no improvisation, ever.",
-      "Complete a functional test, then sign the Certificate of Release to Service.",
-      "Hand over open work clearly to the next shift.",
-    ],
     skills: [
       "Systematic fault diagnosis",
       "Precision and documentation discipline",
@@ -228,63 +215,79 @@ It rewards people who are methodical, physically practical, and comfortable sayi
       "Absolute integrity under commercial pressure",
     ],
     subjects: ["Mathematics", "Physics", "Chemistry", "Pre-Technical Studies"],
-    pathway: [
-      {
-        stage: "School",
-        detail:
-          "KCSE C+ with Mathematics and Physics at C+ — these are hard requirements, not preferences.",
-      },
-      {
-        stage: "Approved training",
-        detail:
-          "Diploma in Aeronautical Engineering at an approved maintenance training organisation, typically 3 years.",
-      },
-      {
-        stage: "Licence modules",
-        detail: "Pass the theory examinations for your category (B1 mechanical or B2 avionics).",
-      },
-      {
-        stage: "Practical experience",
-        detail: "2–4 years of supervised, logged maintenance experience on type.",
-      },
-      {
-        stage: "KCAA licence",
-        detail:
-          "Aircraft Maintenance Engineer licence issued, then type ratings added per aircraft.",
-      },
-    ],
-    salary: {
-      entry: 90000,
-      experienced: 450000,
-      note: "Licensed engineers with multiple type ratings command a substantial premium, particularly on wide-body types.",
-    },
-    growth:
-      "Technician → Licensed Engineer → Certifying Engineer → Maintenance Controller, Quality Manager or Continuing Airworthiness Manager.",
-    outlook:
-      "Persistent global shortage. Kenya's MRO capability at Nairobi and Mombasa is expanding, and licensed engineers are among the most portable professionals in the industry — a KCAA licence with EASA conversion opens doors worldwide.",
     motif: "engineering",
     icon: "Wrench",
     featured: true,
+    hook: "Inspect aircraft, diagnose faults and help keep them airworthy.",
+    summary:
+      "Explore aeronautical maintenance studies and the separate route to licensed certification privileges.",
+    overview:
+      "Aircraft maintenance covers scheduled inspections, troubleshooting and the repair of airframes, engines and related systems. Students combine engineering theory with workshop practice and technical documentation. Careful records and approved procedures are essential.\n\nA diploma builds technical knowledge. Permission to certify particular maintenance work comes through the appropriate licence, experience, ratings and organisational authorisation—not simply from graduating.",
+    studyTopics: [
+      "Aircraft structures, materials and corrosion",
+      "Piston and gas-turbine engine principles",
+      "Mechanical, hydraulic and pneumatic systems",
+      "Workshop practice and inspection methods",
+      "Maintenance manuals and technical records",
+      "Human factors, airworthiness and maintenance safety",
+    ],
+    trainingRoutes: [
+      {
+        title: "Diploma in Technology (Aeronautical Engineering)",
+        institution: "Technical University of Kenya",
+        url: "https://intake.tukenya.ac.ke/index.php?r=courseApplication/default/home&prog=180",
+        entryRequirements: [
+          "Published KCSE entry: mean C, with C− in Mathematics A, Physics and English.",
+          "Confirm practical-training, attachment and progression arrangements with the institution.",
+        ],
+        qualification:
+          "Diploma in Technology; additional licensing requirements apply to certifying maintenance.",
+        duration: "The published academic sequence covers three years, excluding attachment.",
+      },
+      {
+        title: "Aeronautical Engineering: Airframes & Engines",
+        institution: "East African School of Aviation",
+        url: "https://easa.ac.ke/sites/default/files/downloads/SEPTEMBER%20INTAKE%202025%20%5BFinal%5D.pdf",
+        entryRequirements: [
+          "Confirm the course-specific subject grades and current intake with EASA.",
+        ],
+        qualification:
+          "A diploma route into technical maintenance training; licence preparation and issue are separate stages.",
+        duration: "The published diploma catalogue lists three years.",
+      },
+    ],
+    requirements: [
+      "KCAA AMEL applicants must be at least 18 and demonstrate English-language ability.",
+      "Meet knowledge, experience, skill and examination requirements for the rating sought.",
+      "Check what the course qualifies you to do, what supervised experience is needed and which authority issues the intended licence.",
+    ],
+    opportunities: [
+      "Trainee aircraft maintenance technician",
+      "Airframe or engine workshop roles",
+      "Maintenance planning and technical records",
+      "Licensed certifying roles after the required qualifications and authorisations",
+    ],
+    growth:
+      "Progression may include licensed maintenance work, specialist workshops, planning, quality assurance or engineering supervision.",
+    sources: [
+      {
+        label: "Technical University of Kenya: Aeronautical Engineering diploma",
+        url: "https://intake.tukenya.ac.ke/index.php?r=courseApplication/default/home&prog=180",
+      },
+      {
+        label: "EASA: Published programme catalogue",
+        url: "https://easa.ac.ke/sites/default/files/downloads/SEPTEMBER%20INTAKE%202025%20%5BFinal%5D.pdf",
+      },
+      {
+        label: "KCAA: Aircraft Maintenance Engineer licensing",
+        url: "https://www.kcaa.or.ke/personnel-licencing/licencing/aircraft-maintenance-engineers",
+      },
+    ],
   },
   {
     slug: "air-traffic-controller",
     title: "Air Traffic Controller",
     discipline: "safety-and-control",
-    hook: "You hold a three-dimensional picture of a hundred square kilometres of sky in your head, and you keep every aircraft in it apart.",
-    summary:
-      "Controllers direct aircraft on the ground and in the air, maintaining safe separation and orderly flow.",
-    overview: `Air traffic control is the closest thing aviation has to a pure cognitive sport. You build and maintain a mental model of every aircraft in your sector — where it is, where it is going, how fast it is climbing, what it will conflict with in four minutes — and you update that model continuously while talking, listening and typing.
-
-Controllers work in distinct disciplines: **aerodrome** control handles the runway and the immediate circuit; **approach** sequences arrivals into a stream; **area** control manages aircraft en route at altitude.
-
-The training washout rate is high and the selection is unapologetically demanding, because the job cannot be done adequately — only well. Those who make it describe a level of focus they never found anywhere else.`,
-    dayInTheLife: [
-      "Take over a position with a formal handover of every aircraft and every instruction outstanding.",
-      "Sequence arrivals so they land at the exact spacing the runway can absorb.",
-      "Resolve a developing conflict by issuing a level, heading or speed change before it becomes one.",
-      "Coordinate with adjacent sectors as aircraft cross boundaries.",
-      "Take a mandatory break — fatigue management is regulated, not optional.",
-    ],
     skills: [
       "Three-dimensional spatial reasoning",
       "Sustained concentration and rapid task-switching",
@@ -293,56 +296,64 @@ The training washout rate is high and the selection is unapologetically demandin
       "Decisiveness without hesitation",
     ],
     subjects: ["Mathematics", "Physics", "English", "Geography"],
-    pathway: [
-      { stage: "School", detail: "KCSE C+ or above with Mathematics, Physics and English at C+." },
-      {
-        stage: "Aptitude selection",
-        detail:
-          "Pass cognitive and spatial aptitude testing — this filters most applicants out before training.",
-      },
-      {
-        stage: "East African School of Aviation",
-        detail:
-          "Ab-initio ATC training covering rules of the air, navigation, meteorology and simulation.",
-      },
-      { stage: "Rating training", detail: "Specialise in aerodrome, approach or area control." },
-      {
-        stage: "On-the-job training",
-        detail: "Live control under an instructor's licence until validated on the unit.",
-      },
-    ],
-    salary: {
-      entry: 110000,
-      experienced: 420000,
-      note: "Shift, night and rating allowances are a meaningful addition to basic pay.",
-    },
-    growth:
-      "Controller → Watch Supervisor → Unit Manager. Alternative routes into ATC instruction, airspace design, safety investigation and ICAO/regional regulatory roles.",
-    outlook:
-      "Recruitment happens in cohorts rather than continuously, so timing matters. Airspace modernisation across East Africa is creating demand for controllers who understand performance-based navigation.",
     motif: "radar",
     icon: "Radar",
     featured: true,
+    hook: "Help aircraft move safely through controlled airspace and around airports.",
+    summary:
+      "Explore air traffic services training, supervised operational experience and controller ratings.",
+    overview:
+      "Air traffic controllers organise traffic and issue instructions to support safe separation and efficient movement. The work involves continuous attention, accurate communication and decisions made within established procedures.\n\nTraining introduces airspace, procedures and simulated traffic situations before supervised work in an operational unit. Aerodrome, approach and area control are different rating areas. Course admission, employer recruitment and licence issue are separate stages.",
+    studyTopics: [
+      "Airspace organisation and air traffic rules",
+      "Radiotelephony and standard phraseology",
+      "Aerodrome, approach and area-control principles",
+      "Navigation, weather and aircraft performance",
+      "Separation procedures and traffic coordination",
+      "Simulation, human factors and emergency handling",
+    ],
+    trainingRoutes: [
+      {
+        title: "Air Traffic Management / Air Traffic Services training",
+        institution: "East African School of Aviation",
+        url: "https://www.easa.ac.ke",
+        entryRequirements: [
+          "Confirm the current intake, employer nomination or recruitment route with EASA and KCAA.",
+          "Ask for the specific academic, aptitude and medical criteria; there is no single college-grade rule for every ATC course.",
+        ],
+        qualification:
+          "Approved training towards the relevant air traffic control rating; a course certificate is not an unrestricted controller licence.",
+        duration: "Varies by rating, course stage and supervised experience.",
+      },
+    ],
+    requirements: [
+      "KCAA licence issue requires age 21 or above and a current Class 3 medical certificate.",
+      "Complete approved training and the required supervised control experience; KCAA’s published guidance specifies at least three months of satisfactory OJT.",
+      "Meet English proficiency and the assessment requirements for at least one controller rating. Unit validation and continuing competence also matter.",
+    ],
+    opportunities: [
+      "Aerodrome control after the relevant rating",
+      "Approach or area control with further ratings",
+      "Air traffic services coordination",
+      "Instruction, supervision or safety work after experience",
+    ],
+    growth:
+      "Additional ratings and operational competence can support progression into supervision, instruction, procedure development or air traffic management.",
+    sources: [
+      {
+        label: "KCAA: Air Traffic Controller licensing",
+        url: "https://www.kcaa.or.ke/personnel-licencing/licencing/air-traffic-controllers-licences",
+      },
+      {
+        label: "EASA: Admission guidance",
+        url: "https://easa.ac.ke/faqs",
+      },
+    ],
   },
   {
     slug: "aeronautical-meteorologist",
     title: "Aviation Meteorologist",
     discipline: "safety-and-control",
-    hook: "Every flight plan in the country is built on a forecast someone had to be brave enough to sign.",
-    summary:
-      "Aviation meteorologists forecast the specific weather phenomena that affect flight and brief operational decision-makers.",
-    overview: `Aviation weather is a specialism, not general forecasting. Pilots and dispatchers do not need to know whether it will be pleasant — they need to know cloud base, visibility, crosswind component, freezing level, thunderstorm cells, wind shear and turbulence, at specific aerodromes, at specific times.
-
-You will issue TAFs and METARs, monitor developing convection, and brief operations teams when a decision has to be made about whether a route or a landing is viable. When you get it wrong, aircraft divert and money burns; when you get it right, nobody notices. That asymmetry is the job.
-
-Kenya's geography makes it genuinely interesting: highland aerodromes, coastal effects, seasonal convergence zones and afternoon convection that builds fast.`,
-    dayInTheLife: [
-      "Analyse overnight model output and satellite imagery against what actually happened.",
-      "Issue and amend terminal aerodrome forecasts for the aerodromes you cover.",
-      "Watch a convective cell develop and decide whether it will affect the approach path.",
-      "Brief airline operations and ATC on significant weather.",
-      "Verify yesterday's forecasts — the discipline that makes you better.",
-    ],
     skills: [
       "Atmospheric physics and numerical model interpretation",
       "Pattern recognition from satellite and radar",
@@ -351,55 +362,60 @@ Kenya's geography makes it genuinely interesting: highland aerodromes, coastal e
       "Composure when the answer must be given now",
     ],
     subjects: ["Mathematics", "Physics", "Geography", "Computer Studies"],
-    pathway: [
-      { stage: "School", detail: "KCSE C+ with strong Mathematics, Physics and Geography." },
-      { stage: "Degree", detail: "BSc in Meteorology, Physics or Atmospheric Science." },
-      {
-        stage: "WMO qualification",
-        detail:
-          "Complete World Meteorological Organization aeronautical meteorological forecaster competencies.",
-      },
-      {
-        stage: "Aviation specialisation",
-        detail: "Aeronautical meteorology training and unit-specific certification.",
-      },
-      {
-        stage: "Operational forecaster",
-        detail: "Shift forecasting at a meteorological watch office.",
-      },
-    ],
-    salary: {
-      entry: 85000,
-      experienced: 300000,
-      note: "Public service scales dominate; airline and research roles can exceed these.",
-    },
-    growth:
-      "Forecaster → Senior Forecaster → Meteorological Watch Office lead, or into climate research, aviation safety analysis and modelling.",
-    outlook:
-      "Small profession, steady demand, and increasingly computational. Graduates who can code — Python, model post-processing, data pipelines — are markedly more employable.",
     motif: "weather",
     icon: "CloudSun",
     featured: false,
+    hook: "Turn weather observations into information that helps aviation teams plan safely.",
+    summary:
+      "Explore meteorology studies and the additional competencies involved in aviation forecasting.",
+    overview:
+      "Meteorology is the study of the atmosphere. Aviation meteorologists focus on weather that affects flight, including visibility, cloud, wind, storms and turbulence. They interpret observations and forecasts so operational teams can understand changing conditions.\n\nA meteorology degree provides a scientific foundation. Aviation-specific preparation and assessed workplace competence are additional steps, and the job includes communication as well as analysis.",
+    studyTopics: [
+      "Atmospheric physics and dynamics",
+      "Weather observations and instruments",
+      "Forecasting methods and numerical models",
+      "Satellite and radar interpretation",
+      "Climate, statistics and scientific computing",
+      "Aviation weather hazards and operational briefing",
+    ],
+    trainingRoutes: [
+      {
+        title: "Bachelor of Science in Meteorology",
+        institution: "University of Nairobi",
+        url: "https://earthclimatesciences.uonbi.ac.ke/admission-content-type/bachelor-science-meteorology",
+        entryRequirements: [
+          "Published KCSE route: mean C+, with C+ in Mathematics and Physics or Chemistry.",
+          "The university also considers specified equivalent or diploma routes; ask admissions to assess your qualification.",
+        ],
+        qualification:
+          "BSc Meteorology; aviation roles may require further operational training and competence assessment.",
+        duration: "Confirm the current programme schedule with the university.",
+      },
+    ],
+    requirements: [
+      "Build a strong foundation in mathematics, science and data interpretation.",
+      "Check the employer’s requirements for aviation forecasting or observation roles and any additional professional training.",
+      "A meteorology degree is not a pilot licence or an air traffic controller qualification.",
+    ],
+    opportunities: [
+      "Meteorological observation and forecasting",
+      "Aviation weather support after specialist preparation",
+      "Climate and environmental analysis",
+      "Research, scientific computing and further study",
+    ],
+    growth:
+      "Experience and specialist study can lead to senior forecasting, aviation meteorology supervision, research or climate-service roles.",
+    sources: [
+      {
+        label: "University of Nairobi: BSc Meteorology",
+        url: "https://earthclimatesciences.uonbi.ac.ke/admission-content-type/bachelor-science-meteorology",
+      },
+    ],
   },
   {
     slug: "airport-manager",
     title: "Airport Manager",
     discipline: "ground-operations",
-    hook: "An airport is a small city that must never stop. Someone has to run it.",
-    summary:
-      "Airport managers run the safe, compliant and commercially viable operation of an aerodrome and everything on it.",
-    overview: `An airport is simultaneously a regulated safety environment, a border post, a shopping centre, a construction site and a logistics hub. The manager's job is to hold all of that together against a fixed constraint: the runway cannot close and the flights cannot stop.
-
-The role spans airside safety and compliance, terminal operations and passenger experience, commercial revenue from retail and concessions, capital projects, and coordination with regulators, airlines, ground handlers, immigration, customs and security agencies.
-
-It suits people who like systems and people in equal measure, and who can hold a five-year capital plan and a broken baggage belt in mind at the same time.`,
-    dayInTheLife: [
-      "Chair the morning operations meeting: yesterday's disruptions, today's constraints.",
-      "Walk airside to inspect pavement, markings, lighting and wildlife control.",
-      "Resolve a stand allocation conflict between two airlines.",
-      "Review a regulatory audit finding and agree corrective action.",
-      "Meet a concession partner about terminal retail performance.",
-    ],
     skills: [
       "Operations and safety management systems",
       "Stakeholder negotiation across agencies",
@@ -408,55 +424,76 @@ It suits people who like systems and people in equal measure, and who can hold a
       "Regulatory compliance",
     ],
     subjects: ["Mathematics", "Business Studies", "Geography", "English"],
-    pathway: [
-      { stage: "School", detail: "KCSE C+ or above, with solid Mathematics and English." },
-      {
-        stage: "Degree",
-        detail: "Aviation Management, Business Administration, Logistics or Engineering.",
-      },
-      {
-        stage: "Operational role",
-        detail:
-          "Start in terminal operations, airside operations or ground handling — credibility here is earned on the ramp.",
-      },
-      {
-        stage: "Professional certification",
-        detail: "IATA/ACI airport operations and safety management qualifications.",
-      },
-      { stage: "Management", detail: "Duty Manager → Operations Manager → Airport Manager." },
-    ],
-    salary: {
-      entry: 90000,
-      experienced: 500000,
-      note: "Varies sharply between a regional aerodrome and an international gateway.",
-    },
-    growth:
-      "Duty Manager → Operations Manager → Airport Manager → Director of Airports or regulatory leadership.",
-    outlook:
-      "Kenya's regional aerodrome upgrade programme and rising passenger volumes are creating management roles outside Nairobi and Mombasa — often the fastest route to real responsibility early.",
     motif: "tower",
     icon: "Building2",
     featured: false,
+    hook: "Coordinate the people, facilities and services that keep an airport working.",
+    summary: "Explore civil aviation management and airport operations studies in Kenya.",
+    overview:
+      "Airport management connects safety, service, facilities, finance and coordination with airlines and public agencies. An airport has many teams, and managers help them work together while meeting operational requirements.\n\nStudents usually begin with management or operations studies and gain experience in a specific airport function. Airport manager is generally a progression role rather than the first position obtained after graduation.",
+    studyTopics: [
+      "Airport and airline organisation",
+      "Operations planning and service performance",
+      "Business communication and financial management",
+      "Safety, security and emergency planning",
+      "Facilities, passenger services and stakeholder coordination",
+      "Transport policy, regulation and aviation economics",
+    ],
+    trainingRoutes: [
+      {
+        title: "Bachelor of Civil Aviation Management",
+        institution: "Moi University",
+        url: "https://engineering.mu.ac.ke/index.php/masters-programmes/42-programmes/undergraduate",
+        entryRequirements: [
+          "Published KCSE route: mean C+, with C+ in Mathematics, English and a business-related subject.",
+          "Recognised alternative qualifications are assessed by the university.",
+        ],
+        qualification: "Bachelor’s degree in Civil Aviation Management.",
+        duration: "Confirm current study mode and intake with Moi University.",
+      },
+      {
+        title: "Diploma in Airport Ground Operations Management",
+        institution: "East African School of Aviation",
+        url: "https://www.easa.ac.ke/node/671",
+        entryRequirements: [
+          "EASA’s general diploma baseline is KCSE C− or equivalent; confirm the exact course criteria.",
+        ],
+        qualification: "Diploma supporting entry into airport operations functions.",
+        duration: "The current course listing states two years.",
+      },
+    ],
+    requirements: [
+      "Confirm whether your preferred route is a diploma, degree or a professional course requiring prior work experience.",
+      "Operational access and employer-specific training are separate from academic admission.",
+      "Management appointments typically require experience and demonstrated leadership in addition to a qualification.",
+    ],
+    opportunities: [
+      "Airport operations assistant or officer",
+      "Terminal and passenger-services coordination",
+      "Commercial, customer-service or facilities functions",
+      "Airport management after relevant experience",
+    ],
+    growth:
+      "Specialist operations experience can lead to departmental supervision and broader airport or aviation-business management.",
+    sources: [
+      {
+        label: "Moi University: Civil Aviation Management entry requirements",
+        url: "https://engineering.mu.ac.ke/index.php/masters-programmes/42-programmes/undergraduate",
+      },
+      {
+        label: "EASA: Airport Ground Operations Management",
+        url: "https://www.easa.ac.ke/node/671",
+      },
+      {
+        label: "EASA: Admission guidance",
+        url: "https://easa.ac.ke/faqs",
+      },
+    ],
   },
   {
     slug: "flight-dispatcher",
     title: "Flight Dispatcher",
     discipline: "flight-operations",
-    hook: "The captain and the dispatcher jointly sign the flight plan. You share legal responsibility for it.",
-    summary:
-      "Flight dispatchers plan routes, fuel and payload, then monitor the flight and support the crew from the ground.",
-    overview: `In most operations the dispatcher and the captain share responsibility for the operational flight plan. That means the route, the fuel, the alternates and the payload are your work as much as theirs.
-
-You will balance a genuine optimisation problem under real constraints: carrying more fuel costs fuel; carrying less removes options. Weather, airspace closures, aircraft performance, runway length, crew duty limits and payload all interact, and the answer has to be legal, safe and commercially sensible.
-
-Once the aircraft departs, you follow it. If something changes en route, you are the person on the ground working the alternatives.`,
-    dayInTheLife: [
-      "Build the operational flight plan: route, levels, fuel, alternates.",
-      "Check NOTAMs, weather and aircraft performance against runway data.",
-      "Brief the crew and jointly agree the plan.",
-      "Monitor the flight and re-plan around an unexpected airspace closure.",
-      "Hand over active flights at shift change with full context.",
-    ],
     skills: [
       "Applied performance and fuel calculation",
       "Weather and NOTAM interpretation",
@@ -465,58 +502,64 @@ Once the aircraft departs, you follow it. If something changes en route, you are
       "Working accurately at speed",
     ],
     subjects: ["Mathematics", "Physics", "Geography", "English"],
-    pathway: [
-      { stage: "School", detail: "KCSE C+ with Mathematics and Physics at C or above." },
-      {
-        stage: "Dispatcher course",
-        detail:
-          "Flight Operations Officer / Flight Dispatcher licence course, typically 4–6 months.",
-      },
-      {
-        stage: "KCAA licence",
-        detail: "Pass written examinations and obtain the Flight Operations Officer licence.",
-      },
-      {
-        stage: "Operations control",
-        detail: "Begin in an operations control centre under supervision.",
-      },
-      {
-        stage: "Type familiarisation",
-        detail: "Build knowledge of specific fleet performance and route networks.",
-      },
-    ],
-    salary: {
-      entry: 70000,
-      experienced: 280000,
-      note: "Shift allowances apply; operations control runs 24 hours.",
-    },
-    growth:
-      "Dispatcher → Senior Dispatcher → Operations Control Centre Manager, or across into network planning and crew scheduling.",
-    outlook:
-      "An excellent and under-advertised entry point into airline operations — shorter and far cheaper to train for than a pilot licence, with strong onward mobility.",
     motif: "navigation",
     icon: "Route",
     featured: false,
+    hook: "Plan flights with the crew and monitor changing operational conditions.",
+    summary:
+      "Explore flight operations and dispatch training, then the KCAA licensing requirements.",
+    overview:
+      "Dispatchers bring together route information, weather, aircraft performance and operational restrictions to support flight planning. They also follow flights and communicate changes that may affect the journey.\n\nA dispatch course develops the technical knowledge needed for this work. The Kenyan professional licence also involves the applicable experience and assessments; a diploma by itself does not confer all dispatch privileges.",
+    studyTopics: [
+      "Flight planning and navigation",
+      "Weather interpretation and operational hazards",
+      "Aircraft performance and mass-and-balance principles",
+      "Fuel planning, alternates and limitations",
+      "Air law, operational documents and communication",
+      "Flight following, disruption handling and human factors",
+    ],
+    trainingRoutes: [
+      {
+        title: "Diploma in Flight Operations / Dispatch",
+        institution: "East African School of Aviation",
+        url: "https://easa.ac.ke/sites/default/files/downloads/SEPTEMBER%20INTAKE%202025%20%5BFinal%5D.pdf",
+        entryRequirements: [
+          "Confirm the programme’s current academic requirements and selection process.",
+          "Mathematics, English, Geography and computer skills provide useful preparation.",
+        ],
+        qualification:
+          "Diploma in Flight Operations / Dispatch; KCAA Flight Operations Officer licensing is separate.",
+        duration: "The published programme catalogue lists one year.",
+      },
+    ],
+    requirements: [
+      "KCAA licence issue requires age 21 or above, approved training and English-language competence.",
+      "Meet the applicable knowledge, practical and experience requirements. The approved-training route includes supervised operational experience.",
+      "Obtain written confirmation of how the course supports licensing and how the required workplace experience is arranged.",
+    ],
+    opportunities: [
+      "Flight operations assistant",
+      "Licensed flight dispatcher after qualification",
+      "Flight-following and briefing roles",
+      "Operations planning and control-centre work",
+    ],
+    growth:
+      "Operational experience can lead to senior dispatch, training, standards or operations-control supervision.",
+    sources: [
+      {
+        label: "KCAA: Flight Operations Officer licensing",
+        url: "https://www.kcaa.or.ke/personnel-licencing/licencing/flight-operation-officer",
+      },
+      {
+        label: "EASA: Published programme catalogue",
+        url: "https://easa.ac.ke/sites/default/files/downloads/SEPTEMBER%20INTAKE%202025%20%5BFinal%5D.pdf",
+      },
+    ],
   },
   {
     slug: "aviation-security-officer",
     title: "Aviation Security Officer",
     discipline: "safety-and-control",
-    hook: "Every single person who boards an aircraft has passed through a system you are responsible for.",
-    summary:
-      "Aviation security professionals protect passengers, crew, aircraft and facilities against acts of unlawful interference.",
-    overview: `Aviation security is one of the most heavily regulated fields in the industry, governed by ICAO Annex 17 and enforced nationally. It covers passenger and baggage screening, cargo security, access control, airside vehicle discipline, and the behavioural detection work that catches what machines cannot.
-
-The professional version of this career is analytical rather than physical: threat assessment, screening system design, quality control testing, audit and compliance. Officers who progress are the ones who understand *why* a procedure exists, not only how to apply it.
-
-It demands consistency. The thousandth bag must be screened as carefully as the first.`,
-    dayInTheLife: [
-      "Brief the screening team on current threat assessments and procedural changes.",
-      "Conduct and supervise passenger, cabin and hold baggage screening.",
-      "Run covert quality-control tests on the screening process.",
-      "Investigate an access control breach and write it up.",
-      "Audit a cargo agent's known-consignor compliance.",
-    ],
     skills: [
       "Sustained vigilance and attention to detail",
       "Behavioural observation",
@@ -525,54 +568,64 @@ It demands consistency. The thousandth bag must be screened as carefully as the 
       "Integrity beyond question",
     ],
     subjects: ["English", "Kiswahili", "Business Studies", "Computer Studies"],
-    pathway: [
-      { stage: "School", detail: "KCSE mean grade C or above." },
-      {
-        stage: "Basic AVSEC certification",
-        detail: "ICAO-aligned aviation security training and national certification.",
-      },
-      {
-        stage: "Screener certification",
-        detail: "Equipment-specific certification, with mandatory recurrent testing.",
-      },
-      {
-        stage: "Specialisation",
-        detail: "Cargo security, quality control, or behavioural detection.",
-      },
-      { stage: "Management", detail: "AVSEC instructor, auditor or security manager roles." },
-    ],
-    salary: {
-      entry: 45000,
-      experienced: 250000,
-      note: "Certified AVSEC instructors and auditors sit well above the operational band.",
-    },
-    growth:
-      "Screening Officer → Supervisor → AVSEC Instructor / Auditor → Security Manager → national regulatory inspection.",
-    outlook:
-      "The most accessible entry point in this catalogue in terms of qualifications, with a clear and well-defined ladder for those who pursue instructor and auditor certification.",
     motif: "instruments",
     icon: "ShieldCheck",
     featured: false,
+    hook: "Protect passengers, staff and aviation operations through security procedures.",
+    summary:
+      "Explore aviation security training and the specific certification route for screeners.",
+    overview:
+      "Aviation security aims to prevent unlawful interference with civil aviation. Work can include screening, access control, patrols, reporting and coordination with airport or airline teams. Staff need careful observation and respectful communication.\n\nBasic aviation-security awareness, specialist screener training and instructor development are different courses. The qualification needed depends on the actual duty; a short awareness course does not authorise every security function.",
+    studyTopics: [
+      "Aviation security responsibilities and procedures",
+      "Access control and identity checks",
+      "Passenger, baggage and cargo-security principles",
+      "Recognition and reporting of suspicious situations",
+      "Communication and incident response",
+      "Human factors and security equipment procedures",
+    ],
+    trainingRoutes: [
+      {
+        title: "Basic Aviation Security and specialist screener training",
+        institution: "East African School of Aviation",
+        url: "https://easa.ac.ke/sites/default/files/downloads/SEPTEMBER%20INTAKE%202025%20%5BFinal%5D.pdf",
+        entryRequirements: [
+          "Ask whether the course is for new entrants, nominated employees or experienced personnel.",
+          "For screener certification, KCAA specifies KCSE C− or an equivalent recognised secondary-school qualification.",
+        ],
+        qualification:
+          "Course certification appropriate to its scope; regulated screening duties require the KCAA certification process.",
+        duration: "Varies by basic, specialist and recurrent course.",
+      },
+    ],
+    requirements: [
+      "For screeners, KCAA requires recognised initial training and OJT records for first certification.",
+      "Employer background checks, a valid police-clearance certificate and relevant medical/physical assessments form part of the process.",
+      "The employer applies for certification on the candidate’s behalf. Recurrent training and recertification requirements continue after entry.",
+    ],
+    opportunities: [
+      "Airport access-control and security roles",
+      "Certified passenger or baggage screening",
+      "Cargo and mail security with specialist preparation",
+      "Security supervision or instruction after further qualification",
+    ],
+    growth:
+      "With operational experience and additional training, progression can include supervision, compliance or certified instructional work.",
+    sources: [
+      {
+        label: "KCAA: Aviation security personnel certification",
+        url: "https://www.kcaa.or.ke/safety-security-oversight/aviation-security/certification-of-aviation-security-personnel",
+      },
+      {
+        label: "EASA: Published programme catalogue",
+        url: "https://easa.ac.ke/sites/default/files/downloads/SEPTEMBER%20INTAKE%202025%20%5BFinal%5D.pdf",
+      },
+    ],
   },
   {
     slug: "airline-operations-controller",
     title: "Airline Operations Controller",
     discipline: "ground-operations",
-    hook: "When a storm closes an airport, you decide which flights live and which ones die.",
-    summary:
-      "Operations controllers run the airline's live network, recovering the schedule when reality diverges from the plan.",
-    overview: `An airline schedule is a fragile chain of dependencies: this aircraft, then that crew, then this slot. The Operations Control Centre is where that chain is defended when something breaks.
-
-A single technical delay in Nairobi can cascade into eight downstream cancellations by evening. Your job is to see that cascade forming and cut it off — swapping aircraft, re-crewing, retiming, consolidating, and occasionally cancelling one flight to save four.
-
-It is high-tempo, deeply commercial and intensely operational. People who thrive here enjoy holding a whole system in mind and making consequential calls quickly with incomplete information.`,
-    dayInTheLife: [
-      "Take handover of the live network and every known risk in it.",
-      "Track a delay developing and model the downstream impact.",
-      "Swap an aircraft between routes to protect a long-haul connection.",
-      "Coordinate with crewing on duty-time limits before they become illegal.",
-      "Communicate decisions to stations, ground handling and customer teams.",
-    ],
     skills: [
       "Systems thinking and cascade modelling",
       "Fast triage and prioritisation",
@@ -581,55 +634,78 @@ It is high-tempo, deeply commercial and intensely operational. People who thrive
       "Composure during irregular operations",
     ],
     subjects: ["Mathematics", "Business Studies", "Geography", "Computer Studies"],
-    pathway: [
-      { stage: "School", detail: "KCSE C+ with good Mathematics." },
-      {
-        stage: "Degree or diploma",
-        detail: "Aviation Management, Operations, Logistics or a numerate discipline.",
-      },
-      {
-        stage: "Operational grounding",
-        detail:
-          "Time in station operations, dispatch or crew control — network intuition is learned, not taught.",
-      },
-      {
-        stage: "OCC role",
-        detail: "Join the operations control centre, initially on monitoring duties.",
-      },
-      { stage: "Controller", detail: "Take responsibility for network recovery decisions." },
-    ],
-    salary: {
-      entry: 75000,
-      experienced: 320000,
-      note: "24/7 shift patterns attract allowances.",
-    },
-    growth:
-      "OCC Analyst → Operations Controller → Duty Manager Operations → Head of Operations Control, or into network and schedule planning.",
-    outlook:
-      "Growing as airlines invest in disruption-management technology. Controllers who can work with data and optimisation tools are increasingly valuable.",
     motif: "instruments",
     icon: "Activity",
     featured: false,
+    hook: "Keep aircraft, crews and schedules coordinated when plans change.",
+    summary:
+      "Explore operations and management studies that support airline control-centre careers.",
+    overview:
+      "An airline operations control centre coordinates the daily flying programme. Controllers work with dispatch, crew scheduling, maintenance and airport teams when weather, aircraft availability or other disruptions affect the schedule.\n\nThis is a coordination role with several possible educational routes. Dispatch studies develop flight-planning knowledge; aviation management develops broader organisational understanding. Employers provide additional procedures and systems training for their operation.",
+    studyTopics: [
+      "Airline schedules and operational coordination",
+      "Disruption response and recovery planning",
+      "Aircraft availability and maintenance liaison",
+      "Crew, airport and passenger-service coordination",
+      "Operational communication and record keeping",
+      "Safety decisions and performance monitoring",
+    ],
+    trainingRoutes: [
+      {
+        title: "Flight Operations / Dispatch diploma route",
+        institution: "East African School of Aviation",
+        url: "https://easa.ac.ke/sites/default/files/downloads/SEPTEMBER%20INTAKE%202025%20%5BFinal%5D.pdf",
+        entryRequirements: [
+          "Confirm course-specific entry requirements and any work-experience expectations.",
+        ],
+        qualification:
+          "A flight operations qualification; dispatch duties require the relevant licence.",
+        duration: "The published diploma programme is one year.",
+      },
+      {
+        title: "Bachelor of Civil Aviation Management",
+        institution: "Moi University",
+        url: "https://engineering.mu.ac.ke/index.php/masters-programmes/42-programmes/undergraduate",
+        entryRequirements: [
+          "Published KCSE route: C+ mean and C+ in Mathematics, English and a business-related subject.",
+        ],
+        qualification:
+          "A management degree supporting wider airline business and operations roles.",
+        duration: "Confirm the current programme schedule.",
+      },
+    ],
+    requirements: [
+      "Meet the chosen institution’s admission requirements and the employer’s experience criteria.",
+      "An operations-controller title does not itself create a distinct pilot or dispatcher licence.",
+      "Where duties include licensed flight dispatch, meet KCAA Flight Operations Officer requirements in addition to employer training.",
+    ],
+    opportunities: [
+      "Operations-control assistant",
+      "Crew or aircraft scheduling support",
+      "Flight-following and network operations",
+      "Operations-control supervision after experience",
+    ],
+    growth:
+      "Developing competence across dispatch, scheduling and disruption management can support senior control-centre or airline operations roles.",
+    sources: [
+      {
+        label: "KCAA: Flight Operations Officer licensing",
+        url: "https://www.kcaa.or.ke/personnel-licencing/licencing/flight-operation-officer",
+      },
+      {
+        label: "Moi University: Civil Aviation Management entry requirements",
+        url: "https://engineering.mu.ac.ke/index.php/masters-programmes/42-programmes/undergraduate",
+      },
+      {
+        label: "EASA: Published programme catalogue",
+        url: "https://easa.ac.ke/sites/default/files/downloads/SEPTEMBER%20INTAKE%202025%20%5BFinal%5D.pdf",
+      },
+    ],
   },
   {
     slug: "ground-handling-specialist",
     title: "Ground Handling Specialist",
     discipline: "ground-operations",
-    hook: "Forty-five minutes to unload, clean, cater, fuel, load and dispatch. Go.",
-    summary:
-      "Ground handlers turn aircraft around on the ramp: loading, servicing, marshalling and dispatching every flight.",
-    overview: `The ramp is where aviation's schedule is actually won or lost. A turnaround is a choreographed operation with a dozen parties working around a live aircraft in a confined, noisy, hazardous environment — and a hard deadline.
-
-The specialist role goes well beyond lifting: **load control** calculates weight and balance and produces the loadsheet that determines whether the aircraft can safely fly; **turnaround coordination** sequences every party on the stand; **dangerous goods acceptance** is a certified legal responsibility.
-
-Get weight and balance wrong and the aircraft's handling characteristics change. This is a serious technical job wearing a high-visibility vest.`,
-    dayInTheLife: [
-      "Receive the flight's load plan and brief the ramp team.",
-      "Marshal the aircraft onto stand and connect ground power.",
-      "Supervise unloading and loading against the load instruction report.",
-      "Calculate weight and balance, issue the loadsheet to the crew.",
-      "Dispatch the aircraft and confirm the stand is clear.",
-    ],
     skills: [
       "Weight and balance calculation",
       "Ramp safety discipline",
@@ -638,60 +714,77 @@ Get weight and balance wrong and the aircraft's handling characteristics change.
       "Working outdoors in all conditions",
     ],
     subjects: ["Mathematics", "Physics", "Business Studies", "English"],
-    pathway: [
-      {
-        stage: "School",
-        detail: "KCSE mean grade C-, with Mathematics at C- or above for load control.",
-      },
-      {
-        stage: "Ground handling certification",
-        detail: "IATA Airport Handling and ramp safety training.",
-      },
-      {
-        stage: "Dangerous goods",
-        detail: "IATA DGR certification — a legal requirement and a genuine differentiator.",
-      },
-      {
-        stage: "Load control",
-        detail: "Weight and balance certification, then licensed load controller status.",
-      },
-      {
-        stage: "Supervision",
-        detail: "Turnaround Coordinator → Ramp Supervisor → Station Manager.",
-      },
-    ],
-    salary: {
-      entry: 35000,
-      experienced: 200000,
-      note: "Certified load controllers and dangerous goods specialists earn well above general ramp roles.",
-    },
-    growth:
-      "Ramp Agent → Load Controller → Turnaround Coordinator → Ramp Supervisor → Station Manager.",
-    outlook:
-      "The industry's widest front door. Many senior airport and airline managers started on the ramp, and certification — not tenure — is what accelerates progression.",
     motif: "aircraft",
     icon: "Truck",
     featured: false,
+    hook: "Help aircraft, passengers and baggage move safely between flights.",
+    summary: "Explore ground operations, passenger services, cargo and ramp-training pathways.",
+    overview:
+      "Ground handling connects the aircraft with the airport. Teams coordinate boarding, baggage, cargo, turnaround tasks and the equipment used around a parked aircraft. Some roles work in the terminal; others work on the apron.\n\nA ground-operations course provides a broad foundation. Practical authorisation for specific equipment and airside duties comes through employer training, supervised practice and airport requirements.",
+    studyTopics: [
+      "Passenger services and turnaround coordination",
+      "Baggage, cargo and mail handling",
+      "Ramp safety and aircraft movement awareness",
+      "Load documentation and communication",
+      "Ground-support equipment and human factors",
+      "Dangerous-goods awareness appropriate to the role",
+    ],
+    trainingRoutes: [
+      {
+        title: "Diploma in Airport Ground Operations Management",
+        institution: "East African School of Aviation",
+        url: "https://www.easa.ac.ke/node/671",
+        entryRequirements: [
+          "EASA’s general diploma entry guidance is KCSE C− or equivalent; confirm the specific intake requirements.",
+          "Check attachment arrangements and which practical competencies the course assesses.",
+        ],
+        qualification: "Diploma in airport ground operations management.",
+        duration: "The published course listing states two years.",
+      },
+      {
+        title: "Air Cargo Management and role-specific dangerous-goods training",
+        institution: "East African School of Aviation",
+        url: "https://easa.ac.ke/sites/default/files/downloads/SEPTEMBER%20INTAKE%202025%20%5BFinal%5D.pdf",
+        entryRequirements: [
+          "Entry depends on whether the programme is an introductory diploma or specialist occupational training.",
+        ],
+        qualification:
+          "A cargo-related qualification or task-specific training; not a blanket authorisation for all handling work.",
+        duration: "Depends on the selected course.",
+      },
+    ],
+    requirements: [
+      "Complete the employer’s training and assessment for the duties and equipment assigned.",
+      "Airport access permissions and airside-driving authorisations, where needed, are separate requirements.",
+      "Dangerous-goods training must match the actual function and be kept current.",
+    ],
+    opportunities: [
+      "Passenger-service and boarding roles",
+      "Ramp and turnaround coordination",
+      "Baggage and cargo-handling roles",
+      "Load-control or supervisory work after specialist preparation",
+    ],
+    growth:
+      "Experience and additional training can lead to team leadership, station coordination, training or airport operations management.",
+    sources: [
+      {
+        label: "EASA: Airport Ground Operations Management",
+        url: "https://www.easa.ac.ke/node/671",
+      },
+      {
+        label: "EASA: Published programme catalogue",
+        url: "https://easa.ac.ke/sites/default/files/downloads/SEPTEMBER%20INTAKE%202025%20%5BFinal%5D.pdf",
+      },
+      {
+        label: "EASA: Admission guidance",
+        url: "https://easa.ac.ke/faqs",
+      },
+    ],
   },
   {
     slug: "aircraft-designer",
     title: "Aircraft Designer",
     discipline: "engineering",
-    hook: "Every curve on a wing is an argument between lift, drag, weight and cost that someone had to win.",
-    summary:
-      "Aircraft designers shape the structures, aerodynamics and systems of new aircraft and modifications.",
-    overview: `Aircraft design is applied compromise. Every gram of structure you add for strength costs payload for the aircraft's whole service life. Every square metre of wing that helps at low speed hurts at cruise. The designer's craft is knowing which trade to make and being able to prove it.
-
-The work is computational: CAD modelling, finite element analysis for structures, computational fluid dynamics for aerodynamics, and a great deal of validation against physical test. Certification requirements shape design as strongly as physics does.
-
-In Kenya, the realistic near-term routes are modification design, unmanned aircraft development and supplemental type certificate work — plus a growing set of international remote engineering roles.`,
-    dayInTheLife: [
-      "Model a structural component and run a finite element analysis against load cases.",
-      "Iterate an aerofoil section in CFD and compare against wind tunnel data.",
-      "Review a design against the applicable certification specification.",
-      "Work with stress, systems and manufacturing engineers on an interface problem.",
-      "Document the design substantiation — the evidence, not just the answer.",
-    ],
     skills: [
       "Aerodynamics and structural mechanics",
       "CAD, FEA and CFD tooling",
@@ -700,51 +793,61 @@ In Kenya, the realistic near-term routes are modification design, unmanned aircr
       "Rigorous technical documentation",
     ],
     subjects: ["Mathematics", "Physics", "Chemistry", "Computer Studies"],
-    pathway: [
-      { stage: "School", detail: "KCSE B- or above with Mathematics and Physics at B or above." },
-      { stage: "Degree", detail: "BSc/BEng in Aerospace, Aeronautical or Mechanical Engineering." },
-      {
-        stage: "Specialisation",
-        detail: "MSc in aerodynamics, structures, propulsion or flight dynamics.",
-      },
-      {
-        stage: "Design office",
-        detail: "Junior design engineer under a design organisation approval.",
-      },
-      { stage: "Design authority", detail: "Build toward signatory authority for design changes." },
-    ],
-    salary: {
-      entry: 100000,
-      experienced: 500000,
-      note: "The highest-paying roles are with international manufacturers and design organisations.",
-    },
-    growth:
-      "Design Engineer → Senior Design Engineer → Lead Engineer → Chief Engineer / Design Organisation signatory.",
-    outlook:
-      "Limited domestic design industry today — this is an honest caveat. But UAV design, modification engineering and remote roles with international OEMs are real and growing routes.",
     motif: "engineering",
     icon: "PencilRuler",
     featured: false,
+    hook: "Use engineering and testing to turn an aircraft concept into a workable design.",
+    summary:
+      "Explore the engineering foundation behind aircraft structures, aerodynamics and design.",
+    overview:
+      "Aircraft design brings together aerodynamics, structures, propulsion, systems and manufacturing. Designers compare alternatives, calculate performance and test whether a proposed solution can meet its requirements.\n\nIn Kenya, a relevant engineering degree can provide the foundation. Aircraft design is a specialisation developed through projects, technical experience and often further study; it is not a standalone KCAA personnel licence.",
+    studyTopics: [
+      "Engineering mathematics and mechanics",
+      "Aerodynamics and flight performance",
+      "Structural analysis, materials and manufacturing",
+      "Computer-aided design and technical drawing",
+      "Propulsion and aircraft-system integration",
+      "Testing, simulation and design documentation",
+    ],
+    trainingRoutes: [
+      {
+        title: "Bachelor of Engineering (Aeronautical Engineering)",
+        institution: "Technical University of Kenya",
+        url: "https://intake.tukenya.ac.ke/index.php?r=courseApplication/default/home&prog=117",
+        entryRequirements: [
+          "Published KCSE entry: mean C+ and C+ in Mathematics A, Physics, Chemistry and English/Kiswahili.",
+          "Equivalent and progression routes require confirmation with the university.",
+        ],
+        qualification:
+          "An engineering degree; aircraft-design expertise develops through projects, attachments and further specialisation.",
+        duration:
+          "The university publishes a five-year academic sequence; confirm the current intake schedule.",
+      },
+    ],
+    requirements: [
+      "Meet the university’s published science and language subject requirements.",
+      "Develop a portfolio through design projects, modelling, analysis and supervised practical experience.",
+      "Confirm current professional recognition of the exact degree with the relevant engineering bodies; do not equate a degree with a maintenance licence.",
+    ],
+    opportunities: [
+      "Junior design or CAD support",
+      "Structures, manufacturing or test support",
+      "Unmanned-aircraft design projects",
+      "Research and postgraduate engineering study",
+    ],
+    growth:
+      "Specialisation and practical experience can lead to design responsibility, analysis, systems integration or technical project leadership. Opportunities may extend beyond aviation and beyond Kenya.",
+    sources: [
+      {
+        label: "Technical University of Kenya: Aeronautical Engineering degree",
+        url: "https://intake.tukenya.ac.ke/index.php?r=courseApplication/default/home&prog=117",
+      },
+    ],
   },
   {
     slug: "aerospace-engineer",
     title: "Aerospace Engineer",
     discipline: "engineering",
-    hook: "The same equations that keep an airliner up put a satellite in orbit.",
-    summary:
-      "Aerospace engineers work across aircraft, spacecraft, propulsion and systems — from concept through test to service.",
-    overview: `Aerospace engineering is broader than aircraft. It spans propulsion, avionics and control systems, materials, satellites and launch systems, and the test engineering that proves any of it works.
-
-Kenya's space sector is young but real: the Kenya Space Agency, university CubeSat programmes and a growing earth-observation industry mean satellite and payload work is no longer purely theoretical here. Meanwhile the airline and MRO sector needs engineers in reliability, continuing airworthiness and systems integration.
-
-If you are the student who wants to know *why* the rule is the rule, this is your discipline.`,
-    dayInTheLife: [
-      "Analyse in-service reliability data to find an emerging failure trend.",
-      "Design and instrument a test to validate a system modification.",
-      "Run trajectory or thermal analysis for a satellite payload.",
-      "Present a technical case to a review board.",
-      "Mentor a graduate engineer through a substantiation report.",
-    ],
     skills: [
       "Applied mathematics and physics",
       "Systems engineering and requirements discipline",
@@ -753,57 +856,61 @@ If you are the student who wants to know *why* the rule is the rule, this is you
       "Technical writing that stands up to review",
     ],
     subjects: ["Mathematics", "Physics", "Chemistry", "Computer Studies"],
-    pathway: [
-      { stage: "School", detail: "KCSE B- or above with Mathematics and Physics at B or above." },
-      {
-        stage: "Degree",
-        detail: "BSc/BEng in Aerospace, Aeronautical, Mechanical or Electrical Engineering.",
-      },
-      {
-        stage: "Professional registration",
-        detail: "Graduate engineer registration with the Engineers Board of Kenya.",
-      },
-      {
-        stage: "Specialisation",
-        detail: "Propulsion, avionics, structures, space systems or reliability.",
-      },
-      {
-        stage: "Chartered engineer",
-        detail: "Professional registration after supervised experience.",
-      },
-    ],
-    salary: {
-      entry: 95000,
-      experienced: 480000,
-      note: "Space agency, research and international roles vary widely from airline engineering scales.",
-    },
-    growth:
-      "Graduate Engineer → Engineer → Senior Engineer → Principal / Chief Engineer, or into research and academia.",
-    outlook:
-      "The strongest long-term outlook in this catalogue. Satellite services, drone systems and aviation decarbonisation are all expanding, and the skills transfer readily across sectors.",
     motif: "world",
     icon: "Rocket",
     featured: true,
+    hook: "Apply science to the aircraft and systems that operate in the air and beyond.",
+    summary:
+      "Explore an aeronautical engineering foundation and routes into broader aerospace specialisms.",
+    overview:
+      "Aerospace engineering applies mathematics and physical science to flight vehicles and their systems. Work can involve aerodynamics, propulsion, structures, control systems, testing or integration. Aeronautical engineering focuses on aircraft operating in the atmosphere.\n\nKenyan aeronautical programmes provide one foundation for this wider field. Space-focused roles may require additional specialisation or postgraduate study; a course title alone does not guarantee access to a particular aerospace job.",
+    studyTopics: [
+      "Fluid mechanics and aerodynamics",
+      "Thermodynamics and propulsion",
+      "Structures and engineering materials",
+      "Dynamics, stability and control",
+      "Numerical methods, simulation and systems integration",
+      "Engineering experiments and research methods",
+    ],
+    trainingRoutes: [
+      {
+        title: "Bachelor of Engineering (Aeronautical Engineering)",
+        institution: "Technical University of Kenya",
+        url: "https://intake.tukenya.ac.ke/index.php?r=courseApplication/default/home&prog=117",
+        entryRequirements: [
+          "Published KCSE entry: mean C+ and C+ in Mathematics A, Physics, Chemistry and English/Kiswahili.",
+          "Equivalent and progression routes require confirmation with the university.",
+        ],
+        qualification:
+          "An engineering degree; broader aerospace specialisation develops through projects, attachments and further specialisation.",
+        duration:
+          "The university publishes a five-year academic sequence; confirm the current intake schedule.",
+      },
+    ],
+    requirements: [
+      "Meet the institution’s Mathematics, Physics, Chemistry and language requirements.",
+      "Build analytical and programming skills alongside laboratory and project experience.",
+      "Check professional recognition and the prerequisites for any intended postgraduate or specialised aerospace route.",
+    ],
+    opportunities: [
+      "Engineering analysis and technical support",
+      "Testing, simulation and systems work",
+      "Manufacturing or unmanned-aircraft development",
+      "Research and further study in specialist aerospace fields",
+    ],
+    growth:
+      "Graduates may develop into specialist analysts, systems engineers, researchers or technical managers. Some specialist opportunities require relocation or further qualifications.",
+    sources: [
+      {
+        label: "Technical University of Kenya: Aeronautical Engineering degree",
+        url: "https://intake.tukenya.ac.ke/index.php?r=courseApplication/default/home&prog=117",
+      },
+    ],
   },
   {
     slug: "drone-pilot",
     title: "Drone Pilot (RPAS Operator)",
     discipline: "flight-operations",
-    hook: "The fastest-growing aviation career in Kenya, and the one you can legally start closest to leaving school.",
-    summary:
-      "Licensed remote pilots operate unmanned aircraft for survey, agriculture, inspection, mapping, delivery and film.",
-    overview: `Remotely piloted aircraft have moved from novelty to infrastructure. In Kenya they survey farmland, inspect power lines and pipelines, map construction progress, monitor wildlife, deliver medical supplies and shoot commercial film.
-
-Kenya regulates this properly: the KCAA requires a Remote Pilot Licence, operator certification and, for many missions, specific authorisation. That regulation is good news for anyone entering seriously, because it separates licensed professionals from hobbyists.
-
-The money is rarely in flying. It is in what you do with the data — orthomosaics, volumetric survey, NDVI crop analysis, thermal inspection reports. The pilots who build analysis skills alongside flying skills are the ones who build businesses.`,
-    dayInTheLife: [
-      "Plan the mission: airspace, authorisations, weather, battery and flight geometry.",
-      "Conduct a site survey and brief the ground crew on emergency procedures.",
-      "Fly the automated survey grid, monitoring the aircraft throughout.",
-      "Process imagery into an orthomosaic or 3D model.",
-      "Deliver the analysis the client actually needs.",
-    ],
     skills: [
       "Airspace and regulatory knowledge",
       "Mission planning and risk assessment",
@@ -812,60 +919,65 @@ The money is rarely in flying. It is in what you do with the data — orthomosai
       "Client communication and pricing",
     ],
     subjects: ["Mathematics", "Physics", "Geography", "Computer Studies"],
-    pathway: [
-      {
-        stage: "School",
-        detail: "KCSE C- or above; Geography and Computer Studies are genuinely useful here.",
-      },
-      {
-        stage: "Remote Pilot Licence",
-        detail: "KCAA-approved RPL training — a few weeks, not years.",
-      },
-      {
-        stage: "Operator certificate",
-        detail: "Work under a certified Remote Operator, or certify your own operation.",
-      },
-      {
-        stage: "Specialisation",
-        detail: "Survey and mapping, agriculture, inspection, or cinematography.",
-      },
-      {
-        stage: "Business",
-        detail: "Many remote pilots build service companies rather than seeking employment.",
-      },
-    ],
-    salary: {
-      entry: 50000,
-      experienced: 300000,
-      note: "Project-based work is common; experienced survey operators bill per hectare or per site.",
-    },
-    growth:
-      "Remote Pilot → Senior Pilot / Chief Remote Pilot → Operations Manager, or founder of a drone services business.",
-    outlook:
-      "The lowest barrier to entry and the fastest growth of any career here. Combine the licence with GIS or data analysis skills and you are genuinely scarce.",
     motif: "navigation",
     icon: "Send",
     featured: true,
+    hook: "Operate unmanned aircraft and turn flight data into useful results.",
+    summary:
+      "Explore remote-pilot training, operating permissions and specialist drone applications.",
+    overview:
+      "Drone work combines safe flight planning with a purpose such as inspection, mapping or image capture. A capable remote pilot understands the aircraft, the operating environment and how to respond when conditions change.\n\nThe pilot’s licence, aircraft requirements and the organisation’s operating permissions are separate matters. Training should cover the intended aircraft and use case; owning a drone is not the same as being authorised for every operation.",
+    studyTopics: [
+      "Unmanned-aircraft systems and pre-flight checks",
+      "Airspace, weather and flight planning",
+      "Remote-pilot control and emergency procedures",
+      "Navigation, batteries and payload management",
+      "Safety, privacy and operational documentation",
+      "Mapping, inspection or imaging workflows",
+    ],
+    trainingRoutes: [
+      {
+        title: "Remote Pilot Licence (RPL) training",
+        institution: "KCAA-listed Unmanned Aircraft Systems Training Organisations",
+        url: "https://www.kcaa.or.ke/safety-security-oversight/unmanned-aircraft-systems/uto",
+        entryRequirements: [
+          "KCAA’s published UAS standards specify age 18 or above, English-language ability and the applicable medical assessment.",
+          "Confirm current entry, student-licence and aircraft-rating requirements with the approved provider.",
+        ],
+        qualification:
+          "Remote Pilot Licence with the appropriate rating and continuing requirements.",
+        duration:
+          "Provider- and rating-specific; confirm theory, practical flying and assessment time.",
+      },
+    ],
+    requirements: [
+      "Choose a currently approved UAS training organisation and verify the scope of its approval.",
+      "Hold the required licence, ratings and medical assessment for your duties.",
+      "Commercial operating arrangements, aircraft registration and flight permissions must also meet applicable KCAA requirements; the RPL does not replace them.",
+    ],
+    opportunities: [
+      "Aerial imaging and media production",
+      "Inspection and survey support with relevant technical skills",
+      "Agricultural or environmental data collection",
+      "Unmanned-aircraft operations and project coordination",
+    ],
+    growth:
+      "Combining flight competence with surveying, GIS, data analysis or industry expertise can support specialist services and supervisory roles.",
+    sources: [
+      {
+        label: "KCAA: UAS Manual of Implementing Standards",
+        url: "https://www.kcaa.or.ke/sites/default/files/docs/uas/Manual%20of%20Implementing%20Standards%20%28MIS%29.pdf",
+      },
+      {
+        label: "KCAA: Approved unmanned aircraft training organisations",
+        url: "https://www.kcaa.or.ke/safety-security-oversight/unmanned-aircraft-systems/uto",
+      },
+    ],
   },
   {
     slug: "avionics-technician",
     title: "Avionics Technician",
     discipline: "engineering",
-    hook: "A modern airliner carries hundreds of kilometres of wiring. You are the person who understands it.",
-    summary:
-      "Avionics technicians maintain and certify the electronic systems that navigate, communicate and control the aircraft.",
-    overview: `If the airframe is the body, avionics is the nervous system: navigation, communication, autoflight, displays, surveillance, and the data buses that tie them together.
-
-Avionics work is diagnostic. Faults are frequently intermittent, and finding them means understanding how systems interact rather than swapping boxes until the light goes out. The discipline is moving quickly toward integrated modular avionics and software-defined systems, which makes digital skills increasingly central.
-
-It is a strong choice for students who like electronics and problem-solving and want a licensed, portable, technically respected trade.`,
-    dayInTheLife: [
-      "Investigate an intermittent navigation fault reported by the flight crew.",
-      "Trace a wiring loom against the aircraft schematic.",
-      "Load and verify a software update to an avionics unit.",
-      "Carry out a functional test and certify the work.",
-      "Update the aircraft's technical records precisely.",
-    ],
     skills: [
       "Electronics and digital systems",
       "Schematic and wiring diagram interpretation",
@@ -874,31 +986,75 @@ It is a strong choice for students who like electronics and problem-solving and 
       "Meticulous record keeping",
     ],
     subjects: ["Mathematics", "Physics", "Computer Studies", "Pre-Technical Studies"],
-    pathway: [
-      { stage: "School", detail: "KCSE C+ with Mathematics and Physics at C+." },
-      {
-        stage: "Diploma",
-        detail: "Aeronautical Engineering (Avionics) at an approved training organisation.",
-      },
-      { stage: "B2 licence modules", detail: "Pass the avionics-category theory examinations." },
-      { stage: "Experience", detail: "2–4 years of logged, supervised maintenance experience." },
-      {
-        stage: "B2 licence",
-        detail: "Category B2 Aircraft Maintenance Engineer licence with type ratings.",
-      },
-    ],
-    salary: {
-      entry: 85000,
-      experienced: 420000,
-      note: "B2 licence holders with modern glass-cockpit type ratings are in particularly short supply.",
-    },
-    growth:
-      "Technician → Licensed B2 Engineer → Avionics Specialist → Engineering Manager or Continuing Airworthiness.",
-    outlook:
-      "Aircraft are becoming more electronic, not less. Avionics is the fastest-growing segment of aircraft maintenance and one of the most globally portable licences you can hold.",
     motif: "instruments",
     icon: "CircuitBoard",
     featured: false,
+    hook: "Work with the electronics that help an aircraft navigate, communicate and operate.",
+    summary:
+      "Explore avionics studies, fault diagnosis and the licensing route for certifying work.",
+    overview:
+      "Avionics covers aircraft electronic systems, including communication, navigation, displays and associated wiring. Technicians use diagrams, test equipment and approved procedures to locate faults and verify that systems work correctly.\n\nTraining combines electronics with aircraft knowledge. The ability to certify maintenance depends on the relevant licensing and authorisation requirements, rather than on a diploma title alone.",
+    studyTopics: [
+      "Electrical principles and electronic components",
+      "Digital systems and aircraft instruments",
+      "Communication, navigation and surveillance equipment",
+      "Wiring diagrams and diagnostic procedures",
+      "Test equipment, inspection and functional checks",
+      "Maintenance records, human factors and airworthiness",
+    ],
+    trainingRoutes: [
+      {
+        title: "Diploma in Aeronautical Engineering — Avionics",
+        institution: "East African School of Aviation",
+        url: "https://easa.ac.ke/sites/default/files/downloads/SEPTEMBER%20INTAKE%202025%20%5BFinal%5D.pdf",
+        entryRequirements: [
+          "Confirm the current programme’s Mathematics, Physics and English requirements with EASA.",
+          "Ask how workshop learning, attachment and licence preparation are organised.",
+        ],
+        qualification:
+          "Aeronautical engineering diploma with an avionics focus; licensing is a separate process.",
+        duration: "The published diploma catalogue lists three years.",
+      },
+      {
+        title: "Diploma in Technology (Aeronautical Engineering)",
+        institution: "Technical University of Kenya",
+        url: "https://intake.tukenya.ac.ke/index.php?r=courseApplication/default/home&prog=180",
+        entryRequirements: [
+          "Published KCSE entry: mean C, with C− in Mathematics A, Physics and English.",
+          "Confirm availability of the intended electronics specialisation before applying.",
+        ],
+        qualification:
+          "A broader aeronautical technology qualification; confirm the specialisation and award with the university.",
+        duration: "The published sequence covers three academic years, excluding attachment.",
+      },
+    ],
+    requirements: [
+      "For certifying duties, meet KCAA AMEL knowledge, experience, skill and examination requirements for the relevant rating.",
+      "KCAA AMEL eligibility includes age 18 or above and English-language competence.",
+      "Verify the applicable Kenyan licence and rating route rather than assuming that foreign licence-category terminology applies automatically.",
+    ],
+    opportunities: [
+      "Trainee avionics or electronics technician",
+      "Aircraft wiring and component-workshop roles",
+      "Navigation or communication system maintenance support",
+      "Licensed certifying work after meeting the relevant requirements",
+    ],
+    growth:
+      "Experience can support progression into licensed maintenance, fault-diagnosis specialisms, technical training, quality assurance or supervision.",
+    sources: [
+      {
+        label: "EASA: Published programme catalogue",
+        url: "https://easa.ac.ke/sites/default/files/downloads/SEPTEMBER%20INTAKE%202025%20%5BFinal%5D.pdf",
+      },
+      {
+        label: "Technical University of Kenya: Aeronautical Engineering diploma",
+        url: "https://intake.tukenya.ac.ke/index.php?r=courseApplication/default/home&prog=180",
+      },
+      {
+        label: "KCAA: Aircraft Maintenance Engineer licensing",
+        url: "https://www.kcaa.or.ke/personnel-licencing/licencing/aircraft-maintenance-engineers",
+      },
+    ],
   },
 ];
 

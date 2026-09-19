@@ -41,6 +41,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: routes.contact, priority: 0.6, changeFrequency: "yearly" },
     { url: routes.privacy, priority: 0.2, changeFrequency: "yearly" },
     { url: routes.terms, priority: 0.2, changeFrequency: "yearly" },
+    { url: routes.photoCredits, priority: 0.2, changeFrequency: "yearly" },
   ];
 
   const staticRoutes: MetadataRoute.Sitemap = staticEntries.map((entry) => ({

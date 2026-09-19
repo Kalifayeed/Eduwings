@@ -109,20 +109,25 @@ export default async function SearchPage({ searchParams }: PageProps) {
             <Reveal className="mt-12">
               <p className="text-sm text-muted-foreground">Popular searches</p>
               <ul className="mt-4 flex flex-wrap gap-2">
-                {["pilot", "aircraft engineer", "drone", "physics", "salary", "school visit"].map(
-                  (term) => (
-                    <li key={term}>
-                      <Link
-                        href={`${routes.search}?q=${encodeURIComponent(term)}`}
-                        className="inline-flex"
-                      >
-                        <Badge variant="secondary" className="px-3.5 py-1.5 text-sm">
-                          {term}
-                        </Badge>
-                      </Link>
-                    </li>
-                  ),
-                )}
+                {[
+                  "pilot",
+                  "aircraft engineer",
+                  "drone",
+                  "physics",
+                  "entry requirements",
+                  "school visit",
+                ].map((term) => (
+                  <li key={term}>
+                    <Link
+                      href={`${routes.search}?q=${encodeURIComponent(term)}`}
+                      className="inline-flex"
+                    >
+                      <Badge variant="secondary" className="px-3.5 py-1.5 text-sm">
+                        {term}
+                      </Badge>
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </Reveal>
           ) : null}

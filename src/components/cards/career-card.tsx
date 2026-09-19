@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
-import { cn, formatCompactNumber } from "@/lib/utils";
+import { cn } from "@/lib/utils";
+import { getCareerPhoto } from "@/lib/content/career-photos";
 import { routes } from "@/config/routes";
 import { Icon } from "@/components/icon";
 import { disciplineLabel, type Career } from "@/lib/content/careers";
@@ -16,6 +17,7 @@ import { AppImage } from "@/components/media/app-image";
  * what legally allows an aircraft to fly" does not).
  */
 function CareerCard({ career, className }: { career: Career; className?: string }) {
+  const photo = getCareerPhoto(career.slug);
   return (
     <article
       className={cn(
@@ -27,8 +29,8 @@ function CareerCard({ career, className }: { career: Career; className?: string 
     >
       <div className="relative aspect-[16/10] overflow-hidden">
         <AppImage
-          src={null}
-          alt=""
+          src={photo.src}
+          alt={photo.alt}
           seed={career.slug}
           motif={career.motif}
           className="size-full transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:scale-[1.04]"
@@ -47,32 +49,23 @@ function CareerCard({ career, className }: { career: Career; className?: string 
             <Icon name={career.icon} className="size-5" aria-hidden />
           </span>
           <h3 className="pt-1.5 font-display text-lg leading-tight font-semibold tracking-tight">
-            <Link href={routes.career(career.slug)} className="before:absolute before:inset-0">
-              {career.title}
-            </Link>
+            {career.title}
           </h3>
         </div>
 
         <p className="mt-4 flex-1 text-sm leading-relaxed text-muted-foreground">{career.hook}</p>
 
-        <div className="mt-6 flex items-end justify-between gap-4 border-t pt-4">
-          {career.salary ? (
-            <div>
-              <p className="text-[0.7rem] tracking-wide text-muted-foreground uppercase">
-                Monthly, KES
-              </p>
-              <p className="font-mono text-sm font-medium">
-                {formatCompactNumber(career.salary.entry)} –{" "}
-                {formatCompactNumber(career.salary.experienced)}
-              </p>
-            </div>
-          ) : (
-            <span />
-          )}
-          <span className="inline-flex items-center gap-1 text-sm font-medium text-primary">
-            Pathway
-            <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        <div className="mt-6 flex items-center justify-between gap-4 border-t pt-4">
+          <span className="text-xs text-muted-foreground">
+            Courses, requirements &amp; opportunities
           </span>
+          <Link
+            href={routes.career(career.slug)}
+            aria-label={"Explore more: " + career.title}
+            className="inline-flex shrink-0 items-center gap-1 text-sm font-medium text-primary before:absolute before:inset-0"
+          >
+            Explore more <ArrowUpRight className="size-4" aria-hidden />
+          </Link>
         </div>
       </div>
     </article>

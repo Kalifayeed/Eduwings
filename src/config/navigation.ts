@@ -95,7 +95,7 @@ export const mainNavigation: NavSection[] = [
       {
         label: "All Aviation Careers",
         href: routes.careers,
-        description: "Fourteen career paths, mapped end to end from school subject to salary.",
+        description: "Fourteen career catalogues with courses, requirements and opportunities.",
         icon: Plane,
       },
       {
@@ -228,6 +228,7 @@ export const footerNavigation: FooterColumn[] = [
       { label: "Activities", href: routes.activities },
       { label: "Aviation Careers", href: routes.careers },
       { label: "For Schools", href: routes.schools },
+      { label: "Programme Fees", href: routes.fees },
       { label: "Aviation Visits", href: routes.visit },
       { label: "Where to Train", href: routes.courses },
     ],
@@ -263,6 +264,7 @@ export const footerNavigation: FooterColumn[] = [
 ];
 
 export const legalNavigation = [
+  { label: "Photo Credits", href: routes.photoCredits },
   { label: "Privacy Policy", href: routes.privacy },
   { label: "Terms of Use", href: routes.terms },
 ];

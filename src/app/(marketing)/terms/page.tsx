@@ -22,11 +22,10 @@ This website is operated by ${siteConfig.legalName}. By using it you accept thes
 
 This is the section that matters most, so it comes first.
 
-The career pathways published here describe entry requirements, training routes, licensing steps and indicative salary ranges for the Kenyan aviation industry. They are compiled from industry contacts, published institutional requirements and regulatory guidance, and they are reviewed by practising professionals.
+The career catalogues describe study routes, entry requirements, qualifications and career opportunities. They link to institutional and regulatory sources. EduWings provides school awareness and guidance, not the professional courses or qualifications described in the catalogues.
 
 They are nonetheless **guidance, not advice, and not an offer**:
 
-- **Salary figures are indicative ranges, not quotations.** They are gross monthly figures that move with the market, and allowances — particularly for crew and shift roles — can form a large share of actual pay.
 - **Entry requirements change.** Institutions revise their grade requirements and the Kenya Civil Aviation Authority revises licensing rules. Always confirm current requirements directly with the institution or the regulator before making a decision.
 - **We cannot guarantee outcomes.** Completing a pathway described here does not guarantee employment. Aviation is cyclical, and several of these careers are genuinely competitive. We say so on the pages themselves.
 

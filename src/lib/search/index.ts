@@ -159,6 +159,7 @@ const STATIC_DOCUMENTS: SearchDocument[] = [
     keywords: [
       disciplineLabel(career.discipline),
       ...career.skills,
+      ...career.trainingRoutes.map((course) => course.title),
       ...career.subjects,
       career.hook,
     ],

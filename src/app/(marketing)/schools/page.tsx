@@ -1,3 +1,4 @@
+import { ServicePricing } from "@/components/marketing/service-pricing";
 import { CheckCircle2, Clock, MapPin, School as SchoolIcon, Users } from "lucide-react";
 
 import { routes } from "@/config/routes";
@@ -107,6 +108,8 @@ export default async function SchoolsPage() {
       />
 
       {/* ── What is required ────────────────────────────────────────────── */}
+      <ServicePricing />
+
       <Section size="sm">
         <div className="container-page">
           <RevealGroup as="ul" className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">

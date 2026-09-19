@@ -5,7 +5,6 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { CAREER_DISCIPLINES, type Career, type CareerDisciplineId } from "@/lib/content/careers";
-import { RevealGroup, RevealItem } from "@/components/motion/reveal";
 import { CareerCard } from "@/components/cards/career-card";
 
 const ALL = "all" as const;
@@ -88,13 +87,13 @@ function CareerFilter({ careers }: { careers: Career[] }) {
         Showing {visible.length} of {careers.length} careers.
       </p>
 
-      <RevealGroup as="ul" className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {visible.map((career) => (
-          <RevealItem as="li" key={career.slug}>
+          <li key={career.slug}>
             <CareerCard career={career} className="h-full" />
-          </RevealItem>
+          </li>
         ))}
-      </RevealGroup>
+      </ul>
     </div>
   );
 }
