@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, CalendarDays, Clock, MapPin, Ticket, Users } from "lucide-react";
 
 import { routes } from "@/config/routes";
+import { siteConfig } from "@/config/site";
 import { getContentSource } from "@/lib/content";
 import { aviationTourEvent, aviationTourSlug, withAviationTour } from "@/lib/content/aviation-tour";
 import { formatDateTime } from "@/lib/utils";
@@ -20,7 +21,6 @@ import { MarkdownContent } from "@/components/content/markdown";
 import { AppImage } from "@/components/media/app-image";
 import { EventCard, availabilityOf } from "@/components/cards/event-card";
 import { EventRegistrationForm } from "@/components/forms/event-registration-form";
-import { AviationTourInquiryForm } from "@/components/forms/aviation-tour-inquiry-form";
 import { ShareRow } from "@/components/content/share-row";
 
 interface PageProps {
@@ -247,16 +247,20 @@ export default async function EventDetailPage({ params }: PageProps) {
                 <>
                   <h2 className="flex items-center gap-2 font-display text-lg font-semibold">
                     <Ticket aria-hidden className="size-5 text-primary" />
-                    {isTour ? "Ask about this tour" : "Get Quotation"}
+                    {isTour ? "Tour inquiries" : "Get Quotation"}
                   </h2>
                   <p className="mt-1.5 text-sm text-muted-foreground">
                     {isTour
-                      ? "KES 3,500 per learner. Send your details and we will follow up about booking. No payment is taken here."
+                      ? "Online inquiries are temporarily unavailable. Please call EduWings for booking and payment details."
                       : "Request a quotation for your group. Fees and availability are confirmed before booking."}
                   </p>
                   <div className="mt-6">
                     {isTour ? (
-                      <AviationTourInquiryForm />
+                      <Button asChild className="w-full">
+                        <a href={`tel:${siteConfig.contact.phoneE164}`}>
+                          Call {siteConfig.contact.phone}
+                        </a>
+                      </Button>
                     ) : (
                       <EventRegistrationForm eventSlug={event.slug} />
                     )}

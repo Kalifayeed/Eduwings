@@ -5,11 +5,11 @@ import { routes } from "@/config/routes";
 import { aviationTourEvent } from "@/lib/content/aviation-tour";
 import { AppImage } from "@/components/media/app-image";
 
-/** A whole-card link takes visitors directly to the tour inquiry form. */
+/** A whole-card link takes visitors to the tour poster and event details. */
 export function AviationTourPromo() {
   return (
     <Link
-      href={`${routes.event(aviationTourEvent.slug)}#inquiry`}
+      href={routes.event(aviationTourEvent.slug)}
       className="group grid overflow-hidden rounded-3xl border border-primary/20 bg-card shadow-[var(--shadow-soft)] transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-float)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary sm:grid-cols-[minmax(0,16rem)_1fr]"
     >
       <div className="relative aspect-[2/3] max-h-96 bg-white sm:aspect-auto sm:max-h-none">
@@ -45,7 +45,7 @@ export function AviationTourPromo() {
         </div>
         <p className="mt-3 text-sm text-muted-foreground">Ages 7–17 · KES 3,500 per learner</p>
         <span className="mt-7 inline-flex items-center gap-2 font-semibold text-primary group-hover:underline">
-          Send an inquiry <ArrowRight aria-hidden className="size-4" />
+          View event details <ArrowRight aria-hidden className="size-4" />
         </span>
       </div>
     </Link>

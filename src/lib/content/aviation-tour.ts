@@ -39,7 +39,7 @@ export const aviationTourEvent: EduEvent = {
 - **Price:** KES 3,500 per learner
 - **Drop-off and pick-up:** Wilson Airport
 
-Send an inquiry using the form on this page. The EduWings team will follow up with booking and payment details. Sending an inquiry does not reserve a place or collect payment.`,
+Online inquiries are temporarily unavailable. Please contact EduWings directly for booking and payment details.`,
   ...published("2026-10-14T00:00:00.000Z"),
 };
 

@@ -13,7 +13,7 @@ import { AppImage } from "@/components/media/app-image";
 function availabilityOf(event: EduEvent) {
   if (!event.registrationOpen) return { label: "Registration closed", variant: "muted" as const };
   if (event.slug === aviationTourSlug)
-    return { label: "Enquiries open", variant: "success" as const };
+    return { label: "Upcoming event", variant: "secondary" as const };
   if (event.capacity === null) return { label: "Open — no limit", variant: "success" as const };
 
   const remaining = event.capacity - event.seatsTaken;
@@ -71,7 +71,7 @@ function EventCard({ event, className }: EventCardProps) {
 
         <h3 className="mt-3.5 font-display text-lg leading-tight font-semibold tracking-tight transition-colors group-hover:text-primary">
           <Link
-            href={`${routes.event(event.slug)}${event.slug === aviationTourSlug ? "#inquiry" : ""}`}
+            href={routes.event(event.slug)}
             className="before:absolute before:inset-0"
           >
             {event.title}
@@ -109,7 +109,7 @@ function EventCard({ event, className }: EventCardProps) {
             </div>
           ) : null}
           <span className="ml-auto inline-flex items-center gap-1 font-medium text-primary">
-            {event.slug === aviationTourSlug ? "Inquire" : "Details"}
+            Details
             <ArrowUpRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </span>
         </dl>
