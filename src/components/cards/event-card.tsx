@@ -5,12 +5,15 @@ import { cn, formatDate } from "@/lib/utils";
 import { requestTime } from "@/lib/time";
 import { routes } from "@/config/routes";
 import type { EduEvent } from "@/lib/content/types";
+import { aviationTourSlug } from "@/lib/content/aviation-tour";
 import { Badge } from "@/components/ui/badge";
 import { AppImage } from "@/components/media/app-image";
 
 /** Seat availability, expressed the way a visitor actually reads it. */
 function availabilityOf(event: EduEvent) {
   if (!event.registrationOpen) return { label: "Registration closed", variant: "muted" as const };
+  if (event.slug === aviationTourSlug)
+    return { label: "Enquiries open", variant: "success" as const };
   if (event.capacity === null) return { label: "Open — no limit", variant: "success" as const };
 
   const remaining = event.capacity - event.seatsTaken;
@@ -67,7 +70,10 @@ function EventCard({ event, className }: EventCardProps) {
         </div>
 
         <h3 className="mt-3.5 font-display text-lg leading-tight font-semibold tracking-tight transition-colors group-hover:text-primary">
-          <Link href={routes.event(event.slug)} className="before:absolute before:inset-0">
+          <Link
+            href={`${routes.event(event.slug)}${event.slug === aviationTourSlug ? "#inquiry" : ""}`}
+            className="before:absolute before:inset-0"
+          >
             {event.title}
           </Link>
         </h3>
@@ -89,6 +95,12 @@ function EventCard({ event, className }: EventCardProps) {
             <MapPin aria-hidden className="size-3.5" />
             <dd>{event.isOnline ? "Online" : event.locality}</dd>
           </div>
+          {event.priceKes !== null ? (
+            <div className="inline-flex items-center gap-1.5 font-semibold text-foreground">
+              <dt className="sr-only">Price</dt>
+              <dd>KES {event.priceKes.toLocaleString()} per learner</dd>
+            </div>
+          ) : null}
           {event.capacity ? (
             <div className="inline-flex items-center gap-1.5">
               <dt className="sr-only">Capacity</dt>
@@ -97,7 +109,7 @@ function EventCard({ event, className }: EventCardProps) {
             </div>
           ) : null}
           <span className="ml-auto inline-flex items-center gap-1 font-medium text-primary">
-            Details
+            {event.slug === aviationTourSlug ? "Inquire" : "Details"}
             <ArrowUpRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </span>
         </dl>

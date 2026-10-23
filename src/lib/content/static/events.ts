@@ -1,5 +1,6 @@
 import { routes } from "@/config/routes";
 import type { EduEvent } from "@/lib/content/types";
+import { aviationTourEvent } from "@/lib/content/aviation-tour";
 import { published } from "@/lib/content/static/seed-utils";
 
 /**
@@ -190,8 +191,11 @@ This event has taken place. To Get Quotation for your school, use the [quotation
   },
 ] as const;
 
-export const events: EduEvent[] = seed.map((item) => ({
-  ...item,
-  coverImage: null,
-  ...published(),
-}));
+export const events: EduEvent[] = [
+  ...seed.map((item) => ({
+    ...item,
+    coverImage: null,
+    ...published(),
+  })),
+  aviationTourEvent,
+];

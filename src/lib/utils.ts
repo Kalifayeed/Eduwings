@@ -56,11 +56,15 @@ const DATE_FORMAT: Intl.DateTimeFormatOptions = {
   year: "numeric",
 };
 
-/** Locale-stable date formatting. Fixed to en-GB so SSR and client agree. */
+/** Kenyan event times must render consistently on servers in any time zone. */
 export function formatDate(value: string | Date, options: Intl.DateTimeFormatOptions = {}): string {
   const date = typeof value === "string" ? new Date(value) : value;
   if (Number.isNaN(date.getTime())) return "";
-  return new Intl.DateTimeFormat("en-GB", { ...DATE_FORMAT, ...options }).format(date);
+  return new Intl.DateTimeFormat("en-GB", {
+    ...DATE_FORMAT,
+    timeZone: "Africa/Nairobi",
+    ...options,
+  }).format(date);
 }
 
 /** "9 Mar 2026, 14:30" — used for event start times. */

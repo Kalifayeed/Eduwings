@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { routes } from "@/config/routes";
 import { siteConfig } from "@/config/site";
 import { getContentSource } from "@/lib/content";
+import { aviationTourIsUpcoming, withAviationTour } from "@/lib/content/aviation-tour";
 import { getFeaturedCareers } from "@/lib/content/careers";
 import { activities, impactStatistics, whyItMatters } from "@/lib/content/editorial";
 import { programModules } from "@/lib/content/static/programs";
@@ -21,6 +22,7 @@ import { PartnerStrip } from "@/components/marketing/partner-strip";
 import { TestimonialCarousel } from "@/components/marketing/testimonial-carousel";
 import { CareerCard } from "@/components/cards/career-card";
 import { EventCard } from "@/components/cards/event-card";
+import { AviationTourPromo } from "@/components/events/aviation-tour-promo";
 import { ArticleCard } from "@/components/cards/article-card";
 import { AppImage } from "@/components/media/app-image";
 
@@ -29,6 +31,8 @@ export const metadata = buildMetadata({
   description: siteConfig.shortDescription,
   path: routes.home,
 });
+
+export const revalidate = 0;
 
 export default async function HomePage() {
   const source = getContentSource();
@@ -43,10 +47,20 @@ export default async function HomePage() {
   ]);
 
   const featuredCareers = getFeaturedCareers(6);
+  const tourUpcoming = aviationTourIsUpcoming();
+  const featuredEvents = withAviationTour(upcomingEvents.items, "upcoming").slice(0, 3);
 
   return (
     <>
       <Hero />
+
+      {tourUpcoming ? (
+        <Section size="sm">
+          <div className="container-page">
+            <AviationTourPromo />
+          </div>
+        </Section>
+      ) : null}
 
       {/* ── The problem ─────────────────────────────────────────────────── */}
       <Section>
@@ -306,13 +320,14 @@ export default async function HomePage() {
       ) : null}
 
       {/* ── Events ──────────────────────────────────────────────────────── */}
-      {upcomingEvents.items.length > 0 ? (
+      {featuredEvents.length > 0 ? (
         <Section tone="surface">
           <div className="container-page">
             <SectionHeader
               eyebrow="Coming up"
               title="Open days, airport tours and career fairs."
-              description="Get Quotation for your group. Attendance is subject to availability and booking confirmation."
+              description="Explore the next aviation experiences and send your details to the team. Check each event for its price and booking information."
+
             >
               <Button asChild variant="outline" size="lg">
                 <Link href={routes.events}>
@@ -323,7 +338,7 @@ export default async function HomePage() {
             </SectionHeader>
 
             <RevealGroup as="ul" className="mt-14 grid gap-5">
-              {upcomingEvents.items.map((event) => (
+              {featuredEvents.map((event) => (
                 <RevealItem as="li" key={event.id}>
                   <EventCard event={event} />
                 </RevealItem>

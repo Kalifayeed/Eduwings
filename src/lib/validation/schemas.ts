@@ -346,3 +346,19 @@ export const eventRegistrationSchema = z.object({
 });
 
 export type EventRegistrationInput = z.infer<typeof eventRegistrationSchema>;
+
+/* ────────────────────── Aviation tour inquiry ─────────────────────────── */
+
+export const aviationTourInquirySchema = z.object({
+  name,
+  email,
+  phone,
+  organisation: z.string().trim().max(150).optional(),
+  learners: z.number().int("Please enter a whole number.").min(1).max(60),
+  learnerAges: z.string().trim().min(1, "Please tell us the learner ages.").max(80),
+  message: z.string().trim().max(1000).optional(),
+  consent,
+  website: honeypot,
+});
+
+export type AviationTourInquiryInput = z.infer<typeof aviationTourInquirySchema>;

@@ -4,6 +4,7 @@ import { ArrowLeft, CalendarDays, Clock, MapPin, Ticket, Users } from "lucide-re
 
 import { routes } from "@/config/routes";
 import { getContentSource } from "@/lib/content";
+import { aviationTourEvent, aviationTourSlug, withAviationTour } from "@/lib/content/aviation-tour";
 import { formatDateTime } from "@/lib/utils";
 import { requestTime } from "@/lib/time";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -19,20 +20,24 @@ import { MarkdownContent } from "@/components/content/markdown";
 import { AppImage } from "@/components/media/app-image";
 import { EventCard, availabilityOf } from "@/components/cards/event-card";
 import { EventRegistrationForm } from "@/components/forms/event-registration-form";
+import { AviationTourInquiryForm } from "@/components/forms/aviation-tour-inquiry-form";
 import { ShareRow } from "@/components/content/share-row";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
+export const revalidate = 0;
+
 export async function generateStaticParams() {
   const slugs = await getContentSource().events.slugs();
-  return slugs.map((slug) => ({ slug }));
+  return [...new Set([...slugs, aviationTourSlug])].map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
-  const event = await getContentSource().events.bySlug(slug);
+  const event =
+    slug === aviationTourSlug ? aviationTourEvent : await getContentSource().events.bySlug(slug);
 
   if (!event) {
     return buildMetadata({
@@ -54,12 +59,15 @@ export async function generateMetadata({ params }: PageProps) {
 export default async function EventDetailPage({ params }: PageProps) {
   const { slug } = await params;
   const source = getContentSource();
-  const event = await source.events.bySlug(slug);
+  const event = slug === aviationTourSlug ? aviationTourEvent : await source.events.bySlug(slug);
 
   if (!event) notFound();
 
   const others = await source.events.list({ when: "upcoming", limit: 4 });
-  const related = others.items.filter((item) => item.slug !== event.slug).slice(0, 2);
+  const related = withAviationTour(others.items, "upcoming")
+    .filter((item) => item.slug !== event.slug)
+    .slice(0, 2);
+  const isTour = event.slug === aviationTourSlug;
 
   const breadcrumbs = [
     { label: "Home", href: routes.home },
@@ -108,7 +116,11 @@ export default async function EventDetailPage({ params }: PageProps) {
                 ) : (
                   <Badge variant={availability.variant}>{availability.label}</Badge>
                 )}
-                <Badge variant="secondary">Quotation required</Badge>
+                {event.priceKes === null ? (
+                  <Badge variant="secondary">Quotation required</Badge>
+                ) : (
+                  <Badge variant="accent">KES {event.priceKes.toLocaleString()} per learner</Badge>
+                )}
               </div>
 
               <h1 className="mt-6 font-display text-3xl leading-[1.08] font-bold tracking-tight sm:text-4xl lg:text-5xl">
@@ -176,15 +188,22 @@ export default async function EventDetailPage({ params }: PageProps) {
             </Reveal>
 
             <Reveal delay={0.12}>
-              <div className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-[var(--shadow-float)]">
+              <div
+                className={
+                  isTour
+                    ? "relative mx-auto aspect-[2/3] w-full max-w-md overflow-hidden rounded-3xl bg-white shadow-[var(--shadow-float)]"
+                    : "relative aspect-[4/3] overflow-hidden rounded-3xl shadow-[var(--shadow-float)]"
+                }
+              >
                 <AppImage
                   src={event.coverImage}
-                  alt=""
+                  alt={isTour ? "EduWings Kenya Aviation Tour event poster" : ""}
                   seed={event.slug}
                   motif={event.isOnline ? "world" : "tower"}
                   priority
                   sizes="(min-width: 1024px) 30rem, 100vw"
                   className="size-full"
+                  imageClassName={isTour ? "object-contain" : undefined}
                 />
               </div>
             </Reveal>
@@ -205,11 +224,11 @@ export default async function EventDetailPage({ params }: PageProps) {
             </Button>
           </Reveal>
 
-          <aside className="lg:sticky lg:top-32 lg:self-start">
-            <Reveal
-              id="quotation"
-              className="scroll-mt-32 rounded-2xl border bg-card p-7 shadow-[var(--shadow-soft)]"
-            >
+          <aside
+            id={isTour ? "inquiry" : "quotation"}
+            className="scroll-mt-28 lg:sticky lg:top-32 lg:self-start"
+          >
+            <Reveal className="rounded-2xl border bg-card p-7 shadow-[var(--shadow-soft)]">
               {event.capacity ? (
                 <div className="mb-7">
                   <div className="flex items-baseline justify-between gap-3">
@@ -228,13 +247,20 @@ export default async function EventDetailPage({ params }: PageProps) {
                 <>
                   <h2 className="flex items-center gap-2 font-display text-lg font-semibold">
                     <Ticket aria-hidden className="size-5 text-primary" />
-                    Get Quotation
+                    {isTour ? "Ask about this tour" : "Get Quotation"}
                   </h2>
                   <p className="mt-1.5 text-sm text-muted-foreground">
-                    Request a quotation for your group. Fees and availability are confirmed before
-                    booking.
+                    {isTour
+                      ? "KES 3,500 per learner. Send your details and we will follow up about booking. No payment is taken here."
+                      : "Request a quotation for your group. Fees and availability are confirmed before booking."}
                   </p>
-                  <EventRegistrationForm eventSlug={event.slug} className="mt-6" />
+                  <div className="mt-6">
+                    {isTour ? (
+                      <AviationTourInquiryForm />
+                    ) : (
+                      <EventRegistrationForm eventSlug={event.slug} />
+                    )}
+                  </div>
                 </>
               ) : (
                 <div>

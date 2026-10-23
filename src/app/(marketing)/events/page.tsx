@@ -2,6 +2,7 @@ import { CalendarDays } from "lucide-react";
 
 import { routes } from "@/config/routes";
 import { getContentSource } from "@/lib/content";
+import { aviationTourSlug, withAviationTour } from "@/lib/content/aviation-tour";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema, graph } from "@/lib/seo/structured-data";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -10,6 +11,7 @@ import { PageHero } from "@/components/marketing/page-hero";
 import { Section, SectionHeader } from "@/components/marketing/section";
 import { CtaBand } from "@/components/marketing/cta-band";
 import { EventCard } from "@/components/cards/event-card";
+import { AviationTourPromo } from "@/components/events/aviation-tour-promo";
 import { EmptyState } from "@/components/ui/empty-state";
 import { EventCountdown } from "@/components/events/event-countdown";
 
@@ -21,7 +23,7 @@ const BREADCRUMBS = [
 export const metadata = buildMetadata({
   title: "Events",
   description:
-    "Open days, airport tours, career fairs and webinars. Get Quotation for your group; attendance is subject to availability and booking confirmation.",
+    "Open days, airport tours, career fairs and webinars. Explore dates, prices and inquiry details for upcoming events.",
   path: routes.events,
 });
 
@@ -35,8 +37,9 @@ export default async function EventsPage() {
     source.events.list({ when: "upcoming" }),
     source.events.list({ when: "past", limit: 6 }),
   ]);
-
-  const next = upcoming.items[0];
+  const upcomingItems = withAviationTour(upcoming.items, "upcoming");
+  const pastItems = withAviationTour(past.items, "past");
+  const next = upcomingItems[0];
 
   return (
     <>
@@ -45,7 +48,7 @@ export default async function EventsPage() {
       <PageHero
         eyebrow="Events"
         title="Come and stand next to an aircraft."
-        description="Explore open days, airport tours, career fairs and briefings for parents. Get Quotation for your group. Fees, access requirements and arrangements are confirmed before booking."
+        description="Open days, airport tours, career fairs and briefings for parents. Check each event for its location, price and how to inquire or register."
         breadcrumbs={BREADCRUMBS}
         aside={next ? <EventCountdown event={next} /> : undefined}
       />
@@ -54,7 +57,13 @@ export default async function EventsPage() {
         <div className="container-page">
           <SectionHeader eyebrow="Upcoming" title="What is coming up next." />
 
-          {upcoming.items.length === 0 ? (
+          {upcomingItems.some((event) => event.slug === aviationTourSlug) ? (
+            <div className="mt-10">
+              <AviationTourPromo />
+            </div>
+          ) : null}
+
+          {upcomingItems.length === 0 ? (
             <EmptyState
               className="mt-12"
               icon={CalendarDays}
@@ -64,7 +73,7 @@ export default async function EventsPage() {
             />
           ) : (
             <RevealGroup as="ul" className="mt-12 grid gap-5">
-              {upcoming.items.map((event) => (
+              {upcomingItems.map((event) => (
                 <RevealItem as="li" key={event.id}>
                   <EventCard event={event} />
                 </RevealItem>
@@ -74,7 +83,7 @@ export default async function EventsPage() {
         </div>
       </Section>
 
-      {past.items.length > 0 ? (
+      {pastItems.length > 0 ? (
         <Section tone="surface">
           <div className="container-page">
             <SectionHeader
@@ -83,7 +92,7 @@ export default async function EventsPage() {
               description="Photographs from these are in the gallery."
             />
             <RevealGroup as="ul" className="mt-12 grid gap-5">
-              {past.items.map((event) => (
+              {pastItems.map((event) => (
                 <RevealItem as="li" key={event.id}>
                   <EventCard event={event} />
                 </RevealItem>
